@@ -21,9 +21,9 @@ const classes = useStyles();
         variant="outlined"
         disabled={disabled}
       >
-        <MenuItem value="default">{labelTxt || "Select a value"}</MenuItem>
+        <MenuItem value="default" className={classes.defaultMenuItem}>{labelTxt || "Select a value"}</MenuItem>
         {list && list.map(item => (
-          <MenuItem key={item.value} value={item.value}>
+          <MenuItem key={item.value} value={item.value} className={classes.menuItem}>
             {item.label}
           </MenuItem>
         ))}

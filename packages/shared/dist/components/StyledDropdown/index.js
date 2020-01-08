@@ -45,11 +45,13 @@ var StyledDropdown = function StyledDropdown(_ref) {
     variant: "outlined",
     disabled: disabled
   }, _react.default.createElement(_MenuItem.default, {
-    value: "default"
+    value: "default",
+    className: classes.defaultMenuItem
   }, labelTxt || "Select a value"), list && list.map(function (item) {
     return _react.default.createElement(_MenuItem.default, {
       key: item.value,
-      value: item.value
+      value: item.value,
+      className: classes.menuItem
     }, item.label);
   })));
 };

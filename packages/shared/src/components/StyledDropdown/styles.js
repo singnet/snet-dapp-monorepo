@@ -11,7 +11,7 @@ export const useStyles = makeStyles(MUITheme => ({
       color: MUITheme.palette.text.darkGrey,
       fontSize: 12,
       letterSpacing: 0.4
-    }
+    },
   },
   selectEmpty: {
     color: `${MUITheme.palette.text.darkGrey} !important`,
@@ -30,4 +30,20 @@ export const useStyles = makeStyles(MUITheme => ({
       "&:focus": { backgroundColor: "transparent" },
     },
   },
+  defaultMenuItem:{ 
+    color: MUITheme.palette.text.lightGrey,
+    fontSize: 16,
+    letterSpacing: 0.5,
+    lineHeight: '28px'
+  },
+  menuItem: { 
+    color: MUITheme.palette.text.darkGrey,
+    fontSize: 16,
+    letterSpacing: 0.5,
+    lineHeight: '28px',
+    '&:hover':{
+      background: MUITheme.palette.background.mainContent,
+      color: MUITheme.palette.primary.main
+    }
+  }
 }));

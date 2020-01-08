@@ -41,6 +41,22 @@ var useStyles = (0, _styles.makeStyles)(function (MUITheme) {
           backgroundColor: "transparent"
         }
       }
+    },
+    defaultMenuItem: {
+      color: MUITheme.palette.text.lightGrey,
+      fontSize: 16,
+      letterSpacing: 0.5,
+      lineHeight: '28px'
+    },
+    menuItem: {
+      color: MUITheme.palette.text.darkGrey,
+      fontSize: 16,
+      letterSpacing: 0.5,
+      lineHeight: '28px',
+      '&:hover': {
+        background: MUITheme.palette.background.mainContent,
+        color: MUITheme.palette.primary.main
+      }
     }
   };
 });

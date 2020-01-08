@@ -16,6 +16,7 @@ export const useStyles = MUITheme => ({
       borderBottomColor: MUITheme.palette.border.primary,
       lineHeight: '50px !important',
     },
+    '&.MuiMenuItem-root':{ color: 'red !important'}
   },
   singularityAccDescription: {
     padding: "0 23px",
