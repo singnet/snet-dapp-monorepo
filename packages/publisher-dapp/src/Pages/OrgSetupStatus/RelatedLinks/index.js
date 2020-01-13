@@ -1,6 +1,6 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import Typography from '@material-ui/core/Typography';
+import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/styles";
 import LaunchIcon from "@material-ui/icons/Launch";
 
@@ -15,7 +15,7 @@ const RelatedLinks = ({ classes }) => {
         <LaunchIcon />
         <Typography>Related Links</Typography>
       </div>
-      {relatedLinks.map((item,index) => (
+      {relatedLinks.map((item, index) => (
         <AnchorLink label={item.label} href={item.linkTo} key={item.label} />
       ))}
     </Grid>

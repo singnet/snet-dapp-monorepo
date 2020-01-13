@@ -16,7 +16,7 @@ const VerificationApproved = () => {
     <StatusBanner
       title="Congratulations! Your organization entity is approved."
       img={orgSetupApprovedImg}
-      description={`Setup your company details and publish your organization entity to the blockchain.  After that you will be ready to create and publish your new services to the AI Marketplace.  You can also invite team members to help setup and manage your AI services more efficiently.`}
+      description="Setup your company details and publish your organization entity to the blockchain.  After that you will be ready to create and publish your new services to the AI Marketplace.  You can also invite team members to help setup and manage your AI services more efficiently."
       actions={[
         { children: "organization setup", variant: "contained", color: "primary", onClick: handleOrgSetup },
         { children: "Invite Team", variant: "outlined", color: "primary" },

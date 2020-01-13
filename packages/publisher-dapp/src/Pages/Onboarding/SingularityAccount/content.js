@@ -1,3 +1,5 @@
+import { userPreferenceTypes } from "../../../Utils/user";
+
 export const entityTypeDetails = {
   title: "Entity Type",
   description:
@@ -17,7 +19,16 @@ export const loggedOutDetails = {
 };
 
 export const emailPreferencesList = [
-  "I’d like to get new feature annoucements and tips to help imporve my AI services",
-  "I’d like to get weekly summary reports of my AI services and account acitivty.",
-  "I’d like to get email notifications when users leave comments or send messages ",
+  {
+    type: userPreferenceTypes.FEATURE_RELEASE,
+    description: "I’d like to get new feature annoucements and tips to help imporve my AI services",
+  },
+  {
+    type: userPreferenceTypes.WEEKLY_SUMMARY,
+    description: "I’d like to get weekly summary reports of my AI services and account acitivty.",
+  },
+  {
+    type: userPreferenceTypes.COMMENTS_AND_MESSAGES,
+    description: "I’d like to get email notifications when users leave comments or send messages ",
+  },
 ];

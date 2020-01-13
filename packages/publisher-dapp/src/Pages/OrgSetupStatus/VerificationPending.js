@@ -16,7 +16,7 @@ const VerificationPending = () => {
     <StatusBanner
       title="Your Organization entity review is in progress…"
       img={orgSetupPendingImg}
-      description={`This review may take a day or two.  In the meantime you can add team memebers to your organization to help you setup and manage your AI services more efficiently.   You can also view our guides and tutorials.`}
+      description="This review may take a day or two.  In the meantime you can add team memebers to your organization to help you setup and manage your AI services more efficiently.   You can also view our guides and tutorials."
       actions={[
         { children: "Invite Team members", variant: "outlined", color: "primary", onClick: handleOrgSetup },
         { children: "contact support", variant: "text", color: "primary" },

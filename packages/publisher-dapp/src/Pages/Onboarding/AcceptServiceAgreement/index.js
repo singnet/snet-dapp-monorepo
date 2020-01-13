@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 
 import { TermsAndConditionsDetails } from "./content";
 import TermsAndConditions from "shared/dist/components/TermsAndConditions";

@@ -7,7 +7,7 @@ export const useStyles = makeStyles(theme => ({
     "@media (max-width:1023px)": { display: "inline-block" },
   },
   LeftData: {
-    padding: '12px 30px 0 0',
+    padding: "12px 30px 0 0",
     borderRightWidth: 1,
     borderRightStyle: "solid",
     "@media (max-width:1023px)": {
@@ -51,7 +51,7 @@ export const useStyles = makeStyles(theme => ({
     },
   },
   FooterLogo: {
-    "& h1": { 
+    "& h1": {
       width: 167,
       margin: 0,
     },

@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import Typography from "@material-ui/core/Typography";
 
 import BasicDetails from "./BasicDetails";
@@ -13,6 +13,7 @@ import { orgOnboardingConstraints } from "./validationConstraints";
 import ValidationError from "shared/dist/utils/validationError";
 import AlertBox, { alertTypes } from "shared/dist/components/AlertBox";
 import { GlobalRoutes } from "../../../../GlobalRouter/Routes";
+import { organizationSetupStatuses } from "../../../../Utils/organizationSetup";
 
 const Organization = props => {
   const classes = useStyles();
@@ -20,6 +21,12 @@ const Organization = props => {
   const [alert, setAlert] = useState({});
   const organization = useSelector(state => state.organization);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (organization.status === organizationSetupStatuses.APPROVAL_PENDING) {
+      history.push(GlobalRoutes.ORG_SETUP_STATUS.path);
+    }
+  });
 
   const handleNavigateBack = () => {
     history.push(OnboardingRoutes.ACCEPT_SERVICE_AGREEMENT.path);
@@ -33,6 +40,7 @@ const Organization = props => {
         throw new ValidationError(isNotValid[0]);
       }
       await dispatch(organizationActions.submitForApproval(organization));
+      await dispatch(organizationActions.setOrganizationStatus(organizationSetupStatuses.APPROVAL_PENDING));
       history.push(GlobalRoutes.ORG_SETUP_STATUS.path);
     } catch (error) {
       if (error instanceof ValidationError) {

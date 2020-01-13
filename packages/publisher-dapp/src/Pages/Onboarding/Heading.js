@@ -8,8 +8,8 @@ import { useStyles } from "./styles";
 const Heading = ({ classes, title, description }) => {
   return (
     <div className={classes.topSection}>
-    	<Typography variant="h3">{title}</Typography>
-      	<span>{description}</span>
+      <Typography variant="h3">{title}</Typography>
+      <span>{description}</span>
     </div>
   );
 };

@@ -19,7 +19,7 @@ const Default = ({ history }) => {
     }
   }, [history, verificationStatus]);
 
-  return <div></div>;
+  return <div />;
 };
 
 export default Default;

@@ -51,7 +51,6 @@ import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 // Color Palette
 const snetGreyError = grey[700];
 const snetGrey = grey[500];
-const dropzoneBackgroundGrey = grey[200];
 const snetBackgroundGrey = grey[100];
 const snetRed = red[500];
 const snetBackgroundRed = red[100];
@@ -208,7 +207,7 @@ export default class SNETImageUpload extends React.Component {
 
         this.setState({
           displayModeTitle: nextProps.displayModeTitle,
-          outputImage: outputImage,
+          outputImage,
           outputImageMimeType: mimeType,
           outputImageName: nextProps.outputImageName,
           mainState: "display",
@@ -296,6 +295,7 @@ export default class SNETImageUpload extends React.Component {
     filename = this.state.filename
   ) {
     this.props.imageDataFunc(data, mimeType, encoding, filename);
+    // eslint-disable-next-line no-console
     console.log(
       "Sent: \nMIME type: " + mimeType + "\nEncoding: " + encoding + "\nFilename: " + filename + "\nImage data: " + data
     );

@@ -37,6 +37,7 @@
     "build-storybook": "lerna exec --scope shared  -- yarn run build-storybook",
     "lint": "eslint .",
     "lint:fix-publisher": "eslint packages/publisher-dapp/. --fix",
+    "lint:fix-shared": "eslint packages/shared/. --fix",
     "lint:fix": "eslint . --fix",
     "nuke": "rm -r node_modules ; for d in packages/*/node_modules; do echo $d; rm -r $d; done"
   },

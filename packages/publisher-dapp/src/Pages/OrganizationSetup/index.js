@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { progressText, organizationSetupSections } from "./constant";
 import ProgressBar from "shared/dist/components/ProgressBar";
 import { withStyles } from "@material-ui/core/styles";
@@ -9,10 +9,20 @@ import Heading from "./Heading";
 import { useStyles } from "./styles";
 import { useSelector, useDispatch } from "react-redux";
 import { organizationActions } from "../../Services/Redux/actionCreators";
+import { organizationSetupStatuses } from "../../Utils/organizationSetup";
+import { GlobalRoutes } from "../../GlobalRouter/Routes";
 
-const OrganizationSetup = ({ classes, location }) => {
+const OrganizationSetup = ({ classes, location, history }) => {
   const organization = useSelector(state => state.organization);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (organization.status === organizationSetupStatuses.APPROVAL_PENDING) {
+      history.push(GlobalRoutes.ORG_SETUP_STATUS.path);
+    } else if (organization.status === organizationSetupStatuses.PUBLISHED) {
+      history.push(OrganizationSetupRoutes.PUBLISH_TO_BLOCKCHAIN.path);
+    }
+  }, [organization.status, history]);
 
   const handleFinishLater = async () => {
     await dispatch(organizationActions.finishLater(organization));

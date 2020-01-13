@@ -33,20 +33,6 @@ const SNETHeader = ({ isLoggedIn, color, navbar, actions }) => {
   );
 };
 
-SNETHeader.defaultProps = {
-  color: "white",
-  navbar: {
-    navbarItems: [
-      { label: "Overview", type: "link", openInNewTab: false, activeLinks: ["/", "/overview"], to: "/overview" },
-      { label: "How It Works", type: "link", openInNewTab: false, activeLinks: ["/enroll"], to: "/enroll" },
-    ],
-  },
-  actions: [
-    { children: "login", color: "primary", onClick: () => console.log("clicked") },
-    { children: "enroll", color: "primary", onClick: () => console.log("clicked"), variant: "contained" },
-  ],
-};
-
 SNETHeader.propTypes = {
   isLoggedIn: PropTypes.bool,
   color: PropTypes.string,

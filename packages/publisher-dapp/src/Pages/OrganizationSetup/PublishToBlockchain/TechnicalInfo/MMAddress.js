@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 
 import AlertBox from "shared/dist/components/AlertBox";
@@ -13,12 +13,8 @@ const MMAddress = ({ classes }) => {
   const dispatch = useDispatch();
 
   const handleConnetMM = async () => {
-    try {
-      const sdk = await initSDK();
-      dispatch(organizationActions.setOneBasicDetail("ownerAddress", sdk.account.address));
-    } catch (error) {
-      console.log("connect MM err", error);
-    }
+    const sdk = await initSDK();
+    dispatch(organizationActions.setOneBasicDetail("ownerAddress", sdk.account.address));
   };
 
   if (!!ownerAddress) {
@@ -38,7 +34,7 @@ const MMAddress = ({ classes }) => {
     <Grid container>
       <Grid item xs={12} sm={12} md={6} lg={6} className={classes.topSectionContainer}>
         <AlertBox
-          message={"Please install or log in to Metamask to proceed further.  Learn more about Metamask."}
+          message="Please install or log in to Metamask to proceed further.  Learn more about Metamask."
           type="warning"
         />
       </Grid>

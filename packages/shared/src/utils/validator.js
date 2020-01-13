@@ -40,7 +40,7 @@ const array = (arrayItems, itemConstraints, key) => {
     if (error) errors.push(...error);
     return errors;
   }, []);
-  return validate.isEmpty(arrayItemErrors) ? null : arrayItemErrors[0];
+  return validate.isEmpty(arrayItemErrors) ? null : `^${arrayItemErrors[0]}`;
 };
 
 validator.validators = {

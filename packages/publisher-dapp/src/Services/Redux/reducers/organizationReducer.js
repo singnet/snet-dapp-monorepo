@@ -21,8 +21,8 @@ const initialState = {
   ],
   groups: [
     {
-      name: "North America",
-      id: "US-2651-DC",
+      name: "default_group",
+      id: "",
       paymentAddress: "",
       paymentConfig: {
         paymentExpirationThreshold: "40320",

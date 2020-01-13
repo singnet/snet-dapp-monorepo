@@ -1,6 +1,6 @@
 export const useStyles = MUITheme => ({
   onboardingContainer: {
-    padding: '1px 0 40px',
+    padding: "1px 0 40px",
     backgroundColor: MUITheme.palette.background.mainContent,
   },
   termsAndConditionsContainer: {
@@ -55,14 +55,14 @@ export const useStyles = MUITheme => ({
         color: MUITheme.palette.text.primary,
         fontSize: 14,
         letterSpacing: 0.25,
-        lineHeight: "20px"        
+        lineHeight: "20px",
       },
-      "& span": {        
+      "& span": {
         "&:last-of-type": { color: MUITheme.palette.text.primary },
         "&.MuiCheckbox-colorPrimary": { color: MUITheme.palette.text.primary },
         "&.MuiCheckbox-colorPrimary.Mui-checked": { color: MUITheme.palette.primary.main },
       },
-    },    
+    },
     "& button": { padding: "13px 61px 11px" },
     [MUITheme.breakpoints.down("xs")]: {
       flexDirection: "column",

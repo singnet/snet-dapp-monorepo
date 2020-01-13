@@ -14,7 +14,9 @@ const StatusBanner = ({ classes, title, img, description, actions, pending }) =>
         <img src={img} alt="Status-Media" />
       </Grid>
       <Grid item xs={12} sm={8} md={8} lg={8} className={classes.statusBannerContent}>
-        <Typography variant="h6" className={pending ? classes.pendingtitle : null}>{title}</Typography>
+        <Typography variant="h6" className={pending ? classes.pendingtitle : null}>
+          {title}
+        </Typography>
         <Typography>{description}</Typography>
         {actions.map(action => (
           <SNETButton key={action.children} {...action} />

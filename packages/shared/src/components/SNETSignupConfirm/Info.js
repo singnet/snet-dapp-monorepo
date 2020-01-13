@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const Info = props => {
   const { title, description } = props;
-  
+
   return (
     <Fragment>
       <p>

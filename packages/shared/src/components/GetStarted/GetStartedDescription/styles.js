@@ -9,7 +9,7 @@ export const useStyles = MUITheme => ({
       lineHeight: "45px",
     },
     "& p": {
-      margin: '10px 0 0',
+      margin: "10px 0 0",
       color: MUITheme.palette.text.lightGrey,
       fontSize: 24,
       lineHeight: "30px",

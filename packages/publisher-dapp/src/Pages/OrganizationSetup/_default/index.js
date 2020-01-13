@@ -9,7 +9,7 @@ const Default = ({ history }) => {
     return history.push(OrganizationSetupRoutes.ORGANIZATION_PROFILE.path);
   }, [history, verificationStatus]);
 
-  return <div></div>;
+  return <div />;
 };
 
 export default Default;

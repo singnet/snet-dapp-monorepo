@@ -1,6 +1,6 @@
 export const blockChainEvents = {
-    TRANSACTION_HASH:"transactionHash",
-    RECEIPT:"receipt",
-    CONFIRMATION:"confirmation",
-    ERROR:"error"
-}
+  TRANSACTION_HASH: "transactionHash",
+  RECEIPT: "receipt",
+  CONFIRMATION: "confirmation",
+  ERROR: "error",
+};

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { progressText, onboardingSections } from "./constant";
 import ProgressBar from "shared/dist/components/ProgressBar";
 import { withStyles } from "@material-ui/core/styles";
@@ -18,7 +18,7 @@ const Onboarding = ({ location, history, classes }) => {
     } else if (path.includes(OnboardingRoutes.ACCEPT_SERVICE_AGREEMENT.path)) {
       return ACCEPT_SERVICE_AGREEMENT;
     } else if (path.includes(OnboardingRoutes.AUTHENTICATE_ID.path)) {
-      return AUTHENTICATE_ID
+      return AUTHENTICATE_ID;
     }
     return SINGULARITY_ACCOUNT;
   };

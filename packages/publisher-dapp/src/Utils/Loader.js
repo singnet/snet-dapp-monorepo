@@ -1,4 +1,8 @@
 export const LoaderContent = {
+  LOGIN: {
+    title: "Logging in",
+    content: "Just a moment. We are logging you in",
+  },
   METAMASK_TRANSACTION: {
     title: "Waiting for Metamask Interaction",
     content: "Please confirm the transaction in the Metamask to proceed",
@@ -15,9 +19,9 @@ export const LoaderContent = {
     title: "Submit for Approval",
     content: "Just a moment. We are submitting your changes for approval",
   },
-  ORG_SETUP_PUBLISH_TO_BLOCKCHAIN: {
-    title: "Publish to Blockchain",
-    content: "Just a moment. We are publishing your changes to blockchain",
+  ORG_SETUP_PUBLISH_TO_IPFS: {
+    title: "Publish to IPFS",
+    content: "Just a moment. We are publishing the metadata to ipfs",
   },
   ORG_SETUP_SAVING_TRANSACTION: {
     title: "Saving Transaction",

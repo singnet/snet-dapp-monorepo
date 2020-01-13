@@ -14,7 +14,7 @@ export const useStyles = MUITheme => ({
   },
   error: {
     borderColor: MUITheme.palette.border.alertBox,
-    backgroundColor: MUITheme.palette.background.alertBox
+    backgroundColor: MUITheme.palette.background.alertBox,
   },
   success: {
     borderColor: MUITheme.palette.success,

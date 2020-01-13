@@ -11,7 +11,7 @@ const withLightHeaderAndFooter = Component => {
       <Header />
       <Container>
         <Box my={8}>
-          <Component {...props} />          
+          <Component {...props} />
         </Box>
       </Container>
       <SNETFooter />

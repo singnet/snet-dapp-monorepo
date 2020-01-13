@@ -31,7 +31,7 @@ const OrgSetupStatus = ({ classes }) => {
           services, demos, and tutorial content.
         </Typography>
       </Grid>
-      {CurrentStatus ? <CurrentStatus /> : null }
+      {CurrentStatus ? <CurrentStatus /> : null}
       <RelatedLinks />
     </Grid>
   );

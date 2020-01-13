@@ -2,6 +2,7 @@ import React, { Fragment, useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import { useSelector } from "react-redux";
 
 import BasicDetails from "./BasicDetails";
 import OrgImg from "./OrgImg";
@@ -11,11 +12,33 @@ import SNETButton from "shared/dist/components/SNETButton";
 import { OrganizationSetupRoutes } from "../OrganizationSetupRouter/Routes";
 import AlertBox, { alertTypes } from "shared/dist/components/AlertBox";
 import ValidationError from "shared/dist/utils/validationError";
+import validator from "shared/dist/utils/validator";
+import { orgProfileValidationConstraints, errorMsg, contactConstraints } from "./validationConstraints";
+import { ContactsTypes } from "../../../Utils/Contacts";
 
 const OrganizationProfile = ({ classes, history, handleFinishLater }) => {
+  const organization = useSelector(state => state.organization);
   const [alert, setAlert] = useState({});
 
+  const validateForm = () => {
+    const supportContacts = organization.contacts.find(el => el.type === ContactsTypes.SUPPORT);
+    let isNotValid = validator(organization, orgProfileValidationConstraints);
+    if (isNotValid) {
+      return isNotValid;
+    }
+    isNotValid = validator(supportContacts, contactConstraints);
+    return isNotValid;
+  };
+
   const handleContinue = () => {
+    const isNotValid = validateForm();
+    if (isNotValid) {
+      return setAlert({ type: alertTypes.ERROR, message: isNotValid[0] });
+    }
+    if (!organization.assets.heroImage.raw && !organization.assets.heroImage.url) {
+      return setAlert({ type: alertTypes.ERROR, message: errorMsg.IMAGE_NOT_FOUND });
+    }
+
     history.push(OrganizationSetupRoutes.REGION.path);
   };
 
@@ -25,7 +48,6 @@ const OrganizationProfile = ({ classes, history, handleFinishLater }) => {
       await handleFinishLater();
       setAlert({ type: alertTypes.SUCCESS, message: "Changes have been saved to draft" });
     } catch (error) {
-      console.log("error valid", error);
       if (error instanceof ValidationError) {
         return setAlert({ type: alertTypes.ERROR, message: error.message });
       }

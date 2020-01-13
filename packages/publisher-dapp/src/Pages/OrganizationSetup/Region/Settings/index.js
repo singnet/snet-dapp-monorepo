@@ -20,7 +20,7 @@ const Settings = ({ classes, groups, group, groupIndex }) => {
   const [localEndpoints, setLocalEndpoints] = useState("");
   const dispatch = useDispatch();
 
-  const { id, name, paymentAddress, paymentConfig } = group;
+  const { name, paymentAddress, paymentConfig } = group;
 
   const handlePaymentAddressChange = event => {
     const { value } = event.target;
@@ -82,8 +82,7 @@ const Settings = ({ classes, groups, group, groupIndex }) => {
   return (
     <div className={classes.settingsContainer}>
       <div className={classes.dropDownBtn}>
-        <StyledDropdown name="id" value={id} labelTxt="Groups / Region" list={[{ value: id, label: name }]} />
-        <SNETButton color="primary" variant="outlined" children="add" />
+        <StyledDropdown name="id" value={name} labelTxt="Groups / Region" list={[{ value: name, label: name }]} />
       </div>
       <Typography variant="subtitle1">Groups / Region Settings</Typography>
       <div className={classes.grayBoxContainer}>
@@ -92,10 +91,6 @@ const Settings = ({ classes, groups, group, groupIndex }) => {
             <div>
               <Typography className={classes.header}>Region Name</Typography>
               <Typography className={classes.value}>{name}</Typography>
-            </div>
-            <div>
-              <Typography className={classes.header}>Region ID</Typography>
-              <Typography className={classes.value}>{id}</Typography>
             </div>
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={12}>
@@ -141,7 +136,6 @@ const Settings = ({ classes, groups, group, groupIndex }) => {
               color="primary"
               onClick={() => setShowAdvancedSettings(!showAdvancedSettings)}
             />
-            <SNETButton children="remove region" variant="text" color="red" />
           </Grid>
         </Grid>
       </div>

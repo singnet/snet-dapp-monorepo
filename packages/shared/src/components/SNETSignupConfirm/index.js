@@ -17,7 +17,7 @@ const SNETSignupConfirm = props => {
   const [validationErr, setValidationErr] = useState();
 
   const handleSubmit = event => {
-    event.prevetDefault();
+    event.preventDefault();
     setValidationErr();
     const isNotValid = validator({ otp }, signupConfirmConstraints);
     if (isNotValid) {
@@ -51,7 +51,7 @@ const SNETSignupConfirm = props => {
         <AlertBox {...alert()} />
         <div className={classes.buttonsContainer}>
           <SNETButton variant="outlined" children="Resend" onClick={onResendOtp} />
-          <SNETButton color="primary" variant="contained" children="Continue" onClick={handleSubmit} />
+          <SNETButton color="primary" variant="contained" children="Continue" onClick={handleSubmit} type="submit" />
         </div>
       </form>
     </Grid>

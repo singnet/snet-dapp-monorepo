@@ -59,7 +59,7 @@ var SNETSignupConfirm = function SNETSignupConfirm(props) {
       setValidationErr = _useState4[1];
 
   var handleSubmit = function handleSubmit(event) {
-    event.prevetDefault();
+    event.preventDefault();
     setValidationErr();
     var isNotValid = (0, _validator.default)({
       otp: otp
@@ -113,7 +113,8 @@ var SNETSignupConfirm = function SNETSignupConfirm(props) {
     color: "primary",
     variant: "contained",
     children: "Continue",
-    onClick: handleSubmit
+    onClick: handleSubmit,
+    type: "submit"
   }))));
 };
 

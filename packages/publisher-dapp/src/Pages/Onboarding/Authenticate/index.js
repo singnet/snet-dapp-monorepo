@@ -7,9 +7,7 @@ const Authenticate = ({ history, classes }) => {
     history.push(AuthenticateIdRoutes.ORGANIZATION.path);
   }, [history]);
 
-  return (      
-    <AuthenticateIdRouter />
-  );
+  return <AuthenticateIdRouter />;
 };
 
 export default Authenticate;

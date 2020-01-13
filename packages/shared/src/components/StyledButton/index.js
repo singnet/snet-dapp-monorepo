@@ -18,7 +18,7 @@ const buttonColor = {
 };
 
 const StyledButton = ({ disabled, onClick, type, btnType, iconClass, href, newTab, btnText, ...rest }) => {
-const classes = useStyles();
+  const classes = useStyles();
 
   return (
     <Button

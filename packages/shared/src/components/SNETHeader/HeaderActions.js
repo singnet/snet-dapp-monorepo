@@ -9,7 +9,7 @@ const HeaderActions = ({ isLoggedIn, actions }) => {
   if (isLoggedIn) {
     return (
       <Fragment>
-        <NotificationsIcon fontSize="large"/>
+        <NotificationsIcon fontSize="large" />
         <AccountCircleIcon fontSize="large" />
       </Fragment>
     );

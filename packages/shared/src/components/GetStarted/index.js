@@ -8,14 +8,20 @@ import StyledButton from "../StyledButton";
 import { useStyles } from "./styles";
 import { Link } from "react-router-dom";
 
-const GetStarted = ({ classes, title, description, CTATitle, CTAType, pageBtnRoute, GetStartedDetails, GetStartedCategories }) => {
+const GetStarted = ({
+  classes,
+  title,
+  description,
+  CTATitle,
+  CTAType,
+  pageBtnRoute,
+  GetStartedDetails,
+  GetStartedCategories,
+}) => {
   return (
     <Grid container spacing={24} className={classes.GetStartedMainContaienr}>
       <Grid item xs={12} sm={12} md={12} lg={12} className={classes.TopSection}>
-        <GetStartedDescription
-          title={GetStartedDetails.title}
-          description={GetStartedDetails.description}
-        />
+        <GetStartedDescription title={GetStartedDetails.title} description={GetStartedDetails.description} />
       </Grid>
       {GetStartedCategories.map((item, index) => (
         <Category
@@ -26,15 +32,13 @@ const GetStarted = ({ classes, title, description, CTATitle, CTAType, pageBtnRou
           rightAlign={(index + 1) % 2 === 0}
         />
       ))}
-      {CTAType ?
+      {CTAType ? (
         <Grid item xs={12} sm={12} md={12} lg={12} className={classes.btnContainer}>
           <Link to={pageBtnRoute} className={classes.createRequestLink}>
             <StyledButton type="blue" btnText="Create new Request" />
           </Link>
         </Grid>
-      :
-        null
-      }
+      ) : null}
     </Grid>
   );
 };

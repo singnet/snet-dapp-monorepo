@@ -6,7 +6,6 @@ import { useStyles } from "./styles";
 import DummyGetStartedCard from "../../../assets/images/dummy-card.png";
 import CategoryDetails from "./CategoryDetails";
 
-
 const Category = ({ classes, title, content, rightAlign, media }) => {
   return (
     <Grid
@@ -20,7 +19,7 @@ const Category = ({ classes, title, content, rightAlign, media }) => {
       <Grid item xs={12} sm={6} md={6} lg={6} className={classes.CategoryContent}>
         <h3>{title}</h3>
         {content.map((item, index) => (
-          <CategoryDetails type={item.type} value={item.value} key={item.type}/>
+          <CategoryDetails type={item.type} value={item.value} key={item.type} />
         ))}
       </Grid>
     </Grid>

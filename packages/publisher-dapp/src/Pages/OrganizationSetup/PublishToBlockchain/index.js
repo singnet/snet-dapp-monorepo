@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -15,7 +15,7 @@ import { submitOrganizationCostraints } from "../validationConstraints";
 import ValidationError from "shared/dist/utils/validationError";
 import { organizationActions } from "../../../Services/Redux/actionCreators";
 import { APIError } from "shared/dist/utils/API";
-import { organizationTypes } from "../../../Utils/organizationSetup";
+import { organizationTypes, organizationSetupStatuses } from "../../../Utils/organizationSetup";
 
 const PublishToBlockchain = ({ classes, handleFinishLater, history }) => {
   const { organization } = useSelector(state => ({
@@ -26,6 +26,12 @@ const PublishToBlockchain = ({ classes, handleFinishLater, history }) => {
   const [alert, setAlert] = useState({});
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (organization.status === organizationSetupStatuses.PUBLISHED) {
+      setAlert({ type: alertTypes.SUCCESS, message: "Organization has been published in the blockchain" });
+    }
+  }, [organization.status]);
 
   const handleSubmit = () => {
     setAlert({});

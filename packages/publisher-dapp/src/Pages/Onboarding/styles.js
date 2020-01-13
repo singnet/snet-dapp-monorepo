@@ -1,5 +1,5 @@
 export const useStyles = MUITheme => ({
-onboardingContainer: {
+  onboardingContainer: {
     paddingTop: 40,
     backgroundColor: MUITheme.palette.background.mainContent,
     "& ul": {
@@ -9,14 +9,14 @@ onboardingContainer: {
       },
     },
   },
-  topSection: { 
+  topSection: {
     textAlign: "center",
-    '& h3':{ marginBottom: 15 },
-    '& span':{
-        color: MUITheme.palette.text.primary,
-        fontSize: 20, 
-        fontWeight: 300,
-        lineHeight: '28px'
-      }
-  }
-})
+    "& h3": { marginBottom: 15 },
+    "& span": {
+      color: MUITheme.palette.text.primary,
+      fontSize: 20,
+      fontWeight: 300,
+      lineHeight: "28px",
+    },
+  },
+});

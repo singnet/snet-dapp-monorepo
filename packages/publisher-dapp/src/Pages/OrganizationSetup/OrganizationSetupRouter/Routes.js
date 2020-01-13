@@ -9,11 +9,11 @@ const basePath = GlobalRoutes.ORGANIZATION_SETUP.basePath;
 const fullPath = path => `${basePath}${path}`;
 
 export const OrganizationSetupRoutes = {
-  DEFAULT_PAGE:{
+  DEFAULT_PAGE: {
     name: "default",
     path: fullPath("/"),
-    exact:true,
-    component: Default
+    exact: true,
+    component: Default,
   },
   ORGANIZATION_PROFILE: {
     name: "organizationprofile",
@@ -23,11 +23,11 @@ export const OrganizationSetupRoutes = {
   REGION: {
     name: "region",
     path: fullPath("/region"),
-    component: Region ,
+    component: Region,
   },
   PUBLISH_TO_BLOCKCHAIN: {
     name: "publishtoblockchain",
     path: fullPath("/publish"),
-    component: PublishToBlockchain ,
+    component: PublishToBlockchain,
   },
 };

@@ -9,11 +9,11 @@ const basePath = GlobalRoutes.ONBOARDING.path;
 const fullPath = path => `${basePath}${path}`;
 
 export const OnboardingRoutes = {
-  DEFAULT_PAGE:{
+  DEFAULT_PAGE: {
     name: "default",
     path: fullPath("/"),
-    exact:true,
-    component: Default
+    exact: true,
+    component: Default,
   },
   SINGULARITY_ACCOUNT: {
     name: "singularity account",

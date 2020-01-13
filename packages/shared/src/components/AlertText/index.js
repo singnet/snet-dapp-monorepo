@@ -27,7 +27,7 @@ AlertText.propTypes = {
   inline: PropTypes.bool,
 };
 
-AlertText.defaultProps = {  
+AlertText.defaultProps = {
   type: "error",
 };
 

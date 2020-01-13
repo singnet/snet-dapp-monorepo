@@ -68,7 +68,7 @@ var array = function array(arrayItems, itemConstraints, key) {
     if (error) errors.push.apply(errors, _toConsumableArray(error));
     return errors;
   }, []);
-  return _validate.default.isEmpty(arrayItemErrors) ? null : arrayItemErrors[0];
+  return _validate.default.isEmpty(arrayItemErrors) ? null : "^".concat(arrayItemErrors[0]);
 };
 
 validator.validators = _objectSpread({}, _validate.default.validators, {

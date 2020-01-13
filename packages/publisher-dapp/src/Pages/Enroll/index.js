@@ -39,8 +39,12 @@ const Enroll = ({ classes, history }) => {
         <Typography variant="body2" display="inline">
           Passport, Driving Licence, Social Security Card, next item
         </Typography>
-        <Typography variant="subtitle1" display="inline">Valid Documents:</Typography>
-        <Typography variant="body2" display="inline">Passport, Driving Licence, Social Security Card, next item  </Typography>
+        <Typography variant="subtitle1" display="inline">
+          Valid Documents:
+        </Typography>
+        <Typography variant="body2" display="inline">
+          Passport, Driving Licence, Social Security Card, next item{" "}
+        </Typography>
       </Grid>
 
       <Grid item xs={12} sm={12} md={12} lg={12} className={classes.companyOrgReg}>

@@ -33,8 +33,12 @@ const PasswordInlineValidation = props => {
     },
   ];
 
-  return validationInputs.map(value => (
-    <AlertText type={value.condition ? alertTypes.SUCCESS : alertTypes.ERROR} message={value.message} />
+  return validationInputs.map(alert => (
+    <AlertText
+      key={alert.message}
+      type={alert.condition ? alertTypes.SUCCESS : alertTypes.ERROR}
+      message={alert.message}
+    />
   ));
 };
 
