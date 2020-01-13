@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import SNETSignup from "shared/dist/components/SNETSignup";
@@ -23,11 +23,7 @@ const Signup = props => {
       setSignupError("Singup Failed");
     }
   };
-  return (
-    <Fragment>      
-      <SNETSignup info={signupInfo} onSubmit={handleSubmit} signupError={signupError} />
-    </Fragment>
-  )
+  return <SNETSignup info={signupInfo} onSubmit={handleSubmit} signupError={signupError} />;
 };
 
 export default Signup;

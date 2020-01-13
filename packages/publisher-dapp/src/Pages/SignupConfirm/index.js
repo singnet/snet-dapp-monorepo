@@ -10,7 +10,7 @@ import { GlobalRoutes } from "../../GlobalRouter/Routes";
 const SignupConfirm = props => {
   const { history } = props;
   const [signupAlert, setSignupAlert] = useState({});
-  const email = useSelector(state => state.user.email);
+  const { email } = useSelector(state => state.user);
   const dispatch = useDispatch();
 
   const handleResendOTP = async () => {

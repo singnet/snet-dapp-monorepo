@@ -38,12 +38,9 @@ const Form = props => {
 
   return (
     <form noValidate autoComplete="off" className={classes.signupForm}>
-      <span className={classes.loginWithTxt}>sign up with</span>
-      <SNETButton children="google" variant="text" color="white" />
-      <span className={classes.separator}>or</span>
       <TextField
         id="outlined-user-name"
-        label="Username"
+        label="Nickname"
         className={classes.textField}
         value={nickname}
         onChange={e => setNickname(e.target.value)}

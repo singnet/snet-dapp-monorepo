@@ -11,6 +11,8 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
+var _styles = require("./styles");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
@@ -20,7 +22,10 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 var Info = function Info(props) {
   var title = props.title,
       description = props.description;
-  return _react.default.createElement(_react.Fragment, null, _react.default.createElement("p", null, _react.default.createElement("strong", null, title)), _react.default.createElement("p", null, description));
+  var classes = (0, _styles.useStyles)();
+  return _react.default.createElement("p", {
+    className: classes.signupconfirmDetail
+  }, _react.default.createElement("span", null, title), description);
 };
 
 Info.propTypes = {

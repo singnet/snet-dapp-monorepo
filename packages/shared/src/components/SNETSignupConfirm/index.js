@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
 
 import { useStyles } from "./styles";
 import AlertBox, { alertTypes } from "../AlertBox";
@@ -32,29 +32,31 @@ const SNETSignupConfirm = props => {
   });
 
   return (
-    <Grid item xs={12} sm={12} md={6} lg={6} className={classes.confirmOtp}>
-      <h3>Validate your email </h3>
-      <form noValidate autoComplete="off" className={classes.signupForm}>
-        <Info {...info} />
-        <TextField
-          id="outlined-confirm-otp"
-          label="Verification Code"
-          className={classes.textField}
-          type="password"
-          autoComplete="otp"
-          margin="normal"
-          variant="outlined"
-          value={otp}
-          onChange={e => setOtp(e.target.value)}
-          autoFocus
-        />
-        <AlertBox {...alert()} />
-        <div className={classes.buttonsContainer}>
-          <SNETButton variant="outlined" children="Resend" onClick={onResendOtp} />
-          <SNETButton color="primary" variant="contained" children="Continue" onClick={handleSubmit} type="submit" />
-        </div>
-      </form>
-    </Grid>
+    <div className={classes.confirmOtp}>
+      <div className={classes.confirmOtpWrapper}>
+        <Typography variant="h3">Validate your email </Typography>
+        <form noValidate autoComplete="off" className={classes.signupForm}>
+          <Info {...info} />
+          <TextField
+            id="outlined-confirm-otp"
+            label="Verification Code"
+            className={classes.textField}
+            type="password"
+            autoComplete="otp"
+            margin="normal"
+            variant="outlined"
+            value={otp}
+            onChange={e => setOtp(e.target.value)}
+            autoFocus
+          />
+          <AlertBox {...alert()} />
+          <div className={classes.buttonsContainer}>
+            <SNETButton variant="text" children="Resend code" onClick={onResendOtp} />
+            <SNETButton color="primary" variant="contained" children="validate" onClick={handleSubmit} />
+          </div>
+        </form>
+      </div>
+    </div>
   );
 };
 

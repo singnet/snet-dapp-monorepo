@@ -3,7 +3,8 @@ import { loginActions } from "./";
 
 export const signup = (nickname, email, password) => async dispatch => {
   await Auth.signUp({ username: email, password, attributes: { email, nickname } });
-  return dispatch(loginActions.setUserNickname(nickname));
+  dispatch(loginActions.setUserNickname(nickname));
+  return dispatch(loginActions.setUserEmail(email));
 };
 
 export const resendOTP = email => async () => {

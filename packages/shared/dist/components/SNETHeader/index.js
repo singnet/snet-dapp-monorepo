@@ -31,18 +31,21 @@ var SNETHeader = function SNETHeader(_ref) {
   var isLoggedIn = _ref.isLoggedIn,
       color = _ref.color,
       navbar = _ref.navbar,
-      actions = _ref.actions;
+      actions = _ref.actions,
+      portalName = _ref.portalName;
   var classes = (0, _styles.useStyles)();
   return _react.default.createElement("div", null, _react.default.createElement("header", null, _react.default.createElement(_AppBar.default, {
     position: "fixed",
-    color: "default"
+    color: "white"
   }, _react.default.createElement(_Toolbar.default, null, _react.default.createElement(_Container.default, {
     className: classes.logoContainer
   }, _react.default.createElement(_CardMedia.default, {
     component: "img",
     image: _BlackLogo.default,
     alt: "SingularityNET"
-  })), _react.default.createElement(_Container.default, {
+  }), _react.default.createElement("span", {
+    className: classes.portalName
+  }, portalName)), _react.default.createElement(_Container.default, {
     className: classes.navContainer
   }, _react.default.createElement(_Navbar.default, navbar)), _react.default.createElement(_Container.default, {
     className: classes.actionsContainer

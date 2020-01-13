@@ -5,7 +5,6 @@ import SNETLogin from "shared/dist/components/SNETLogin";
 import { loginErrorMsg } from "./content";
 import { GlobalRoutes } from "../../GlobalRouter/Routes";
 import { loginActions } from "../../Services/Redux/actionCreators/userActions";
-import RegistrationHeader from "../RegistrationHeader";
 
 const Login = ({ history }) => {
   const [error, setError] = useState(undefined);

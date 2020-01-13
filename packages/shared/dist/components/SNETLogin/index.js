@@ -21,6 +21,8 @@ var _FormControlLabel = _interopRequireDefault(require("@material-ui/core/FormCo
 
 var _Checkbox = _interopRequireDefault(require("@material-ui/core/Checkbox"));
 
+var _Typography = _interopRequireDefault(require("@material-ui/core/Typography"));
+
 var _styles = require("./styles");
 
 var _SNETButton = _interopRequireDefault(require("../SNETButton"));
@@ -93,21 +95,15 @@ var SNETLogin = function SNETLogin(props) {
     md: 12,
     lg: 12,
     className: classes.loginDetails
-  }, _react.default.createElement("h2", null, title), _react.default.createElement("form", {
+  }, _react.default.createElement(_Typography.default, {
+    variant: "h2"
+  }, title), _react.default.createElement("form", {
     noValidate: true,
     autoComplete: "off",
     className: classes.loginForm
-  }, _react.default.createElement("span", {
-    className: classes.loginWithTxt
-  }, "log in with"), _react.default.createElement(_SNETButton.default, {
-    children: "google",
-    variant: "text",
-    color: "white"
-  }), _react.default.createElement("span", {
-    className: classes.separator
-  }, "or"), _react.default.createElement(_TextField.default, {
+  }, _react.default.createElement(_TextField.default, {
     id: "outlined-user-name",
-    label: "Username or Email",
+    label: "Email",
     className: classes.textField,
     margin: "normal",
     variant: "outlined",
@@ -132,12 +128,7 @@ var SNETLogin = function SNETLogin(props) {
     className: classes.checkboxAndLink
   }, _react.default.createElement("div", {
     className: classes.checkBox
-  }, _react.default.createElement(_FormControlLabel.default, {
-    control: _react.default.createElement(_Checkbox.default, {
-      color: "primary"
-    }),
-    label: "Remember Me"
-  })), _react.default.createElement(_reactRouterDom.Link, {
+  }), _react.default.createElement(_reactRouterDom.Link, {
     to: forgotPasswordLink
   }, "Forgot password?")), _react.default.createElement(_AlertBox.default, {
     type: "error",

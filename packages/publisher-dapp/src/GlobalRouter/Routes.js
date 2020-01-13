@@ -1,7 +1,6 @@
 import { lazy } from "react";
 import withLightHeaderAndFooter from "../HOC/withLightHeaderAndFooter";
-import withLoginRegistrationHeader from "../HOC/withLoginRegistrationHeader";
-import withSignupRegistrationHeader from  "../HOC/withSignupRegistrationHeader";
+import withRegistrationHeader from "../HOC/withRegistrationHeader";
 
 const Enroll = lazy(() => import("../Pages/Enroll"));
 const Login = lazy(() => import("../Pages/Login"));
@@ -13,10 +12,13 @@ const Onboarding = lazy(() => import("../Pages/Onboarding"));
 const OrganizationSetup = lazy(() => import("../Pages/OrganizationSetup"));
 const OrgSetupStatus = lazy(() => import("../Pages/OrgSetupStatus"));
 
+const SIGNUP_PATH = "/signup";
+const LOGIN_PATH = "/login";
+
 const EnrollComponent = withLightHeaderAndFooter(Enroll);
-const LoginComponent = withLoginRegistrationHeader(Login);
-const SignupComponent = withSignupRegistrationHeader(Signup);
-const SingupConfirmComponent = withSignupRegistrationHeader(SignupConfirm);
+const LoginComponent = withRegistrationHeader(Login, "New to SingularityNET?", "Sign up", SIGNUP_PATH);
+const SignupComponent = withRegistrationHeader(Signup, "Already have an account?", "Login", LOGIN_PATH);
+const SingupConfirmComponent = withRegistrationHeader(SignupConfirm, "Already have an account?", "Login", LOGIN_PATH);
 const OverviewComponent = withLightHeaderAndFooter(Overview);
 const HowItWorksComponent = withLightHeaderAndFooter(HowItWorks);
 const OnboardingComponent = withLightHeaderAndFooter(Onboarding);
@@ -26,12 +28,12 @@ const OrgSetupStatusComponent = withLightHeaderAndFooter(OrgSetupStatus);
 export const GlobalRoutes = {
   LOGIN: {
     name: "login",
-    path: "/login",
+    path: LOGIN_PATH,
     component: LoginComponent,
   },
   SIGNUP: {
     name: "signup",
-    path: "/signup",
+    path: SIGNUP_PATH,
     component: SignupComponent,
   },
   SIGNUP_CONFIRM: {

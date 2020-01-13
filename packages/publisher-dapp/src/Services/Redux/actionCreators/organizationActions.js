@@ -155,7 +155,6 @@ export const getStatus = async dispatch => {
     }));
     organization.groups = parsedGroups;
   }
-
   dispatch(setAllAttributes(organization));
 };
 

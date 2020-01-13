@@ -21,6 +21,7 @@ var useStyles = (0, _styles.makeStyles)(function (MUITheme) {
       width: '90%'
     }),
     signupInfo: {
+      fontFamily: MUITheme.typography.fontFamily,
       "@media (max-width:960px)": {
         paddingRight: 0
       },

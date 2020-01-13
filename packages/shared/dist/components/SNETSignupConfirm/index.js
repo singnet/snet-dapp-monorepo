@@ -11,9 +11,9 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _Grid = _interopRequireDefault(require("@material-ui/core/Grid"));
-
 var _TextField = _interopRequireDefault(require("@material-ui/core/TextField"));
+
+var _Typography = _interopRequireDefault(require("@material-ui/core/Typography"));
 
 var _styles = require("./styles");
 
@@ -79,14 +79,13 @@ var SNETSignupConfirm = function SNETSignupConfirm(props) {
     };
   };
 
-  return _react.default.createElement(_Grid.default, {
-    item: true,
-    xs: 12,
-    sm: 12,
-    md: 6,
-    lg: 6,
+  return _react.default.createElement("div", {
     className: classes.confirmOtp
-  }, _react.default.createElement("h3", null, "Validate your email "), _react.default.createElement("form", {
+  }, _react.default.createElement("div", {
+    className: classes.confirmOtpWrapper
+  }, _react.default.createElement(_Typography.default, {
+    variant: "h3"
+  }, "Validate your email "), _react.default.createElement("form", {
     noValidate: true,
     autoComplete: "off",
     className: classes.signupForm
@@ -106,16 +105,15 @@ var SNETSignupConfirm = function SNETSignupConfirm(props) {
   }), _react.default.createElement(_AlertBox.default, alert()), _react.default.createElement("div", {
     className: classes.buttonsContainer
   }, _react.default.createElement(_SNETButton.default, {
-    variant: "outlined",
-    children: "Resend",
+    variant: "text",
+    children: "Resend code",
     onClick: onResendOtp
   }), _react.default.createElement(_SNETButton.default, {
     color: "primary",
     variant: "contained",
-    children: "Continue",
-    onClick: handleSubmit,
-    type: "submit"
-  }))));
+    children: "validate",
+    onClick: handleSubmit
+  })))));
 };
 
 SNETSignupConfirm.propTypes = {
