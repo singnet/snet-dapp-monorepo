@@ -35,5 +35,7 @@ export const individualVerificationStatusList = {
   NOT_STARTED: "",
   PENDING: "PENDING",
   APPROVED: "APPROVED",
-  DENIED: "DENIED",
+  REJECTED: "REJECTED",
+  FAILED: "FAILED",
+  ERROR: "ERROR",
 };

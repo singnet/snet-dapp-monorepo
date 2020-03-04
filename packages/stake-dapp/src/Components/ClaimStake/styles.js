@@ -26,4 +26,13 @@ export const useStyles = makeStyles(MUITheme => ({
   },
   cards: { padding: "30px 58px 11px" },
   btnContainer: { textAlign: "center" },
+  noDataFoundSection: {
+    textAlign: "center",
+    "& p": {
+      color: MUITheme.palette.text.primary,
+      fontSize: 24,
+      fontWeight: 200,
+      lineHeight: "30px",
+    },
+  },
 }));

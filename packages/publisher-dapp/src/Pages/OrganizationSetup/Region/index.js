@@ -21,11 +21,11 @@ const Region = ({ history, classes, handleFinishLater }) => {
     if (isNotValid) {
       return setAlert({ type: alertTypes.ERROR, message: isNotValid[0] });
     }
-    history.push(OrganizationSetupRoutes.PUBLISH_TO_BLOCKCHAIN.path.replace("orgUuid", organization.uuid));
+    history.push(OrganizationSetupRoutes.PUBLISH_TO_BLOCKCHAIN.path.replace(":orgUuid", organization.uuid));
   };
 
   const handleBack = () => {
-    history.push(OrganizationSetupRoutes.ORGANIZATION_PROFILE.path.replace("orgUuid", organization.uuid));
+    history.push(OrganizationSetupRoutes.ORGANIZATION_PROFILE.path.replace(":orgUuid", organization.uuid));
   };
 
   return (

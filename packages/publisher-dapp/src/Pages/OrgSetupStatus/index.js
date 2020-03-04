@@ -13,6 +13,7 @@ import VerificationRejected from "./VerificationRejected";
 
 const Banners = {
   [organizationSetupStatuses.APPROVAL_PENDING]: VerificationPending,
+  [organizationSetupStatuses.ONBOARDING]: VerificationPending,
   [organizationSetupStatuses.ONBOARDING_APPROVED]: VerificationApproved,
   [organizationSetupStatuses.APPROVED]: VerificationApproved,
   [organizationSetupStatuses.REJECTED]: VerificationRejected,

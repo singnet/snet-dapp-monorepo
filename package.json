@@ -27,7 +27,7 @@
     "react-helmet": "^5.2.1",
     "react-scripts": "3.2.0",
     "typescript": "^3.7.3",
-    "snet-sdk-web": "^1.0.0-beta.12"
+    "snet-sdk-web": "^1.0.0-beta.13"
   },
   "scripts": {
     "start:marketplace": "cd packages/marketplace-dapp && yarn start",
@@ -36,6 +36,7 @@
     "start:stake": "cd packages/stake-dapp && yarn start",
     "build:marketplace": "cd packages/marketplace-dapp && yarn build",
     "build:publisher": "cd packages/publisher-dapp && yarn build",
+    "build:stake": "cd packages/stake-dapp && yarn build",
     "build:rfai": "cd packages/rfai-dapp && yarn build",
     "build:shared": "lerna exec --scope shared -- babel src -d dist --copy-files",
     "storybook": "lerna exec --scope shared  -- yarn run storybook",
@@ -57,7 +58,6 @@
     "eslint-plugin-react-hooks": "^2.3.0"
   },
   "dependencies": {
-    "@sentry/browser": "^5.11.2",
-    "scrypt": "^6.0.3"
+    "@sentry/browser": "^5.11.2"
   }
 }

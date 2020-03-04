@@ -61,7 +61,13 @@ export const useStyles = makeStyles(MUITheme => ({
     },
   },
   linearProgress: { height: 15 },
-  cards: { padding: "30px 58px 11px" },
+  cards: {
+    padding: "15.5px 19.5px 21.5px 20.5px",
+    border: "1px solid #f1f1f1",
+    borderRadius: 6,
+    margin: 32,
+    backgroundColor: MUITheme.palette.background.mainContent,
+  },
   checkboxContent: {
     padding: "0 33px 0 57px",
     display: "flex",

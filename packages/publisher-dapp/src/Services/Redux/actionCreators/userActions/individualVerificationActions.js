@@ -30,6 +30,7 @@ export const initiateVerification = () => async dispatch => {
       throw new APIError(error.message);
     }
     dispatch(loaderActions.stopAppLoader());
+    dispatch(setIndividualVerificationStatus(data.status));
     return data;
   } catch (e) {
     dispatch(loaderActions.stopAppLoader());

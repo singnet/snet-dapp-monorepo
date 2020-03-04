@@ -17,10 +17,10 @@ export const useStyles = makeStyles(MUITheme => ({
     color: MUITheme.palette.text.lightGrey,
   },
   navLinkActive: {
-    borderBottom: `2px solid ${MUITheme.palette.primary.main}`,
+    borderBottom: `2px solid ${MUITheme.palette.text.white}`,
     paddingBottom: 3,
-    color: MUITheme.palette.primary.main,
-    fontWeight: 600,
+    color: MUITheme.palette.text.white,
+    fontWeight: 400,
     "&: visited": {
       borderBottom: `2px solid ${MUITheme.palette.primary.main}`,
       paddingBottom: 3,

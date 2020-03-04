@@ -5,13 +5,24 @@ import { APIError } from "shared/dist/utils/API";
 import { APIEndpoints, APIPaths } from "../../AWS/APIEndpoints";
 import { initializeAPIOptions } from "../../../Utils/API";
 import { fetchAuthenticatedUser } from "./userActions/loginActions";
+import { getStakeInfo } from "../../../Utils/BlockchainHelper";
+import { loaderActions } from "./";
+import { LoaderContent } from "../../../Utils/Loader";
 
 export const UPDATE_ACTIVE_STAKE_WINDOW = "UPDATE_ACTIVE_STAKE_WINDOW";
+export const UPDATE_ACTIVE_STAKE_WINDOW_BLOCKCHAIN = "UPDATE_ACTIVE_STAKE_WINDOW_BLOCKCHAIN";
+
 export const UPDATE_ACTIVE_STAKES = "UPDATE_ACTIVE_STAKES";
 export const UPDATE_CLAIM_STAKES = "UPDATE_CLAIM_STAKES";
 
+export const UPDATE_STAKE_SUMMARY = "UPDATE_STAKE_SUMMARY";
+
 export const setActiveStakeWindowDetails = stakeWindowDetails => ({
   type: UPDATE_ACTIVE_STAKE_WINDOW,
+  payload: stakeWindowDetails,
+});
+export const setActiveStakeWindowDetailsFromBlockchain = stakeWindowDetails => ({
+  type: UPDATE_ACTIVE_STAKE_WINDOW_BLOCKCHAIN,
   payload: stakeWindowDetails,
 });
 
@@ -23,6 +34,11 @@ export const setActiveStakes = activeStakes => ({
 export const setClaimStakes = claimStakes => ({
   type: UPDATE_CLAIM_STAKES,
   payload: claimStakes,
+});
+
+export const setStakeSummary = stakeSummary => ({
+  type: UPDATE_STAKE_SUMMARY,
+  payload: stakeSummary,
 });
 
 // **************************
@@ -45,7 +61,7 @@ const fetchCurrentActiveStakeWindowAPI = metamaskDetails => async dispatch => {
 
 export const fetchCurrentActiveStakeWindow = metamaskDetails => async dispatch => {
   try {
-    //dispatch(loaderActions.startRequestLoader);
+    dispatch(loaderActions.startAppLoader(LoaderContent.LOAD_DATA));
 
     const { data, error } = await dispatch(fetchCurrentActiveStakeWindowAPI(metamaskDetails));
     if (error.code) {
@@ -53,43 +69,70 @@ export const fetchCurrentActiveStakeWindow = metamaskDetails => async dispatch =
     }
 
     //console.log("fetchCurrentActiveStakeWindow - ", data);
-    const stakeWindowDetails = parseAndTransformStakeWindow(data[0]);
+    const stakeWindowDetails = parseAndTransformStakeWindow(data);
     dispatch(setActiveStakeWindowDetails(stakeWindowDetails));
 
-    //dispatch(loaderActions.stopRequestLoader);
+    // Get the latest State from Blockchain
+    if (data.length === 0) dispatch(fetchUserStakeFromBlockchain(metamaskDetails, stakeWindowDetails.stakeMapIndex));
+
+    dispatch(loaderActions.stopAppLoader());
   } catch (error) {
-    //dispatch(loaderActions.stopRequestLoader);
+    dispatch(loaderActions.stopAppLoader());
     throw error;
   }
 };
 
 const parseAndTransformStakeWindow = data => {
+  if (data.length === 0) {
+    return {};
+  }
+
+  // There should be only one active window at a given time
+  const stakeWindow = data[0];
+
   const stakeWindowDetails = {
-    stakeMapIndex: data.blockchain_id,
-    startPeriod: data.start_period,
-    submissionEndPeriod: data.submission_end_period,
-    approvalEndPeriod: data.approval_end_period,
-    requestWithdrawStartPeriod: data.request_withdraw_start_period,
-    endPeriod: data.end_period,
-    minStake: data.min_stake,
-    maxStake: data.max_stake,
-    windowMaxCap: data.window_max_cap,
-    openForExternal: data.open_for_external,
-    windowTotalStake: data.total_stake,
-    rewardAmount: data.reward_amount,
-    tokenOperator: data.token_operator,
-    totalStakers: data.no_of_stakers,
-    totalStakedAmount: data.total_stake_deposited,
-    myStake: data.stake_amount_for_given_staker_address,
+    stakeMapIndex: stakeWindow.blockchain_id,
+    startPeriod: stakeWindow.start_period,
+    submissionEndPeriod: stakeWindow.submission_end_period,
+    approvalEndPeriod: stakeWindow.approval_end_period,
+    requestWithdrawStartPeriod: stakeWindow.request_withdraw_start_period,
+    endPeriod: stakeWindow.end_period,
+    minStake: stakeWindow.min_stake,
+    maxStake: stakeWindow.max_stake,
+    windowMaxCap: stakeWindow.window_max_cap,
+    openForExternal: stakeWindow.open_for_external,
+    windowTotalStake: stakeWindow.total_stake,
+    rewardAmount: stakeWindow.reward_amount,
+    tokenOperator: stakeWindow.token_operator,
+    totalStakers: stakeWindow.no_of_stakers,
+    totalStakedAmount: stakeWindow.total_stake_deposited,
+    myStake: stakeWindow.stake_amount_for_given_staker_address,
   };
 
   return stakeWindowDetails;
 };
 
-// **************************
-// Active Stake Functionality
-// **************************
+export const fetchUserStakeFromBlockchain = (metamaskDetails, stakeMapIndex) => async dispatch => {
+  const [found, pendingForApprovalAmount, approvedAmount, autoRenewal] = await getStakeInfo(
+    metamaskDetails,
+    stakeMapIndex
+  );
 
+  const stakeWindowDetails = {
+    myStake: pendingForApprovalAmount,
+    autoRenewal,
+    approvedAmount,
+    userExist: found,
+  };
+
+  dispatch(setActiveStakeWindowDetailsFromBlockchain(stakeWindowDetails));
+};
+
+// *********************************
+// Active User Stakes Functionality
+// *********************************
+
+// TODO - Change the address to 0x0 after API error fixes...
 const fetchActiveStakesAPI = metamaskDetails => async dispatch => {
   let staker = "0x0";
   if (metamaskDetails.isTxnsAllowed) {
@@ -105,7 +148,7 @@ const fetchActiveStakesAPI = metamaskDetails => async dispatch => {
 
 export const fetchActiveStakes = metamaskDetails => async dispatch => {
   try {
-    //dispatch(loaderActions.startRequestLoader);
+    dispatch(loaderActions.startAppLoader(LoaderContent.LOAD_DATA));
 
     const { data, error } = await dispatch(fetchActiveStakesAPI(metamaskDetails));
     if (error.code) {
@@ -113,11 +156,13 @@ export const fetchActiveStakes = metamaskDetails => async dispatch => {
     }
 
     //console.log("fetchActiveStakes - ", data);
-    dispatch(setActiveStakes(data));
+    const activeStakes = parseAndTransformStakes(data);
+    dispatch(setActiveStakes(activeStakes));
+    dispatch(setStakeSummary({ incubatingCount: data.length }));
 
-    //dispatch(loaderActions.stopRequestLoader);
+    dispatch(loaderActions.stopAppLoader());
   } catch (error) {
-    //dispatch(loaderActions.stopRequestLoader);
+    dispatch(loaderActions.stopAppLoader());
     throw error;
   }
 };
@@ -141,7 +186,7 @@ const fetchClaimStakesAPI = metamaskDetails => async dispatch => {
 
 export const fetchClaimStakes = metamaskDetails => async dispatch => {
   try {
-    //dispatch(loaderActions.startRequestLoader);
+    dispatch(loaderActions.startAppLoader(LoaderContent.LOAD_DATA));
 
     const { data, error } = await dispatch(fetchClaimStakesAPI(metamaskDetails));
     if (error.code) {
@@ -149,12 +194,13 @@ export const fetchClaimStakes = metamaskDetails => async dispatch => {
     }
 
     //console.log("fetchClaimStakes - ", data);
-    const activeStakes = parseAndTransformStakes(data);
-    dispatch(setClaimStakes(activeStakes));
+    const claimStakes = parseAndTransformStakes(data);
+    dispatch(setClaimStakes(claimStakes));
+    dispatch(setStakeSummary({ readyToClaimCount: data.length }));
 
-    //dispatch(loaderActions.stopRequestLoader);
+    dispatch(loaderActions.stopAppLoader());
   } catch (error) {
-    //dispatch(loaderActions.stopRequestLoader);
+    dispatch(loaderActions.stopAppLoader());
     throw error;
   }
 };
@@ -164,11 +210,10 @@ const parseAndTransformStakes = data => {
     return [];
   }
 
-  // TODO - There are hard codes, need to fix once the API changes are completed
   // First Section of transformation for the Stake Window
   // Second Section of transformation for the Stake Holder
   const stakes = data.map(stake => ({
-    stakeMapIndex: stake.stake_holder.blockchain_id,
+    stakeMapIndex: stake.stake_window.blockchain_id,
     startPeriod: stake.stake_window.start_period,
     submissionEndPeriod: stake.stake_window.submission_end_period,
     approvalEndPeriod: stake.stake_window.approval_end_period,
@@ -181,7 +226,7 @@ const parseAndTransformStakes = data => {
     windowTotalStake: stake.stake_window.total_stake,
     rewardAmount: stake.stake_window.reward_amount,
     tokenOperator: stake.stake_window.token_operator,
-    numOfStakers: 0, //stake.stake_window.no_of_stakers,
+    numOfStakers: stake.stake_window.no_of_stakers,
 
     staker: stake.stake_holder.staker,
     pendingForApprovalAmount: stake.stake_holder.amount_pending_for_approval,

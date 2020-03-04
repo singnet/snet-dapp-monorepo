@@ -5,15 +5,18 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import moment from "moment";
 
-import AlertBox from "shared/dist/components/AlertBox";
+import AlertBox, { alertTypes } from "shared/dist/components/AlertBox";
 import SNETButton from "shared/dist/components/SNETButton";
+import NoDataFoundImg from "shared/dist/assets/images/NoDataFound.png";
 
 import { cardDetails, btnDetails } from "./content";
 import { useStyles } from "./styles";
 import AccountBalance from "../AccountBalance";
 import Card from "../StakeSession/Card";
-
 import { stakeActions } from "../../Services/Redux/actionCreators";
+import { LoaderContent } from "../../Utils/Loader";
+import { loaderActions } from "../../Services/Redux/actionCreators";
+import { waitForTransaction, claimStake } from "../../Utils/BlockchainHelper";
 
 const ClaimStake = () => {
   const classes = useStyles();
@@ -35,22 +38,45 @@ const ClaimStake = () => {
   }, [dispatch, metamaskDetails]);
 
   if (claimStakes.length === 0) {
-    // TODO - Need to handle the No Data Found Here as per the Invision App Designs
+    return (
+      <div className={classes.noDataFoundSection}>
+        <img src={NoDataFoundImg} alt="No Data Found" />
+        <Typography>You have no stakes to claim</Typography>
+      </div>
+    );
   }
 
-  const handleClick = (btnAction, stakeMapIndex) => {
-    // TODO - Handle the blockchain calls here...
-    // TODO stakeMapIndex from if
-    if (btnAction === "reStake" && stakeMapIndex > 0) {
-      // Call blockchain event here
+  const initiateClaimState = async stakeMapIndex => {
+    let txHash;
+    try {
+      // Initiate the Withdraw Stake Operation
+      txHash = await claimStake(metamaskDetails, stakeMapIndex);
+
+      setAlert({ [stakeMapIndex]: { type: alertTypes.INFO, message: "Transaction is in Progress" } });
+
+      dispatch(loaderActions.startAppLoader(LoaderContent.CLAIM_STAKE));
+
+      await waitForTransaction(txHash);
+
+      setAlert({
+        [stakeMapIndex]: { type: alertTypes.SUCCESS, message: "Transaction has been completed successfully" },
+      });
+
+      dispatch(loaderActions.stopAppLoader());
+    } catch (err) {
+      setAlert({ [stakeMapIndex]: { type: alertTypes.ERROR, message: "Transaction has failed." } });
+      dispatch(loaderActions.stopAppLoader());
+    }
+  };
+
+  const handleClick = async (btnAction, stakeMapIndex) => {
+    if (btnAction === "reStake") {
+      alert("reStake Coming Soon... Stay Tuned...");
     }
 
     if (btnAction === "claimStake") {
-      // Call blockchain event here
+      await initiateClaimState(stakeMapIndex);
     }
-
-    // TODO In case of Error Message
-    setAlert(...alert);
   };
 
   return (

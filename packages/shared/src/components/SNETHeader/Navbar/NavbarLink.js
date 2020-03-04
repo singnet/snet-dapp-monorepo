@@ -6,9 +6,9 @@ import { useStyles } from "./styles";
 
 const NavbarLink = props => {
   const { activeLinks, label, openInNewTab, to } = props;
-  const classes = useStyles(props);
+  const classes = useStyles();
 
-  const isActive = (unused, { pathname }) => {
+  const isActive = (_unused, { pathname }) => {
     return activeLinks.includes(pathname);
   };
 

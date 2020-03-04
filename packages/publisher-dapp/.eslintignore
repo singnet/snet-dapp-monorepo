@@ -3,3 +3,9 @@ build/
 
 #dependencies
 node_modules/
+
+#Protos and Stubs
+*.proto
+*_pb.js
+*_pb_service.js
+

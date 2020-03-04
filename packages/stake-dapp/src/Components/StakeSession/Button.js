@@ -4,7 +4,7 @@ import SNETButton from "shared/dist/components/SNETButton";
 
 import { useStyles } from "./styles";
 
-const Button = ({ details, handleClick }) => {
+const Button = ({ details, handleClick, autoRenewal }) => {
   const classes = useStyles();
 
   if ((details, handleClick)) {
@@ -16,7 +16,7 @@ const Button = ({ details, handleClick }) => {
             color={button.color}
             variant={button.variant}
             children={button.text}
-            onClick={_e => handleClick(button.action)}
+            onClick={_e => handleClick(button.action, autoRenewal)}
           />
         ))}
       </div>

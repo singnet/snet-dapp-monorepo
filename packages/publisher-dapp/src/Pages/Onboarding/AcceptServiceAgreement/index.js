@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { organizationActions } from "../../../Services/Redux/actionCreators";
 import { TermsAndConditionsDetails } from "./content";
@@ -7,13 +7,33 @@ import TermsAndConditions from "shared/dist/components/TermsAndConditions";
 import { OnboardingRoutes } from "../OnboardingRouter/Routes";
 import SNETButton from "shared/dist/components/SNETButton";
 import { useStyles } from "./styles";
+import { GlobalRoutes } from "../../../GlobalRouter/Routes";
+import { userEntities } from "../../../Utils/user";
+import { organizationTypes } from "../../../Utils/organizationSetup";
 
+const selectState = state => ({
+  isInitialized: state.user.isInitialized,
+  isLoggedIn: state.user.isLoggedIn,
+  entity: state.user.entity,
+  organization: state.organization,
+});
 const AcceptServiceAgreement = ({ history }) => {
   const classes = useStyles();
+  const { isInitialized, isLoggedIn, entity, organization } = useSelector(selectState);
+
   const [agreed, setAgreed] = useState(false);
   const dispatch = useDispatch();
 
-  const handleAccept = () => {
+  useEffect(() => {
+    if (isInitialized && !isLoggedIn) {
+      history.push(GlobalRoutes.LOGIN.path);
+    }
+  }, [history, isInitialized, isLoggedIn]);
+
+  const handleAccept = async () => {
+    if (entity === userEntities.INDIVIDUAL) {
+      await organizationActions.createOrganization({ ...organization, type: organizationTypes.INDIVIDUAL });
+    }
     history.push(OnboardingRoutes.AUTHENTICATE_ID.path);
   };
 

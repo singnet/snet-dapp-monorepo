@@ -44,8 +44,8 @@ const initialState = {
   ],
   assets: {
     heroImage: {
-      raw: "",
-      fileType: "",
+      url: "",
+      ipfsUri: "",
     },
   },
   orgAddress: {
@@ -105,6 +105,8 @@ const OrganizationReducer = (state = initialState, action) => {
       return { ...state, ["state"]: { ...state.state, ["state"]: action.payload } };
     case organizationActions.SET_ORG_SAME_MAILING_ADDRESS:
       return { ...state, orgAddress: { ...state.orgAddress, sameMailingAddress: action.payload } };
+    case organizationActions.SET_ORG_HERO_IMAGE_URL:
+      return { ...state, assets: { ...state.assets, heroImage: { ...state.assets.heroImage, url: action.payload } } };
     default:
       return state;
   }

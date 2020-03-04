@@ -44,5 +44,5 @@ export const APIPaths = {
   FREE_CALL_SIGNER_ADDRESS: "/freecall/signer_address",
   UPLOAD_FILE: "/upload",
   USER_VERIFICATION_INITIATE: "/initiate",
-  USER_VERIFICATION_STATUS: "/status",
+  USER_VERIFICATION_STATUS: "/status/?type=JUMIO",
 };

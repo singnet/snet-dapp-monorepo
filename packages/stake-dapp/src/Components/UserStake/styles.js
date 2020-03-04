@@ -35,4 +35,14 @@ export const useStyles = makeStyles(MUITheme => ({
       lineHeight: "20px",
     },
   },
+  noDataFoundSection: {
+    textAlign: "center",
+    "& p": {
+      color: MUITheme.palette.text.primary,
+      fontSize: 24,
+      fontWeight: 200,
+      lineHeight: "30px",
+      "& span": { fontWeight: 400 },
+    },
+  },
 }));

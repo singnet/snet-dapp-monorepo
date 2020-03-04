@@ -9,13 +9,15 @@ var _react = _interopRequireDefault(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _AppBar = _interopRequireDefault(require("@material-ui/core/AppBar"));
-
 var _CardMedia = _interopRequireDefault(require("@material-ui/core/CardMedia"));
 
 var _Typography = _interopRequireDefault(require("@material-ui/core/Typography"));
 
+var _SNETAppBar = _interopRequireDefault(require("../SNETAppBar"));
+
 var _BlackLogo = _interopRequireDefault(require("../../assets/images/BlackLogo.svg"));
+
+var _WhiteLogo = _interopRequireDefault(require("../../assets/images/WhiteLogo.svg"));
 
 var _styles = require("./styles");
 
@@ -33,15 +35,15 @@ var SNETHeader = function SNETHeader(_ref) {
       LoggedOutActions = _ref.LoggedOutActions,
       portalName = _ref.portalName;
   var classes = (0, _styles.useStyles)();
-  return _react.default.createElement("div", null, _react.default.createElement("header", null, _react.default.createElement(_AppBar.default, {
+  return _react.default.createElement("div", null, _react.default.createElement("header", null, _react.default.createElement(_SNETAppBar.default, {
     position: "fixed",
     color: color,
-    className: classes.appBar
+    className: "".concat(classes.appBar, " ").concat(color === "purple" ? classes.purple : null)
   }, _react.default.createElement("div", {
     className: classes.logoContainer
   }, _react.default.createElement(_CardMedia.default, {
     component: "img",
-    image: _BlackLogo.default,
+    image: color === "purple" ? _WhiteLogo.default : _BlackLogo.default,
     alt: "SingularityNET"
   }), _react.default.createElement(_Typography.default, {
     variant: "h5"

@@ -1,1 +1,177 @@
-export const useStyles = () => ({});
+export const useStyles = MUITheme => ({
+  walletAccContainer: {
+    width: 846,
+    paddingTop: 40,
+    margin: "70px 0 64px 70px",
+  },
+  topSection: {
+    "& h5": {
+      paddingTop: 24,
+      fontWeight: 200,
+    },
+  },
+  box: {
+    borderRadius: 4,
+    marginTop: 24,
+    background: MUITheme.palette.background.white,
+    boxShadow: "0 1px 1px 0 rgba(0,0,0,0.07), 0 2px 1px -1px rgba(0,0,0,0.07), 0 1px 3px 0 rgba(0,0,0,0.1)",
+  },
+  pendingTokenSection: {
+    paddingBottom: 22,
+    borderBottomWidth: 1,
+    borderBottomStyle: "solid",
+    borderBottomColor: MUITheme.palette.border.grey,
+    margin: "22px 16px 0 23.5px",
+    display: "flex",
+    alignItems: "center",
+    "& p": {
+      color: MUITheme.palette.text.lightGrey,
+      fontSize: 14,
+      lineHeight: "18px",
+    },
+    "& button": {
+      padding: "13px 0 11px",
+      margin: "0 32px",
+      "& span": { width: 470 },
+    },
+  },
+  pendingTokenDetails: {
+    "& div": {
+      display: "flex",
+      "& svg": {
+        paddingRight: 8,
+        color: MUITheme.palette.text.lightGrey,
+        fontSize: 18,
+      },
+      "& p": {
+        color: MUITheme.palette.text.lightGrey,
+        fontSize: 16,
+        lineHeight: "20px",
+      },
+    },
+    "& > p": {
+      paddingTop: 5,
+      display: "flex",
+      alignItems: "center",
+      color: MUITheme.palette.text.darkGrey,
+      fontSize: 28,
+      lineHeight: "35px",
+      "& span": {
+        paddingLeft: 10,
+        color: MUITheme.palette.text.lightGrey,
+        fontSize: 18,
+        lineHeight: "20px",
+        textTransform: "uppercase",
+      },
+    },
+  },
+  expiringDetailsSection: {
+    padding: "7px 0 13px",
+    display: "flex",
+    justifyContent: "space-around",
+    "& > div": {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "flex-start",
+      "& p": {
+        "&:first-of-type": {
+          paddingBottom: 6,
+          color: MUITheme.palette.text.lightGrey,
+          fontSize: 14,
+          lineHeight: "18px",
+        },
+        "&:last-of-type": {
+          display: "flex",
+          alignItems: "center",
+          color: MUITheme.palette.text.darkGrey,
+          fontSize: 22,
+          lineHeight: "28px",
+          "& span": {
+            paddingLeft: 10,
+            color: MUITheme.palette.text.lightGrey,
+            fontSize: 16,
+            lineHeight: "20px",
+            textTransform: "uppercase",
+          },
+        },
+      },
+    },
+  },
+  header: {
+    padding: "0 23px",
+    borderBottomWidth: 1,
+    borderBottomStyle: "solid",
+    borderBottomColor: MUITheme.palette.border.primary,
+    "& h6": { lineHeight: "50px !important" },
+  },
+  claimsDesc: {
+    padding: "21px 50px 24px 22px",
+    color: MUITheme.palette.text.darkGrey,
+    fontSize: 14,
+    lineHeight: "18px",
+  },
+  claimSelectedSection: {
+    padding: "0 22px",
+    display: "flex",
+    alignItems: "flex-end",
+    "& p": {
+      marginLeft: 32,
+      color: MUITheme.palette.text.lightGrey,
+      fontSize: 16,
+      lineHeight: "20px",
+    },
+    "& button": { padding: "10px 28px 9px" },
+  },
+  table: { padding: "24px 26px 31px 23px" },
+  tableCol: {
+    padding: "0 34px 10px 40px",
+    borderBottomWidth: 1,
+    borderBottomStyle: "solid",
+    borderBottomColor: MUITheme.palette.border.secondary,
+    display: "flex",
+    "& > div": {
+      "& p": {
+        color: MUITheme.palette.text.lightGrey,
+        fontSize: 13,
+        lineHeight: "16px",
+        textTransform: "uppercase",
+      },
+      "&:nth-child(2n)": { textAlign: "right" },
+      "&:nth-child(3)": { textAlign: "center" },
+    },
+  },
+  tableRow: {
+    padding: "3px 34px 3px 9px",
+    borderBottomWidth: 1,
+    borderBottomStyle: "solid",
+    borderBottomColor: MUITheme.palette.border.secondary,
+    marginBottom: 45,
+    display: "flex",
+    alignItems: "center",
+    "& > div": {
+      display: "flex",
+      "& label": {
+        "& span": {
+          color: MUITheme.palette.text.darkGrey,
+          fontSize: 14,
+          letterSpacing: 0.17,
+          lineHeight: "18px",
+        },
+        "& svg": { color: "rgba(0,0,0,0.54)" },
+      },
+      "& p": {
+        color: MUITheme.palette.text.darkGrey,
+        fontSize: 14,
+        letterSpacing: 0.17,
+        lineHeight: "18px",
+      },
+      "&:nth-child(2n)": { justifyContent: "flex-end" },
+      "&:nth-child(3)": { justifyContent: "center" },
+    },
+  },
+  warningIcon: {
+    paddingRight: 8,
+    color: "#F29132",
+    fontSize: 19,
+  },
+});

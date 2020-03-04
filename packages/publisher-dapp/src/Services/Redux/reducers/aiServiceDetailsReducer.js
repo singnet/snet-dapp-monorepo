@@ -15,6 +15,7 @@ export const defaultGroups = [
       },
     ],
     endpoints: [],
+    testEndpoints: [],
     freeCallsAllowed: "",
   },
 ];
@@ -28,6 +29,7 @@ const initialState = {
   uuid: "",
   name: "",
   id: "",
+  newId: "",
   availability: "",
   shortDescription: "",
   longDescription: "",
