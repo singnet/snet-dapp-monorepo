@@ -33,6 +33,7 @@ const TeamMembersComponent = withLightHeaderAndFooter(TeamMembers);
 const AiServicesComponent = withDashboardMenu(AiServices);
 const AiServiceCreationComponent = withLightHeaderAndFooter(AiServiceCreation);
 const WalletAccountComponent = withDashboardMenu(WalletAccount);
+
 export const GlobalRoutes = {
   LOGIN: {
     name: "login",
@@ -102,29 +103,26 @@ export const GlobalRoutes = {
   },
 };
 
-export const setupRouteAuthentications = state => {
-  const { isLoggedIn } = state.user;
-  return {
-    ...GlobalRoutes,
-    ORGANIZATION_SETUP: {
-      ...GlobalRoutes.ORGANIZATION_SETUP,
-      isAllowed: isLoggedIn,
-      redirectTo: GlobalRoutes.LOGIN.path,
-    },
-    ORG_SETUP_STATUS: {
-      ...GlobalRoutes.ORG_SETUP_STATUS,
-      isAllowed: isLoggedIn,
-      redirectTo: GlobalRoutes.LOGIN.path,
-    },
-    INVITE_MEMBERS: {
-      ...GlobalRoutes.INVITE_MEMBERS,
-      isAllowed: isLoggedIn,
-      redirectTo: GlobalRoutes.LOGIN.path,
-    },
-    AI_SERVICE_CREATION: {
-      ...GlobalRoutes.AI_SERVICE_CREATION,
-      isAllowed: isLoggedIn,
-      redirectTo: GlobalRoutes.LOGIN.path,
-    },
-  };
-};
+export const setupRouteAuthentications = state => ({
+  ...GlobalRoutes,
+  ORGANIZATION_SETUP: {
+    ...GlobalRoutes.ORGANIZATION_SETUP,
+    isAllowed: state.user.isLoggedIn,
+    redirectTo: GlobalRoutes.LOGIN.path,
+  },
+  ORG_SETUP_STATUS: {
+    ...GlobalRoutes.ORG_SETUP_STATUS,
+    isAllowed: state.user.isLoggedIn,
+    redirectTo: GlobalRoutes.LOGIN.path,
+  },
+  INVITE_MEMBERS: {
+    ...GlobalRoutes.INVITE_MEMBERS,
+    isAllowed: state.user.isLoggedIn,
+    redirectTo: GlobalRoutes.LOGIN.path,
+  },
+  AI_SERVICE_CREATION: {
+    ...GlobalRoutes.AI_SERVICE_CREATION,
+    isAllowed: state.user.isLoggedIn,
+    redirectTo: GlobalRoutes.LOGIN.path,
+  },
+});

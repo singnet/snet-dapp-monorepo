@@ -9,6 +9,7 @@ import { useStyles } from "./styles";
 import { OnboardingRoutes } from "./OnboardingRouter/Routes";
 import OnboardingRouter from "./OnboardingRouter";
 import Heading from "./Heading";
+import { OrganizationSetupRoutes } from "../OrganizationSetup/OrganizationSetupRouter/Routes";
 import { organizationSetupStatuses } from "../../Utils/organizationSetup";
 import { GlobalRoutes } from "../../GlobalRouter/Routes";
 
@@ -25,12 +26,11 @@ const Onboarding = ({ location, history, classes }) => {
   useEffect(() => {
     if (
       !isEmpty(email) &&
-      Boolean(orgUuid) &&
       !isEmpty(ownerEmail) &&
       email === ownerEmail &&
       orgStatus !== organizationSetupStatuses.PUBLISHED
     ) {
-      history.push(GlobalRoutes.ORG_SETUP_STATUS.path.replace(":orgUuid", orgUuid));
+      history.push(OrganizationSetupRoutes.DEFAULT_PAGE.path);
     }
   });
 

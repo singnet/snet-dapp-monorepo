@@ -1385,13 +1385,6 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
-"@improbable-eng/grpc-web@^0.12.0":
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/@improbable-eng/grpc-web/-/grpc-web-0.12.0.tgz#9b10a7edf2a1d7672f8997e34a60e7b70e49738f"
-  integrity sha512-uJjgMPngreRTYPBuo6gswMj1gK39Wbqre/RgE0XnSDXJRg6ST7ZhuS53dFE6Vc2CX4jxgl+cO+0B3op8LA4Q0Q==
-  dependencies:
-    browser-headers "^0.4.0"
-
 "@improbable-eng/grpc-web@^0.9.6":
   version "0.9.6"
   resolved "https://registry.yarnpkg.com/@improbable-eng/grpc-web/-/grpc-web-0.9.6.tgz#87e43ebf0eafaca30f5f720bf646b6abea99c1ae"
@@ -15713,7 +15706,7 @@ scrypt.js@0.2.0:
     scrypt "^6.0.2"
     scryptsy "^1.2.1"
 
-scrypt@^6.0.2:
+scrypt@^6.0.2, scrypt@^6.0.3:
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/scrypt/-/scrypt-6.0.3.tgz#04e014a5682b53fa50c2d5cce167d719c06d870d"
   integrity sha1-BOAUpWgrU/pQwtXM4WfXGcBthw0=
@@ -16122,10 +16115,10 @@ snapdragon@^0.8.1:
     source-map-resolve "^0.5.0"
     use "^3.1.0"
 
-snet-sdk-web@^1.0.0-beta.13:
-  version "1.0.0-beta.13"
-  resolved "https://registry.yarnpkg.com/snet-sdk-web/-/snet-sdk-web-1.0.0-beta.13.tgz#f991c470388000934fd25b9a9929842faa037c83"
-  integrity sha512-C1tUGfxwmtPAb+l3YQvwXe8DRanyA4/gpNqqVX1ADmvL2l/MaxEXBLoqC373QCjplkS6skaz+4UnCoT1HfwTrg==
+snet-sdk-web@^1.0.0-beta.12:
+  version "1.0.0-beta.12"
+  resolved "https://registry.yarnpkg.com/snet-sdk-web/-/snet-sdk-web-1.0.0-beta.12.tgz#e096bf3fb5803aababb6a8c0537440de481a3014"
+  integrity sha512-ASd5hJeK+uEDAb36+6az5+ZdQwRcB8eB6o0PrWWIFxSPF9/2tMXMk1i4bcqVYvmaayr3qviKH4MvqqwXwzWCjw==
   dependencies:
     bignumber.js "^8.1.1"
     es6-promise "^4.2.6"

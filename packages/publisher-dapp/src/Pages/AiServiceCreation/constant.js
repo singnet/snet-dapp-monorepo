@@ -48,8 +48,3 @@ export const serviceData = [
     feedback: "",
   },
 ];
-
-export const serviceIdAvailability = {
-  AVAILABLE: "AVAILABLE",
-  UNAVAILABLE: "UNAVAILABLE",
-};

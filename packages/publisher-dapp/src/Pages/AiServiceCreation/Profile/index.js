@@ -25,7 +25,6 @@ import { useStyles } from "./styles";
 import { assetTypes } from "../../../Utils/FileUpload";
 import { base64ToArrayBuffer } from "shared/dist/utils/FileUpload";
 import ServiceIdAvailability from "./ServiceIdAvailability";
-import { serviceIdAvailability } from "../constant";
 
 let validateTimeout = "";
 
@@ -52,22 +51,17 @@ const Profile = ({ classes, _location }) => {
   const validateServiceId = serviceId => async () => {
     // Call the API to Validate the Service Id
     try {
-      const serviceAvailability = await dispatch(aiServiceDetailsActions.validateServiceId(orgUuid, serviceId));
-      dispatch(aiServiceDetailsActions.setServiceAvailability(serviceAvailability));
+      await dispatch(aiServiceDetailsActions.validateServiceId(orgUuid, serviceId));
     } catch (error) {
       dispatch(aiServiceDetailsActions.setServiceAvailability(""));
     }
   };
 
-  const debouncedValidate = (newServiceId, timeout = 200) => {
-    if (newServiceId === serviceDetails.id && Boolean(newServiceId)) {
-      dispatch(aiServiceDetailsActions.setServiceAvailability(serviceIdAvailability.AVAILABLE));
-      return clearTimeout(validateTimeout);
-    }
+  const debouncedValidate = serviceId => {
     if (validateTimeout) {
       clearTimeout(validateTimeout);
     }
-    validateTimeout = setTimeout(validateServiceId(newServiceId), timeout);
+    validateTimeout = setTimeout(validateServiceId(serviceId), 200);
   };
 
   const handleControlChange = event => {
@@ -75,7 +69,6 @@ const Profile = ({ classes, _location }) => {
     setServiceTouchFlag();
     if (name === "id") {
       debouncedValidate(value);
-      return dispatch(aiServiceDetailsActions.setAiServiceDetailLeaf("newId", value));
     }
     dispatch(aiServiceDetailsActions.setAiServiceDetailLeaf(name, value));
   };
@@ -83,16 +76,14 @@ const Profile = ({ classes, _location }) => {
   const handleContinue = async () => {
     try {
       const serviceName = serviceDetails.name;
-      const serviceId = serviceDetails.newId ? serviceDetails.newId : serviceDetails.id;
+      const serviceId = serviceDetails.id;
 
       const isNotValid = validator({ serviceName, serviceId }, serviceProfileValidationConstraints);
 
       if (isNotValid) {
         throw new ValidationError(isNotValid[0]);
       }
-      if (serviceDetails.availability !== serviceIdAvailability.AVAILABLE) {
-        throw new ValidationError("Service id is not available. Try with a different service id");
-      }
+
       if (serviceDetails.touch) {
         // Call API to save
         await dispatch(aiServiceDetailsActions.saveServiceDetails(orgUuid, serviceDetails.uuid, serviceDetails));
@@ -119,6 +110,7 @@ const Profile = ({ classes, _location }) => {
 
   const handleKeyEnterInTags = () => {
     const tagsEntered = tags.split(",");
+    //const localItems = items;
 
     const localItems = serviceDetails.tags;
 
@@ -181,13 +173,11 @@ const Profile = ({ classes, _location }) => {
             minCount={0}
             maxCount={50}
             description="The Id of your service to uniquely identity in the organization."
-            value={serviceDetails.newId ? serviceDetails.newId : serviceDetails.id}
+            value={serviceDetails.id}
             onChange={handleControlChange}
           />
           <ServiceIdAvailability
             serviceDetails={serviceDetails}
-            id={serviceDetails.newId || serviceDetails.id}
-            availability={serviceDetails.availability}
             classes={classes}
             loading={isValidateServiceIdLoading}
           />
@@ -284,7 +274,7 @@ const Profile = ({ classes, _location }) => {
               <div className={classes.profileImgContent}>
                 <Typography variant="subtitle2">
                   Every AI service will have a profile image. We recommend an image that is 906 x 504 in size. You can
-                  preview how it will look on the AI Marketplace.
+                  preview how it will look on the AI Marketpalce.
                 </Typography>
                 <Typography variant="subtitle2">
                   We encourage to find a representative image for your service to attract users explore your page and

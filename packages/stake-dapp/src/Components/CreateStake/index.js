@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+import moment from "moment";
 
-import NoDataFoundImg from "shared/dist/assets/images/NoDataFound.png";
+// import SNETButton from "shared/dist/components/SNETButton";
 
 import { useStyles } from "./styles";
 import SessionTime from "./SessionTime";
@@ -20,11 +20,7 @@ import {
 import WithdrawStake from "./WithdrawStake";
 import AddStake from "./AddStake";
 import { stakeActions } from "../../Services/Redux/actionCreators";
-
-const stateSelector = state => ({
-  activeStake: state.stakeReducer.activeStake,
-  metamaskDetails: state.metamaskReducer.metamaskDetails,
-});
+import { fromWei } from "../../Utils/GenHelperFunctions";
 
 const CreateStake = () => {
   const classes = useStyles();
@@ -32,24 +28,28 @@ const CreateStake = () => {
 
   const [showWithdrawPopup, setShowWithdrawPopup] = useState(false);
   const [showAddStakePopup, setShowAddStakePopup] = useState(false);
-  const [autoRenewal, setAutoRenewal] = useState(true);
 
-  const { activeStake, metamaskDetails } = useSelector(state => stateSelector(state));
+  const { activeStake } = useSelector(state => state.stakeReducer);
+  const { metamaskDetails } = useSelector(state => state.metamaskReducer);
+
+  const stakeStartDate = moment.unix(activeStake.startPeriod).format("MMM YYYY");
 
   useEffect(() => {
     try {
       // TODO: Convert the same to async Constant based on the need...
-      //dispatch(stakeActions.fetchCurrentActiveStakeWindow(metamaskDetails));
-
-      const loadData = async () => {
-        await dispatch(stakeActions.fetchCurrentActiveStakeWindow(metamaskDetails));
-      };
-
-      loadData();
+      dispatch(stakeActions.fetchCurrentActiveStakeWindow(metamaskDetails));
     } catch (_error) {
-      //console.log("error - ", error); // TODO - Take them to the error page
+      //console.log("error - ", error);
     }
   }, [dispatch, metamaskDetails]);
+
+  // const openWithdrawPopup = () => {
+  //   setShowWithdrawPopup(true);
+  // };
+
+  // const openAddStakePopup = () => {
+  //   setShowAddStakePopup(true);
+  // };
 
   const closeWithdrawPopup = () => {
     setShowWithdrawPopup(false);
@@ -59,32 +59,11 @@ const CreateStake = () => {
     setShowAddStakePopup(false);
   };
 
-  const handleClick = (btnAction, autoRenewalOption) => {
+  const handleClick = btnAction => {
     if (btnAction === "withdraw") setShowWithdrawPopup(true);
 
-    if (btnAction === "addStake") {
-      setAutoRenewal(autoRenewalOption);
-      setShowAddStakePopup(true);
-    }
+    if (btnAction === "addStake") setShowAddStakePopup(true);
   };
-
-  // No Data Found Scenario
-  if (!activeStake.stakeMapIndex) {
-    return (
-      <Grid container>
-        <Grid item xs={12} sm={12} md={4} lg={4}>
-          <AccountBalance />
-        </Grid>
-        <Grid item xs={12} sm={12} md={8} lg={8} className={classes.rightSideSection}>
-          <div className={classes.noDataFoundSection}>
-            <img src={NoDataFoundImg} alt="No Data Found" />
-            <Typography>There is no active stake window.</Typography>
-            <Typography> Please wait for stake to open.</Typography>
-          </div>
-        </Grid>
-      </Grid>
-    );
-  }
 
   return (
     <Grid container>
@@ -96,23 +75,30 @@ const CreateStake = () => {
         <StakeSession
           cardDetails={cardDetails(activeStake)}
           btnDetails={btnDetails}
+          stakeStartDate={stakeStartDate}
+          stakeMapIndex={activeStake.stakeMapIndex}
+          minStake={fromWei(activeStake.minStake)}
+          maxStake={fromWei(activeStake.maxStake)}
           agreementDetails={agreementDetails}
           handleClick={handleClick}
-          stakeDetails={activeStake}
         />
       </Grid>
+      {/* <SNETButton children="open popup" color="primary" onClick={openWithdrawPopup} /> */}
       <WithdrawStake
         open={showWithdrawPopup}
         handleClose={closeWithdrawPopup}
         withdrawStakeAmountDetails={withdrawStakeAmountDetails(activeStake)}
-        stakeDetails={activeStake}
+        stakeStartDate={stakeStartDate}
+        stakeMapIndex={activeStake.stakeMapIndex}
+        minStake={fromWei(activeStake.minStake)}
       />
       <AddStake
         open={showAddStakePopup}
         handleClose={closeAddStakePopup}
         addStakeAmountDetails={addStakeAmountDetails(activeStake)}
-        stakeDetails={activeStake}
-        autoRenewal={autoRenewal}
+        stakeStartDate={stakeStartDate}
+        stakeMapIndex={activeStake.stakeMapIndex}
+        minStake={fromWei(activeStake.minStake)}
       />
     </Grid>
   );

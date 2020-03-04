@@ -1,51 +1,81 @@
-import { fromWei } from "../../Utils/GenHelperFunctions";
+export const sortByCategories = [{ value: "newest", label: "Newest" }];
 
-export const incubationProgressDetails = stakeDetails => ({
-  startPeriod: stakeDetails.startPeriod,
-  submissionEndPeriod: stakeDetails.submissionEndPeriod,
-  endPeriod: stakeDetails.endPeriod,
-});
+export const firstIncubationProgressDetails = {
+  daysLeft: "12",
+  totalDays: "30",
+  started: "01/1/2020",
+  finished: "01/30/2020",
+};
 
-export const cardDetails = stakeDetails => [
+export const firstCardDetails = [
   {
     title: "Accepted Stack Amount",
-    value: fromWei(stakeDetails.approvedAmount),
+    value: "1000",
     unit: "AGI",
   },
   {
     title: "Reward Amount",
-    value: fromWei(
-      Math.floor(
-        (stakeDetails.approvedAmount * stakeDetails.rewardAmount) /
-          Math.min(stakeDetails.windowTotalStake, stakeDetails.windowMaxCap)
-      )
-    ),
+    value: "345",
     unit: "AGI",
   },
   {
     title: "Refunded Amount",
-    value: "TBD??",
+    value: "0",
     unit: "AGI",
   },
   {
     title: "Current Stakers",
-    value: stakeDetails.numOfStakers,
+    value: "25",
     unit: "people",
   },
   {
     title: "Current Pool Size",
-    value: fromWei(stakeDetails.windowTotalStake),
+    value: "7,000",
     unit: "AGI",
   },
   {
     title: "Max Pool Size",
-    value: fromWei(stakeDetails.windowMaxCap),
+    value: "10,000",
     unit: "AGI",
   },
 ];
 
-export const agreementDetails = {
-  label: "Auto Renew to next stake session",
-  description:
-    "Renewing stakes (and profit margins) to the next avaliable stake session gives you priority over new stakers. Renewing stakes avoids the minimum and maximum AGI requirements. Renewing saves you in ETH gas cost.",
+export const secondIncubationProgressDetails = {
+  daysLeft: "24",
+  totalDays: "30",
+  started: "12/24/2019",
+  finished: "01/23/2020",
 };
+
+export const secondCardDetails = [
+  {
+    title: "Accepted Stack Amount",
+    value: "600",
+    unit: "AGI",
+  },
+  {
+    title: "Reward Amount",
+    value: "240",
+    unit: "AGI",
+  },
+  {
+    title: "Refunded Amount",
+    value: "400",
+    unit: "AGI",
+  },
+  {
+    title: "Current Stakers",
+    value: "25",
+    unit: "people",
+  },
+  {
+    title: "Current Pool Size",
+    value: "7,000",
+    unit: "AGI",
+  },
+  {
+    title: "Max Pool Size",
+    value: "10,000",
+    unit: "AGI",
+  },
+];

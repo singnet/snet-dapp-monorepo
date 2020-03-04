@@ -39,11 +39,10 @@ const Organization = props => {
       if (isNotValid) {
         throw new ValidationError(isNotValid[0]);
       }
-      const { org_uuid } = await dispatch(organizationActions.createOrganization(organization));
-
+      await dispatch(organizationActions.createOrganization(organization));
       await dispatch(organizationActions.setOrganizationStatus(organizationSetupStatuses.ONBOARDING));
       await dispatch(organizationActions.initializeOrg);
-      history.push(GlobalRoutes.ORG_SETUP_STATUS.path.replace(":orgUuid", org_uuid));
+      history.push(GlobalRoutes.ORG_SETUP_STATUS.path.replace(":orgUuid", organization.uuid));
     } catch (error) {
       if (error instanceof ValidationError) {
         return setAlert({ type: alertTypes.ERROR, message: error.message });

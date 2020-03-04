@@ -1,5 +1,3 @@
-import { validBlockChainAdressEquality } from "../../Utils/validation";
-
 export const submitOrganizationCostraints = {
   id: { presence: { allowEmpty: false } },
   name: { presence: { allowEmpty: false } },
@@ -17,7 +15,7 @@ export const submitOrganizationCostraints = {
     array: {
       name: { presence: { allowEmpty: false } },
       id: { presence: { allowEmpty: false } },
-      paymentAddress: { presence: { allowEmpty: false }, equality: validBlockChainAdressEquality("paymentAddress") },
+      paymentAddress: { presence: { allowEmpty: false } },
       "paymentConfig.paymentExpirationThreshold": { presence: { allowEmpty: false } },
       "paymentConfig.paymentChannelStorageType": { presence: { allowEmpty: false } },
       "paymentConfig.paymentChannelStorageClient.connectionTimeout": { presence: { allowEmpty: false } },

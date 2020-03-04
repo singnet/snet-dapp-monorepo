@@ -127,9 +127,10 @@ export const validateServiceId = (orgUuid, serviceId) => async dispatch => {
     if (error.code) {
       throw new APIError(error.message);
     }
+    dispatch(setServiceAvailability(data));
     dispatch(loaderActions.stopValidateServiceIdLoader());
-    return data;
   } catch (error) {
+    dispatch(setServiceAvailability("")); // In Case of error setting it to undefined
     dispatch(loaderActions.stopValidateServiceIdLoader());
     throw error;
   }
@@ -156,13 +157,12 @@ const generateSaveServicePayload = serviceDetails => {
           free_call_signer_address: serviceDetails.freeCallSignerAddress,
           pricing: generatePricingpayload(group.pricing),
           endpoints: group.endpoints,
-          test_endpoints: group.testEndpoints,
         };
       })
       .filter(el => el !== undefined);
   // TODO: Certain values are hard coded here.... Need to look at for complete integration
   const payloadForSubmit = {
-    service_id: serviceDetails.newId ? serviceDetails.newId : serviceDetails.id,
+    service_id: serviceDetails.id,
     display_name: serviceDetails.name,
     short_description: serviceDetails.shortDescription,
     description: serviceDetails.longDescription,
@@ -264,7 +264,6 @@ const parseServiceDetails = (data, serviceUuid) => {
       id: group.group_id,
       pricing: parsePricing(group.pricing),
       endpoints: group.endpoints,
-      testEndpoints: group.test_endpoints,
       freeCallsAllowed: group.free_calls,
     }));
   };

@@ -13,10 +13,7 @@ import SNETButton from "shared/dist/components/SNETButton";
 
 import { itemsPerPageOptions } from "./content";
 import { useStyles } from "./styles";
-import { ControlServiceRequest } from "../../Utils/Daemon/Claims";
-import { checkIfKnownError } from "shared/dist/utils/error";
 
-const controlServiceRequest = new ControlServiceRequest("https://example-service-a.singularitynet.io:8088");
 const WalletAccount = ({ classes }) => {
   const { limit, offset, totalCount } = useSelector(state => ({
     limit: state.aiServiceList.pagination.limit,
@@ -32,21 +29,11 @@ const WalletAccount = ({ classes }) => {
     return null;
   };
 
-  const handleClick = async () => {
-    try {
-      await controlServiceRequest.getListUnclaimed();
-    } catch (e) {
-      if (checkIfKnownError(e)) {
-        // TODO set alert error
-      }
-    }
-  };
-
   return (
     <Grid container className={classes.walletAccContainer}>
       <Grid item xs={12} sm={12} md={12} lg={12} className={classes.topSection}>
-        <Typography variant="h3">Wallet Account</Typography>
-        <Typography variant="h5">
+        <Typography>Wallet Account</Typography>
+        <Typography>
           Manage your token claims. Tokens can be claimed together or individually from each channel.
         </Typography>
       </Grid>
@@ -88,7 +75,7 @@ const WalletAccount = ({ classes }) => {
       </Grid>
       <Grid item xs={12} sm={12} md={12} lg={12} className={classes.box}>
         <div className={classes.header}>
-          <Typography variant="h6">Claims</Typography>
+          <Typography>claims</Typography>
         </div>
         <Typography className={classes.claimsDesc}>
           To collect pending tokens from individual channels, select the channels and use the claim button. Claims that
@@ -96,18 +83,18 @@ const WalletAccount = ({ classes }) => {
           claims at a time.
         </Typography>
         <div className={classes.claimSelectedSection}>
-          <SNETButton children="click here to claim list" color="primary" variant="outlined" onClick={handleClick} />
+          <SNETButton children="claim" color="primary" variant="outlined" disabled />
           <Typography>Selected (0)</Typography>
         </div>
         <div className={classes.table}>
           <Grid item xs={12} sm={12} md={12} lg={12} className={classes.tableCol}>
-            <Grid item xs={12} sm={12} md={4} lg={4}>
+            <Grid item xs={12} sm={12} md={6} lg={6}>
               <Typography>user</Typography>
             </Grid>
             <Grid item xs={12} sm={12} md={2} lg={2}>
               <Typography>total cliams</Typography>
             </Grid>
-            <Grid item xs={12} sm={12} md={4} lg={4}>
+            <Grid item xs={12} sm={12} md={2} lg={2}>
               <Typography>expiry</Typography>
             </Grid>
             <Grid item xs={12} sm={12} md={2} lg={2}>
@@ -115,14 +102,15 @@ const WalletAccount = ({ classes }) => {
             </Grid>
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={12} className={classes.tableRow}>
-            <Grid item xs={12} sm={12} md={4} lg={4}>
-              <FormControlLabel control={<Checkbox color="primary" />} label="User Identifier 1" />
+            <Grid item xs={12} sm={12} md={6} lg={6}>
+              <FormControlLabel control={<Checkbox color="primary" />} />
+              <Typography>User Identifier 1</Typography>
             </Grid>
             <Grid item xs={12} sm={12} md={2} lg={2}>
               <Typography>201.56 AGI</Typography>
             </Grid>
-            <Grid item xs={12} sm={12} md={4} lg={4}>
-              <WarningIcon className={classes.warningIcon} />
+            <Grid item xs={12} sm={12} md={2} lg={2}>
+              <WarningIcon />
               <Typography>Nov 28, 2019</Typography>
             </Grid>
             <Grid item xs={12} sm={12} md={2} lg={2}>

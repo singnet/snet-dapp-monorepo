@@ -9,12 +9,7 @@ export const cardDetails = stakeDetails => [
   },
   {
     title: "Reward Earnings",
-    value: fromWei(
-      Math.floor(
-        (stakeDetails.approvedAmount * stakeDetails.rewardAmount) /
-          Math.min(stakeDetails.windowTotalStake, stakeDetails.windowMaxCap)
-      )
-    ),
+    value: "TBD?",
     unit: "AGI",
   },
   {

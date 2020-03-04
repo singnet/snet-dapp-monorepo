@@ -17,11 +17,10 @@ const OrganizationSetup = ({ classes, location, history }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (
-      organization.state.state === organizationSetupStatuses.APPROVAL_PENDING ||
-      organization.state.state === organizationSetupStatuses.ONBOARDING
-    ) {
+    if (organization.state.state === organizationSetupStatuses.APPROVAL_PENDING) {
       history.push(GlobalRoutes.ORG_SETUP_STATUS.path.replace(":orgUuid", organization.uuid));
+    } else if (organization.state.state === organizationSetupStatuses.PUBLISHED) {
+      history.push(GlobalRoutes.SERVICES.path.replace(":orgUuid", organization.uuid));
     }
   }, [organization.state.state, organization.uuid, history]);
 

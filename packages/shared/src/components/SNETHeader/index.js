@@ -1,11 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import AppBar from "@material-ui/core/AppBar";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 
-import SNETAppBar from "../SNETAppBar";
 import SnetSvgLogo from "../../assets/images/BlackLogo.svg";
-import WhiteSnetLogo from "../../assets/images/WhiteLogo.svg";
 import { useStyles } from "./styles";
 import HeaderActions from "./HeaderActions";
 import Navbar from "./Navbar";
@@ -15,13 +14,9 @@ const SNETHeader = ({ isLoggedIn, color, NavigationBar, LoggedInActions, LoggedO
   return (
     <div>
       <header>
-        <SNETAppBar
-          position="fixed"
-          color={color}
-          className={`${classes.appBar} ${color === "purple" ? classes.purple : null}`}
-        >
+        <AppBar position="fixed" color={color} className={classes.appBar}>
           <div className={classes.logoContainer}>
-            <CardMedia component="img" image={color === "purple" ? WhiteSnetLogo : SnetSvgLogo} alt="SingularityNET" />
+            <CardMedia component="img" image={SnetSvgLogo} alt="SingularityNET" />
             <Typography variant="h5">{portalName}</Typography>
           </div>
           <div className={classes.navContainer}>
@@ -34,7 +29,7 @@ const SNETHeader = ({ isLoggedIn, color, NavigationBar, LoggedInActions, LoggedO
               LoggedOutActions={LoggedOutActions}
             />
           </div>
-        </SNETAppBar>
+        </AppBar>
       </header>
     </div>
   );

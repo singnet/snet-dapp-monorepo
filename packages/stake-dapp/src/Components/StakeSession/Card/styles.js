@@ -3,13 +3,13 @@ import { makeStyles } from "@material-ui/core/styles";
 export const useStyles = makeStyles(MUITheme => ({
   CardContainer: {
     width: "33%",
+    paddingBottom: 34,
     display: "inline-block",
     "& > div": {
       display: "flex",
       alignItems: "center",
     },
     "& svg": { fontSize: 18 },
-    "&:first-of-type": { paddingBottom: 34 },
     "@media(max-width: 760px)": {
       width: "50%",
     },

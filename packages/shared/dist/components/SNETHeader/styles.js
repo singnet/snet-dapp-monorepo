@@ -12,15 +12,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var useStyles = (0, _styles.makeStyles)(function (MUITheme) {
   return {
     appBar: {
-      padding: "14px 60px",
+      padding: "8px 15px",
       flexDirection: "row",
       alignItems: "center",
       zIndex: 1110
-    },
-    purple: {
-      "& h5": {
-        color: "".concat(MUITheme.palette.text.white, " !important")
-      }
     },
     logoContainer: _defineProperty({
       display: "flex",
@@ -29,7 +24,7 @@ var useStyles = (0, _styles.makeStyles)(function (MUITheme) {
         width: 172
       },
       "& h5": {
-        marginLeft: 11,
+        marginLeft: 8,
         fontWeight: 300,
         lineHeight: "30px"
       }

@@ -30,7 +30,6 @@ export const SET_ORG_STATE_UPDATED_ON = "SET_ORG_STATE_UPDATED_ON";
 export const SET_ORG_STATE_UPDATED_BY = "SET_ORG_STATE_UPDATED_BY";
 export const SET_ORG_STATE_REVIEWED_BY = "SET_ORG_STATE_REVIEWED_BY";
 export const SET_ORG_STATE_REVIEWED_ON = "SET_ORG_STATE_REVIEWED_ON";
-export const SET_ORG_HERO_IMAGE_URL = "SET_ORG_HERO_IMAGE_URL";
 
 export const setAllAttributes = value => ({ type: SET_ALL_ORG_ATTRIBUTES, payload: value });
 
@@ -60,33 +59,10 @@ export const setOrgStateAll = state => ({ type: SET_ORG_STATE_ALL, payload: stat
 export const setOrgStateState = state => ({ type: SET_ORG_STATE_STATE, payload: state });
 
 export const setOrgSameMailingAddress = value => ({ type: SET_ORG_SAME_MAILING_ADDRESS, payload: value });
-export const setOrgHeroImageUrl = url => ({ type: SET_ORG_HERO_IMAGE_URL, payload: url });
-
-const uploadFileAPI = (assetType, fileBlob, orgUuid) => async dispatch => {
-  const { token } = await dispatch(fetchAuthenticatedUser());
-  let url = `${APIEndpoints.UTILITY.endpoint}${APIPaths.UPLOAD_FILE}?type=${assetType}&org_uuid=${orgUuid}`;
-  const res = await fetch(url, { method: "POST", headers: { authorization: token }, body: fileBlob });
-  return await res.json();
-};
-
-export const uploadFile = (assetType, fileBlob, orgUuid) => async dispatch => {
-  try {
-    dispatch(loaderActions.startAppLoader(LoaderContent.UPLOAD_FILE));
-    const { data, error } = await dispatch(uploadFileAPI(assetType, fileBlob, orgUuid));
-    if (error.code) {
-      throw new APIError(error.message);
-    }
-    dispatch(loaderActions.stopAppLoader());
-    return data;
-  } catch (error) {
-    dispatch(loaderActions.stopAppLoader());
-    throw error;
-  }
-};
 
 const payloadForSubmit = organization => {
   // prettier-ignore
-  const { id, uuid, duns, name, type, website, shortDescription, longDescription, metadataIpfsUri,
+  const { id, uuid,duns, name, type, website, shortDescription, longDescription, metadataIpfsUri,
     contacts, assets, ownerFullName, orgAddress } = organization;
   const { hqAddress, mailingAddress, sameMailingAddress } = orgAddress;
 
@@ -124,12 +100,7 @@ const payloadForSubmit = organization => {
         },
       ],
     },
-    assets: {
-      hero_image: {
-        url: organization.assets.heroImage.url,
-        ipfs_uri: organization.assets.heroImage.ipfsUri || "",
-      },
-    },
+    assets: { hero_image: {} },
     ownerAddress: organization.ownerAddress,
   };
 
@@ -193,6 +164,7 @@ export const getStatus = async dispatch => {
       mailingAddress: !mailingAddressData
         ? {}
         : {
+            street_address: mailingAddressData.street_address,
             apartment: mailingAddressData.apartment,
             city: mailingAddressData.city,
             zip: mailingAddressData.pincode,
@@ -215,12 +187,6 @@ export const getStatus = async dispatch => {
     duns: selectedOrg.duns_no,
     contacts: selectedOrg.contacts,
     orgAddress: parseOrgAddress(),
-    assets: {
-      heroImage: {
-        url: selectedOrg.assets.hero_image.url,
-        ipfsUri: selectedOrg.assets.hero_image.ipfs_uri,
-      },
-    },
   };
 
   if (selectedOrg.assets && selectedOrg.assets.hero_image && selectedOrg.assets.hero_image.url) {
@@ -306,13 +272,11 @@ export const createOrganization = organization => async dispatch => {
   try {
     dispatch(loaderActions.startAppLoader(LoaderContent.ORG_SETUP_CREATE));
     const payload = payloadForSubmit(organization);
-    payload.groups = [];
-    const { status, data, error } = await dispatch(createOrganizationAPI(payload));
+    const { status, error } = await dispatch(createOrganizationAPI(payload));
     if (status !== responseStatus.SUCCESS) {
       throw new APIError(error.message);
     }
     dispatch(loaderActions.stopAppLoader());
-    return data;
   } catch (error) {
     dispatch(loaderActions.stopAppLoader());
     throw error;
@@ -425,9 +389,9 @@ export const publishOrganizationInBlockchain = (organization, metadataIpfsUri, h
     const orgMetadataURI = metadataIpfsUri;
     const OrganizationDetailsFromBlockChain = await sdk._registryContract.getOrganizationById(orgId).call();
     if (!OrganizationDetailsFromBlockChain.found) {
-      return await dispatch(registerOrganizationInBlockChain(organization, orgMetadataURI, history));
+      return await dispatch(registerOrganizationInBlockChain(orgId, orgMetadataURI, history));
     }
-    return await dispatch(updateOrganizationInBlockChain(organization, orgMetadataURI, history));
+    return await dispatch(updateOrganizationInBlockChain(orgId, orgMetadataURI, history));
   } catch (error) {
     dispatch(loaderActions.stopAppLoader());
     throw error;

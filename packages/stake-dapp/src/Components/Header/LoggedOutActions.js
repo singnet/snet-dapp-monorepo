@@ -1,21 +1,17 @@
 import React, { Fragment } from "react";
 import { useHistory } from "react-router-dom";
-import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
 
-import { useStyles } from "./styles";
+import SNETButton from "shared/dist/components/SNETButton";
 import { GlobalRoutes } from "../../GlobalRouter/Routes";
 
-const LoggedOutActions = ({ classes }) => {
+const LoggedOutActions = () => {
   const history = useHistory();
 
   return (
     <Fragment>
-      <Typography onClick={() => history.push(GlobalRoutes.LOGIN.path)} className={classes.loginBtn}>
-        Login{" "}
-      </Typography>
+      <SNETButton children="login" color="primary" onClick={() => history.push(GlobalRoutes.LOGIN.path)} />
     </Fragment>
   );
 };
 
-export default withStyles(useStyles)(LoggedOutActions);
+export default LoggedOutActions;

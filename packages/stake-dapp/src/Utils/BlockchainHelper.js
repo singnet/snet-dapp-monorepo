@@ -1,6 +1,8 @@
 import Web3 from "web3";
 import tokenABI from "singularitynet-token-contracts/abi/SingularityNetToken.json";
 import tokenNetworks from "singularitynet-token-contracts/networks/SingularityNetToken.json";
+//import stakingNetworks from "singularitynet-rfai-contracts/networks/ServiceRequest";
+//import stakingABI from "singularitynet-rfai-contracts/abi/ServiceRequest";
 
 import stakingNetworks from "./TokenStake/networks/TokenStake";
 import stakingABI from "./TokenStake/abi/TokenStake";
@@ -106,10 +108,11 @@ export const submitStake = (metamaskDetails, stakeAmount, autoRenewal) => {
 
   const ethereum = window.ethereum;
   window.web3 = new window.Web3(ethereum);
+
   const stakingInstance = window.web3.eth.contract(stakingABI).at(stakingContractAddress);
 
   return new Promise((resolve, reject) => {
-    stakingInstance.submitStake(stakeAmount.toString(), autoRenewal, { from: accountAddress }, (err, hash) => {
+    stakingInstance.submitStake(stakeAmount, autoRenewal, { from: accountAddress }, (err, hash) => {
       if (err) {
         reject(hash);
       }
@@ -128,7 +131,7 @@ export const approveStake = (metamaskDetails, staker, approvedAmount) => {
   const stakingInstance = window.web3.eth.contract(stakingABI).at(stakingContractAddress);
 
   return new Promise((resolve, reject) => {
-    stakingInstance.approveStake(staker, approvedAmount.toString(), { from: accountAddress }, (err, hash) => {
+    stakingInstance.approveStake(staker, approvedAmount, { from: accountAddress }, (err, hash) => {
       if (err) {
         reject(hash);
       }
@@ -156,7 +159,7 @@ export const rejectStake = (metamaskDetails, stakeMapIndex, staker) => {
   });
 };
 
-export const updateAutoRenewal = (metamaskDetails, stakeMapIndex, autoRenew) => {
+export const requestForClaim = (metamaskDetails, stakeMapIndex, autoRenew) => {
   const stakingContractAddress = getStakingContractAddress();
   const accountAddress = metamaskDetails.account;
 
@@ -166,7 +169,7 @@ export const updateAutoRenewal = (metamaskDetails, stakeMapIndex, autoRenew) => 
   const stakingInstance = window.web3.eth.contract(stakingABI).at(stakingContractAddress);
 
   return new Promise((resolve, reject) => {
-    stakingInstance.updateAutoRenewal(stakeMapIndex, autoRenew, { from: accountAddress }, (err, hash) => {
+    stakingInstance.requestForClaim(stakeMapIndex, autoRenew, { from: accountAddress }, (err, hash) => {
       if (err) {
         reject(hash);
       }
@@ -195,7 +198,7 @@ export const claimStake = (metamaskDetails, stakeMapIndex) => {
 };
 
 // Only for Token Operator to withdraw Tokens from liquid pool
-export const withdrawToken = (metamaskDetails, amountBN) => {
+export const withdrawToken = (metamaskDetails, amount) => {
   const stakingContractAddress = getStakingContractAddress();
   const accountAddress = metamaskDetails.account;
 
@@ -205,7 +208,7 @@ export const withdrawToken = (metamaskDetails, amountBN) => {
   const stakingInstance = window.web3.eth.contract(stakingABI).at(stakingContractAddress);
 
   return new Promise((resolve, reject) => {
-    stakingInstance.withdrawToken(amountBN.toString(), { from: accountAddress }, (err, hash) => {
+    stakingInstance.withdrawToken(amount, { from: accountAddress }, (err, hash) => {
       if (err) {
         reject(hash);
       }
@@ -215,7 +218,7 @@ export const withdrawToken = (metamaskDetails, amountBN) => {
 };
 
 // Only for Token Operator to Deposit Tokens to liquid Pool
-export const depositToken = (metamaskDetails, amountBN) => {
+export const depositToken = (metamaskDetails, amount) => {
   const stakingContractAddress = getStakingContractAddress();
   const accountAddress = metamaskDetails.account;
 
@@ -225,7 +228,7 @@ export const depositToken = (metamaskDetails, amountBN) => {
   const stakingInstance = window.web3.eth.contract(stakingABI).at(stakingContractAddress);
 
   return new Promise((resolve, reject) => {
-    stakingInstance.depositToken(amountBN.toString(), { from: accountAddress }, (err, hash) => {
+    stakingInstance.depositToken(amount, { from: accountAddress }, (err, hash) => {
       if (err) {
         reject(hash);
       }
@@ -235,7 +238,7 @@ export const depositToken = (metamaskDetails, amountBN) => {
 };
 
 // Only for the token Operator
-export const autoRenewStake = (metamaskDetails, existingStakeMapIndex, staker, approvedAmountBN) => {
+export const autoRenewStake = (metamaskDetails, existingStakeMapIndex, staker, approvedAmount) => {
   const stakingContractAddress = getStakingContractAddress();
   const accountAddress = metamaskDetails.account;
 
@@ -248,7 +251,7 @@ export const autoRenewStake = (metamaskDetails, existingStakeMapIndex, staker, a
     stakingInstance.autoRenewStake(
       existingStakeMapIndex,
       staker,
-      approvedAmountBN.toString(),
+      approvedAmount,
       { from: accountAddress },
       (err, hash) => {
         if (err) {
@@ -260,7 +263,7 @@ export const autoRenewStake = (metamaskDetails, existingStakeMapIndex, staker, a
   });
 };
 
-export const renewStake = (metamaskDetails, existingStakeMapIndex, stakeAmountBN, autoRenewal) => {
+export const renewStake = (metamaskDetails, existingStakeMapIndex, stakeAmount, autoRenewal) => {
   const stakingContractAddress = getStakingContractAddress();
   const accountAddress = metamaskDetails.account;
 
@@ -272,7 +275,7 @@ export const renewStake = (metamaskDetails, existingStakeMapIndex, stakeAmountBN
   return new Promise((resolve, reject) => {
     stakingInstance.renewStake(
       existingStakeMapIndex,
-      stakeAmountBN.toString(),
+      stakeAmount,
       autoRenewal,
       { from: accountAddress },
       (err, hash) => {
@@ -285,7 +288,7 @@ export const renewStake = (metamaskDetails, existingStakeMapIndex, stakeAmountBN
   });
 };
 
-export const withdrawStake = (metamaskDetails, existingStakeMapIndex, stakeAmountBN) => {
+export const withdrawStake = (metamaskDetails, existingStakeMapIndex, stakeAmount) => {
   const stakingContractAddress = getStakingContractAddress();
   const accountAddress = metamaskDetails.account;
 
@@ -295,17 +298,32 @@ export const withdrawStake = (metamaskDetails, existingStakeMapIndex, stakeAmoun
   const stakingInstance = window.web3.eth.contract(stakingABI).at(stakingContractAddress);
 
   return new Promise((resolve, reject) => {
-    stakingInstance.withdrawStake(
-      existingStakeMapIndex,
-      stakeAmountBN.toString(),
-      { from: accountAddress },
-      (err, hash) => {
-        if (err) {
-          reject(hash);
-        }
-        resolve(hash);
+    stakingInstance.withdrawStake(existingStakeMapIndex, stakeAmount, { from: accountAddress }, (err, hash) => {
+      if (err) {
+        reject(hash);
       }
-    );
+      resolve(hash);
+    });
+  });
+};
+
+// Only for Token Operator
+export const enableOrDisableOperations = (metamaskDetails, disableOperations) => {
+  const stakingContractAddress = getStakingContractAddress();
+  const accountAddress = metamaskDetails.account;
+
+  const ethereum = window.ethereum;
+  window.web3 = new window.Web3(ethereum);
+
+  const stakingInstance = window.web3.eth.contract(stakingABI).at(stakingContractAddress);
+
+  return new Promise((resolve, reject) => {
+    stakingInstance.enableOrDisableOperations(disableOperations, { from: accountAddress }, (err, hash) => {
+      if (err) {
+        reject(hash);
+      }
+      resolve(hash);
+    });
   });
 };
 
@@ -344,25 +362,6 @@ export const updateOperator = (metamaskDetails, tokenOperator) => {
         reject(hash);
       }
       resolve(hash);
-    });
-  });
-};
-
-export const getStakeInfo = (metamaskDetails, stakeMapIndex) => {
-  const stakingContractAddress = getStakingContractAddress();
-  const accountAddress = metamaskDetails.account;
-
-  const ethereum = window.ethereum;
-  window.web3 = new window.Web3(ethereum);
-
-  const stakingInstance = window.web3.eth.contract(stakingABI).at(stakingContractAddress);
-
-  return new Promise((resolve, reject) => {
-    stakingInstance.getStakeInfo(stakeMapIndex, accountAddress, null, (err, result) => {
-      if (err) {
-        reject(result);
-      }
-      resolve(result);
     });
   });
 };

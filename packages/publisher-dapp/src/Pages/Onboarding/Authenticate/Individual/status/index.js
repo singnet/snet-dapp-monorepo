@@ -1,8 +1,9 @@
 import React from "react";
+// import { useSelector } from "react-redux";
 import { withStyles } from "@material-ui/styles";
+
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { useSelector } from "react-redux";
 
 import { useStyles } from "./styles";
 import { individualVerificationStatusList } from "../../../constant";
@@ -14,13 +15,12 @@ import RelatedLinks from "./RelatedLinks";
 const StatusComponents = {
   [individualVerificationStatusList.PENDING]: Pending,
   [individualVerificationStatusList.APPROVED]: Approved,
-  [individualVerificationStatusList.REJECTED]: Denied,
-  [individualVerificationStatusList.FAILED]: Denied,
-  [individualVerificationStatusList.ERROR]: Denied,
+  [individualVerificationStatusList.DENIED]: Denied,
 };
 
 const IndividualStatus = ({ classes }) => {
-  const status = useSelector(state => state.user.individualVerificationStatus);
+  // const status = useSelector(state => state.user.individualVerificationStatus);
+  const status = individualVerificationStatusList.DENIED;
 
   const Component = StatusComponents[status];
 

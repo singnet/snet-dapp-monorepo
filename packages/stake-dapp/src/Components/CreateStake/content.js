@@ -8,7 +8,7 @@ export const cardDetails = activeStake => [
   },
   {
     title: "Max Reward",
-    value: fromWei(Math.floor((activeStake.myStake * activeStake.rewardAmount) / activeStake.windowMaxCap)),
+    value: "TBD??",
     unit: "AGI",
   },
   {
@@ -61,7 +61,7 @@ export const withdrawStakeAmountDetails = activeStake => [
   },
   {
     title: "Total Max Reward",
-    amount: fromWei(Math.floor((activeStake.myStake * activeStake.rewardAmount) / activeStake.windowMaxCap)),
+    amount: "TBD??",
   },
   {
     title: "Current Pool Size",
@@ -80,7 +80,7 @@ export const addStakeAmountDetails = activeStake => [
   },
   {
     title: "Total Max Reward",
-    amount: fromWei(Math.floor((activeStake.myStake * activeStake.rewardAmount) / activeStake.windowMaxCap)),
+    amount: "TBD??",
   },
   {
     title: "Current Pool Size",

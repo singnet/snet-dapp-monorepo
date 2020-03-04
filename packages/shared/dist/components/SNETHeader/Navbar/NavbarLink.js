@@ -20,9 +20,9 @@ var NavbarLink = function NavbarLink(props) {
       label = props.label,
       openInNewTab = props.openInNewTab,
       to = props.to;
-  var classes = (0, _styles.useStyles)();
+  var classes = (0, _styles.useStyles)(props);
 
-  var isActive = function isActive(_unused, _ref) {
+  var isActive = function isActive(unused, _ref) {
     var pathname = _ref.pathname;
     return activeLinks.includes(pathname);
   };
