@@ -18,7 +18,6 @@ import { keyCodes } from "shared/dist/utils/keyCodes";
 const Settings = ({ classes, groups, group, groupIndex }) => {
   const [showAdvancedSettings, setShowAdvancedSettings] = useState(false);
   const [localEndpoints, setLocalEndpoints] = useState("");
-  const [tags, setTags] = useState("");
   const dispatch = useDispatch();
 
   const { name, paymentAddress, paymentConfig } = group;
@@ -64,13 +63,10 @@ const Settings = ({ classes, groups, group, groupIndex }) => {
   const handleAddEndpoints = event => {
     if (event.keyCode !== keyCodes.enter) {
       return setLocalEndpoints(event.target.value);
-    } else {
-      const localTags = tags;
-      setTags("");
-      event.preventDefault();
-      event.stopPropagation();
-      handleKeyEnterInTags(localTags);
     }
+    event.preventDefault();
+    event.stopPropagation();
+    handleKeyEnterInTags();
   };
 
   const handleDeleteEndpoints = endpoint => {
@@ -112,10 +108,8 @@ const Settings = ({ classes, groups, group, groupIndex }) => {
               icon
               name="id"
               label="ETCD Endpoint"
-              value={tags}
               description="Enter all the ETCD end points that will be used. separated by comma and press enter"
               onKeyUp={handleAddEndpoints}
-              onChange={e => setTags(e.target.value.toLowerCase())}
             />
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={12} className={classes.cardContainer}>
