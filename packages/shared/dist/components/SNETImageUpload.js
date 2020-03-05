@@ -1472,12 +1472,12 @@ SNETImageUpload.propTypes = {
   disableDownloadButton: _propTypes.default.bool,
   overlayInputImage: _propTypes.default.bool,
   inputTabTitle: _propTypes.default.string,
-  outputTabTitle: _propTypes.default.string,
+ outputTabTitle: _propTypes.default.string,
   comparisonTabTitle: _propTypes.default.string
 };
 SNETImageUpload.defaultProps = {
   tabHeight: 300,
-  imageName: "Content Image",
+//  imageName: "Content Image",
   disableUploadTab: false,
   // If true disables upload tab
   disableUrlTab: false,
@@ -1500,7 +1500,7 @@ SNETImageUpload.defaultProps = {
   infoTip: "",
   mainColor: _colors.blue,
   // Output mode props
-  displayModeTitle: "Result",
+ // displayModeTitle: "Result",
   outputImage: "",
   outputImageMimeType: undefined,
   outputImageName: "service-output",

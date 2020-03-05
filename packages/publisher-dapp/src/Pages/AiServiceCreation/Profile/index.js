@@ -228,19 +228,19 @@ const Profile = ({ classes, _location }) => {
           <div className={classes.addedTagsContainer}>
             <InfoIcon />
             <span>Added Tags</span>
-            <Card className={classes.card}>
-              {serviceDetails.tags.map(tag => (
-                <Chip
-                  disabled={serviceDetails.foundInBlockchain}
-                  className={classes.chip}
-                  key={tag}
-                  label={tag}
-                  color="primary"
-                  onDelete={() => handleDeleteTag(tag)}
-                />
-              ))}
-            </Card>
           </div>
+          <Card className={classes.card}>
+            {serviceDetails.tags.map(tag => (
+              <Chip
+                disabled={serviceDetails.foundInBlockchain}
+                className={classes.chip}
+                key={tag}
+                label={tag}
+                color="primary"
+                onDelete={() => handleDeleteTag(tag)}
+              />
+            ))}
+          </Card>
 
           <div className={classes.projUrlContainer}>
             <SNETTextfield
@@ -268,7 +268,7 @@ const Profile = ({ classes, _location }) => {
               <div className={classes.imgUploader}>
                 <SNETImageUpload
                   disableUrlTab
-                  imageName="service-hero-image"
+                  // imageName="service-hero-image"
                   imageDataFunc={handleImageChange}
                   outputImage={serviceDetails.assets.heroImage.url}
                   outputImageName="service_hero_image"

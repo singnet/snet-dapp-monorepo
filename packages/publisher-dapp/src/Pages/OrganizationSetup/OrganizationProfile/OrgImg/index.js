@@ -32,7 +32,7 @@ const OrgImg = ({ classes }) => {
         <Grid item xs={12} sm={6} md={6} lg={6} className={classes.orgProfileImg}>
           <SNETImageUpload
             disableUrlTab
-            imageName="org-hero-image"
+            //   imageName="org-hero-image"
             imageDataFunc={handleImageChange}
             outputImage={url}
             outputImageName="organization_hero_image"
@@ -41,7 +41,7 @@ const OrgImg = ({ classes }) => {
             disableInputTab={Boolean(url)}
             outputImageType="url"
           />
-          <Reset onReset={() => handleImageChange(null, null)} />
+          {url ? <Reset onReset={() => handleImageChange(null, null)} /> : null}
         </Grid>
         <Grid item xs={12} sm={6} md={6} lg={6} className={classes.previewContainer}>
           <Typography className={classes.previewText}>
