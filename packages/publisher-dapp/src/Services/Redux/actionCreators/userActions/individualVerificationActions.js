@@ -6,6 +6,7 @@ import { APIError } from "shared/dist/utils/API";
 import { loaderActions } from "../index";
 import { LoaderContent } from "../../../../Utils/Loader";
 import { startAppLoader, stopAppLoader } from "../loaderActions";
+import { verificationProviderType } from "../../../../Pages/Onboarding/Authenticate/Individual/content";
 
 export const SET_INDIVIDUAL_VERIFICATION_STATUS = "SET_INDIVIDUAL_VERIFICATION_STATUS";
 
@@ -18,7 +19,8 @@ export const initiateVerificationAPI = () => async dispatch => {
   const { token } = await dispatch(fetchAuthenticatedUser());
   const apiName = APIEndpoints.VERIFICATION.name;
   const apiPath = APIPaths.USER_VERIFICATION_INITIATE;
-  const apiOptions = initializeAPIOptions(token);
+  const body = { type: verificationProviderType.JUMIO };
+  const apiOptions = initializeAPIOptions(token, body);
   return await API.post(apiName, apiPath, apiOptions);
 };
 

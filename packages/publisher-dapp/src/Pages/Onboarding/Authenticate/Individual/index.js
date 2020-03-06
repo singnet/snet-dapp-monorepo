@@ -11,6 +11,7 @@ import { individualVerificationActions } from "../../../../Services/Redux/action
 import AlertBox, { alertTypes } from "shared/dist/components/AlertBox";
 import { checkIfKnownError } from "shared/src/utils/error";
 import { AuthenticateRoutes } from "../AuthenitcateRouter/Routes";
+import { individualVerificationStatusList } from "../../constant";
 
 class Individual extends Component {
   state = {
@@ -21,6 +22,13 @@ class Individual extends Component {
     await this.props.getVerificationStatus();
     this.props.history.push(AuthenticateRoutes.INDIVIDUAL_STATUS);
   };
+
+  componentDidUpdate(prevProps) {
+    const { status, history } = this.props;
+    if (prevProps.status !== status && status !== individualVerificationStatusList.NOT_STARTED) {
+      return history.push(AuthenticateRoutes.INDIVIDUAL_STATUS.path);
+    }
+  }
 
   handleVerify = async () => {
     try {
@@ -77,9 +85,13 @@ class Individual extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  status: state.user.individualVerificationStatus,
+});
+
 const mapDispatchToProps = dispatch => ({
   initiateVerification: () => dispatch(individualVerificationActions.initiateVerification()),
   getVerificationStatus: () => dispatch(individualVerificationActions.getVerificationStatus()),
 });
 
-export default connect(null, mapDispatchToProps)(withStyles(useStyles)(Individual));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(useStyles)(Individual));

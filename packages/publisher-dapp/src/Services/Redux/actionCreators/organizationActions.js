@@ -316,8 +316,8 @@ export const createOrganization = organization => async dispatch => {
     dispatch(loaderActions.startAppLoader(LoaderContent.ORG_SETUP_CREATE));
     const payload = payloadForSubmit(organization);
     payload.groups = [];
-    const { status, data, error } = await dispatch(createOrganizationAPI(payload));
-    if (status !== responseStatus.SUCCESS) {
+    const { data, error } = await dispatch(createOrganizationAPI(payload));
+    if (error.code) {
       throw new APIError(error.message);
     }
     dispatch(loaderActions.stopAppLoader());

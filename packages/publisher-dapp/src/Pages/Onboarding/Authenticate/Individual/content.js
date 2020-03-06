@@ -9,3 +9,7 @@ export const documentList = [
   "lorem ipsum",
   "lorem ipsum",
 ];
+
+export const verificationProviderType = {
+  JUMIO: "JUMIO",
+};

@@ -9,7 +9,7 @@ import { useStyles } from "./styles";
 import { OnboardingRoutes } from "./OnboardingRouter/Routes";
 import OnboardingRouter from "./OnboardingRouter";
 import Heading from "./Heading";
-import { organizationSetupStatuses } from "../../Utils/organizationSetup";
+import { organizationSetupStatuses, organizationTypes } from "../../Utils/organizationSetup";
 import { GlobalRoutes } from "../../GlobalRouter/Routes";
 import { AuthenticateRoutes } from "./Authenticate/AuthenitcateRouter/Routes";
 
@@ -18,10 +18,11 @@ const selectState = state => ({
   ownerEmail: state.organization.owner,
   orgStatus: state.organization.state.state,
   orgUuid: state.organization.uuid,
+  orgType: state.organization.type,
 });
 
 const Onboarding = ({ location, history, classes }) => {
-  const { email, ownerEmail, orgStatus, orgUuid } = useSelector(selectState);
+  const { email, ownerEmail, orgStatus, orgUuid, orgType } = useSelector(selectState);
 
   useEffect(() => {
     if (
@@ -31,13 +32,19 @@ const Onboarding = ({ location, history, classes }) => {
       email === ownerEmail &&
       orgStatus !== organizationSetupStatuses.PUBLISHED
     ) {
-      if (orgStatus === organizationSetupStatuses.ONBOARDING_REJECTED) {
-        if (location.pathname !== AuthenticateRoutes.ORGANIZATION.path) {
-          return history.push(AuthenticateRoutes.ORGANIZATION.path);
+      if (orgType === organizationTypes.INDIVIDUAL) {
+        if (location.pathname !== AuthenticateRoutes.INDIVIDUAL.path) {
+          return history.push(AuthenticateRoutes.INDIVIDUAL.path);
         }
-        return;
+      } else {
+        if (orgStatus === organizationSetupStatuses.ONBOARDING_REJECTED) {
+          if (location.pathname !== AuthenticateRoutes.ORGANIZATION.path) {
+            return history.push(AuthenticateRoutes.ORGANIZATION.path);
+          }
+          return;
+        }
+        history.push(GlobalRoutes.ORG_SETUP_STATUS.path.replace(":orgUuid", orgUuid));
       }
-      history.push(GlobalRoutes.ORG_SETUP_STATUS.path.replace(":orgUuid", orgUuid));
     }
   });
 
