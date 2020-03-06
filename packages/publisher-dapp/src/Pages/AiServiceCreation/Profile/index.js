@@ -227,7 +227,6 @@ const Profile = ({ classes, _location }) => {
           />
           <div className={classes.addedTagsContainer}>
             <InfoIcon />
-            <span>Added Tags</span>
             <Card className={classes.card}>
               {serviceDetails.tags.map(tag => (
                 <Chip

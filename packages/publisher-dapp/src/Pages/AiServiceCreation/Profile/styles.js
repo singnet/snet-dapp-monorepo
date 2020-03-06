@@ -113,15 +113,6 @@ export const useStyles = MUITheme => ({
       padding: "5px 10px 0 0",
       fontSize: 20,
     },
-    "& span": {
-      padding: "0 10px 0 10px",
-      top: 21,
-      left: 35,
-      color: MUITheme.palette.text.white,
-      fontSize: 12,
-      letterSpacing: 0.4,
-      lineHeight: "16px",
-    },
   },
   card: {
     boxSizing: "border-box",
