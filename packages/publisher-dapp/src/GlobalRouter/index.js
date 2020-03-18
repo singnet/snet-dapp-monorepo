@@ -49,6 +49,7 @@ class GlobalRouter extends React.Component {
 
 const mapStateToProps = state => ({
   isInitialized: state.user.isInitialized,
+  isLoggedIn: state.user.isLoggedIn,
 });
 
 const mapDispatchToProps = dispatch => ({

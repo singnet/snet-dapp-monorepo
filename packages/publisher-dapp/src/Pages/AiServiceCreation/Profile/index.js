@@ -82,23 +82,28 @@ const Profile = ({ classes }) => {
   };
 
   const handleSave = async () => {
+    const serviceName = serviceDetails.name;
+    const serviceId = serviceDetails.newId ? serviceDetails.newId : serviceDetails.id;
+
+    const isNotValid = validator({ serviceName, serviceId }, serviceProfileValidationConstraints);
+
+    if (isNotValid) {
+      throw new ValidationError(isNotValid[0]);
+    }
+    if (Boolean(serviceDetails.newId) && serviceDetails.availability !== serviceIdAvailability.AVAILABLE) {
+      throw new ValidationError("Service id is not available. Try with a different service id");
+    }
+    if (serviceDetails.touched) {
+      // Call API to save
+      await dispatch(aiServiceDetailsActions.saveServiceDetails(orgUuid, serviceDetails.uuid, serviceDetails));
+    }
+
+    return;
+  };
+
+  const handleContinue = async () => {
     try {
-      const serviceName = serviceDetails.name;
-      const serviceId = serviceDetails.newId ? serviceDetails.newId : serviceDetails.id;
-
-      const isNotValid = validator({ serviceName, serviceId }, serviceProfileValidationConstraints);
-
-      if (isNotValid) {
-        throw new ValidationError(isNotValid[0]);
-      }
-      if (Boolean(serviceDetails.newId) && serviceDetails.availability !== serviceIdAvailability.AVAILABLE) {
-        throw new ValidationError("Service id is not available. Try with a different service id");
-      }
-      if (serviceDetails.touch) {
-        // Call API to save
-        await dispatch(aiServiceDetailsActions.saveServiceDetails(orgUuid, serviceDetails.uuid, serviceDetails));
-      }
-
+      await handleSave();
       history.push(
         ServiceCreationRoutes.DEMO.path.replace(":orgUuid", orgUuid).replace(":serviceUuid", serviceDetails.uuid)
       );
@@ -108,13 +113,6 @@ const Profile = ({ classes }) => {
       }
       return setAlert({ type: alertTypes.ERROR, message: "something went wrong" });
     }
-  };
-
-  const handleContinue = async () => {
-    await handleSave();
-    history.push(
-      ServiceCreationRoutes.DEMO.path.replace(":orgUuid", orgUuid).replace(":serviceUuid", serviceDetails.uuid)
-    );
   };
 
   const handleAddTags = event => {
@@ -163,8 +161,15 @@ const Profile = ({ classes }) => {
   };
 
   const handleFinishLater = async () => {
-    await handleSave();
-    history.push(GlobalRoutes.SERVICES.path.replace(":orgUuid", orgUuid));
+    try {
+      await handleSave();
+      history.push(GlobalRoutes.SERVICES.path.replace(":orgUuid", orgUuid));
+    } catch (error) {
+      if (checkIfKnownError(error)) {
+        return setAlert({ type: alertTypes.ERROR, message: error.message });
+      }
+      return setAlert({ type: alertTypes.ERROR, message: "something went wrong" });
+    }
   };
 
   return (

@@ -19,6 +19,7 @@ const Organization = props => {
   const classes = useStyles();
   const { history } = props;
   const [alert, setAlert] = useState({});
+  const [allowDuns, setAllowDuns] = useState(false);
   const organization = useSelector(state => state.organization);
   const dispatch = useDispatch();
 
@@ -26,7 +27,7 @@ const Organization = props => {
     if (organization.state.state === organizationSetupStatuses.APPROVAL_PENDING) {
       history.push(GlobalRoutes.ORG_SETUP_STATUS.path.replace(":orgUuid", organization.uuid));
     }
-  });
+  }, [history, organization.state.state, organization.uuid]);
 
   useEffect(() => {
     if (organization.state.state === organizationSetupStatuses.ONBOARDING_REJECTED && !Boolean(alert.type)) {
@@ -50,11 +51,12 @@ const Organization = props => {
         throw new ValidationError(isNotValid[0]);
       }
       let orgUuid;
-      if (organization.state.state === organizationSetupStatuses.ONBOARDING_REJECTED) {
-        const data = await dispatch(organizationActions.finishLater(organization, "ONBOARDING"));
+      const orgData = { ...organization, duns: allowDuns ? organization.duns : "" };
+      if (orgData.state.state === organizationSetupStatuses.ONBOARDING_REJECTED) {
+        const data = await dispatch(organizationActions.finishLater(orgData, "ONBOARDING"));
         orgUuid = data.org_uuid;
       } else {
-        const data = await dispatch(organizationActions.createOrganization(organization));
+        const data = await dispatch(organizationActions.createOrganization(orgData));
         orgUuid = data.org_uuid;
       }
       dispatch(organizationActions.setOrganizationStatus(organizationSetupStatuses.ONBOARDING));
@@ -84,7 +86,7 @@ const Organization = props => {
           <Typography>
             Please provide your company organization details and your DUNS number for the verification process.
           </Typography>
-          <BasicDetails />
+          <BasicDetails allowDuns={allowDuns} setAllowDuns={setAllowDuns} />
           <CompanyAddress />
           <div className={classes.alertBoxContainer}>
             <AlertBox type={alert.type} message={alert.message} />

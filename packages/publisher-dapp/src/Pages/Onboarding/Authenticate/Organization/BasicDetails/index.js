@@ -17,7 +17,7 @@ import { organizationActions } from "../../../../../Services/Redux/actionCreator
 import { ContactsTypes } from "../../../../../Utils/Contacts";
 import { orgProfileValidationConstraints } from "../../../../OrganizationSetup/OrganizationProfile/validationConstraints";
 
-const BasicDetails = () => {
+const BasicDetails = ({ allowDuns, setAllowDuns }) => {
   const classes = useStyles();
   const { id, name, website, duns, contacts } = useSelector(state => state.organization);
   const contact = contacts.find(el => el.type === ContactsTypes.GENERAL);
@@ -62,8 +62,11 @@ const BasicDetails = () => {
       <SNETTextField {...basicDetailsFormData.ORG_ID} value={id} onChange={handleChange} />
       <SNETTextField {...basicDetailsFormData.ORGANIZATION_NAME} value={name} onChange={handleChange} />
       <div className={classes.dunsContainer}>
-        <FormControlLabel control={<Checkbox color="primary" />} label="I have my DUNS number" />
-        <SNETTextField {...basicDetailsFormData.DUNS} value={duns} onChange={handleChange} />
+        <FormControlLabel
+          control={<Checkbox color="primary" checked={allowDuns} onChange={e => setAllowDuns(e.target.checked)} />}
+          label="I have my DUNS number"
+        />
+        <SNETTextField {...basicDetailsFormData.DUNS} value={duns} onChange={handleChange} disabled={!allowDuns} />
       </div>
       <div className={classes.websiteUrlContainer}>
         <SNETTextField {...basicDetailsFormData.WEBSITE} value={website} onChange={handleChange} />
