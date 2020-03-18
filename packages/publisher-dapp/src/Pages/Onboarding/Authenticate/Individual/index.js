@@ -4,6 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 
+import JumioLogo from "shared/dist/assets/images/jumio.png";
 import SNETButton from "shared/dist/components/SNETButton";
 import { documentList } from "./content";
 import { useStyles } from "./styles";
@@ -12,6 +13,9 @@ import AlertBox, { alertTypes } from "shared/dist/components/AlertBox";
 import { checkIfKnownError } from "shared/src/utils/error";
 import { AuthenticateRoutes } from "../AuthenitcateRouter/Routes";
 import { individualVerificationStatusList } from "../../constant";
+import { getEmailDomain } from "../../../../Utils/validation";
+
+const domainsToBeAutoApproved = ["singularitynet.io"];
 
 class Individual extends Component {
   state = {
@@ -35,7 +39,13 @@ class Individual extends Component {
 
   handleVerify = async () => {
     try {
-      const { redirect_url: redirectUrl } = await this.props.initiateVerification();
+      const { history, initiateVerification, setStatus } = this.props;
+      const { redirect_url: redirectUrl } = await initiateVerification();
+      const userDomain = getEmailDomain(this.props.userEmail);
+      if (domainsToBeAutoApproved.includes(userDomain)) {
+        await setStatus(individualVerificationStatusList.APPROVED);
+        return history.push(AuthenticateRoutes.INDIVIDUAL_STATUS.path);
+      }
       await window.location.replace(redirectUrl);
     } catch (e) {
       if (checkIfKnownError(e)) {
@@ -64,7 +74,7 @@ class Individual extends Component {
               </Typography>
             </Grid>
             <Grid item sx={12} sm={12} md={4} lg={4} className={classes.jumioLogo}>
-              <img src="http://placehold.it/180x63" alt="Jumio" />
+              <img src={JumioLogo} alt="Jumio" />
             </Grid>
           </Grid>
           <Grid item sx={12} sm={12} md={12} lg={12} className={classes.docListSection}>
@@ -92,11 +102,13 @@ class Individual extends Component {
 
 const mapStateToProps = state => ({
   status: state.user.individualVerificationStatus,
+  userEmail: state.user.email,
 });
 
 const mapDispatchToProps = dispatch => ({
   initiateVerification: () => dispatch(individualVerificationActions.initiateVerification()),
   getVerificationStatus: () => dispatch(individualVerificationActions.getVerificationStatus()),
+  setStatus: status => dispatch(individualVerificationActions.setIndividualVerificationStatus(status)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(useStyles)(Individual));

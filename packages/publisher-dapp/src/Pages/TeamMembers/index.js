@@ -79,9 +79,13 @@ class TeamMembers extends Component {
       const allEmails = this.state.textareaValue.split(",");
       validateIfEmailAlreadyExists(allEmails);
       await this.props.inviteMembers(allEmails, this.props.match.params.orgUuid);
-      this.setState({
-        inviteMembersAlert: { type: alertTypes.SUCCESS, message: "Members have been successfully invited" },
-      });
+      this.setState(
+        { inviteMembersAlert: { type: alertTypes.SUCCESS, message: "Members have been successfully invited" } },
+        () =>
+          setTimeout(() => {
+            this.setState({ inviteMembersAlert: {} });
+          }, 3000)
+      );
       this.handleInviteMembersClose();
     } catch (error) {
       if (checkIfKnownError(error)) {
@@ -134,7 +138,7 @@ class TeamMembers extends Component {
             <span>Back to Home </span>
           </div>
         </Grid>
-        <Grid item xs={12} sm={12} md={9} lg={9}>
+        <Grid item xs={12} sm={12} md={7} lg={7} className={classes.rightSideSection}>
           <div className={classes.topSection}>
             <div className={classes.topSectionContent}>
               <Typography variant="h3">{TopSectionContent.title}</Typography>

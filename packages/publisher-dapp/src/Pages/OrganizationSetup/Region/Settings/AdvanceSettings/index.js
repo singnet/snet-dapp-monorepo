@@ -54,7 +54,7 @@ const AdvanceSettings = ({ classes, show, groups, group, groupIndex, foundInBloc
         value={paymentExpirationThreshold}
         label="Expiration Threashold"
         onChange={handleThresholdChange}
-        description="Lorem ipsum dolor sit amet, pri no agam elit salutatus. An duo odio idque. "
+        description="Time in block numbers for the channel to expire"
         disabled={foundInBlockchain}
       />
       <SNETTextfield
@@ -63,7 +63,7 @@ const AdvanceSettings = ({ classes, show, groups, group, groupIndex, foundInBloc
         value={connectionTimeout}
         label="Client Connection Timeout"
         onChange={handleTimeoutChange}
-        description="Lorem ipsum dolor sit amet, summo dicnu debitis ea has, prompta tacimates eam an."
+        description="Time period within which a connection between a client and the storage server must be established"
       />
       <SNETTextfield
         icon
@@ -71,7 +71,7 @@ const AdvanceSettings = ({ classes, show, groups, group, groupIndex, foundInBloc
         value={requestTimeout}
         label="Client Request Timeout"
         onChange={handleTimeoutChange}
-        description="At debitis luptatum eam, sit eu eirmod prompta necessitatibus, in vis ferri postea. Aliquam iudicabit."
+        description="Time period within which a request needs to be completed."
       />
     </Fragment>
   );

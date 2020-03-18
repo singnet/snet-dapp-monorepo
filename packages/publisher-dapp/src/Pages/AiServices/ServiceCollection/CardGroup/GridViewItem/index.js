@@ -20,7 +20,7 @@ const GridViewItem = ({
   classes,
   orgImg,
   cardTitle,
-  cardMedia,
+  serviceImg,
   cardDescription,
   title,
   cardSubheader,
@@ -41,7 +41,7 @@ const GridViewItem = ({
         title={truncate(cardTitle, { length: GridViewHeaderLength })}
         subheader={cardSubheader}
       />
-      <CardMedia className={classes.CardMedia} image={cardMedia || CardImg} title={title} />
+      <CardMedia className={classes.CardMedia} image={serviceImg || CardImg} title={title} />
       <CardContent className={classes.cardContent}>
         <div className={classes.ratingSection}>
           <StarRatingComponent

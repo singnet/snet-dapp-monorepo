@@ -43,6 +43,7 @@ const Region = () => {
     if (event.keyCode !== keyCodes.enter) {
       return;
     }
+    dispatch(aiServiceDetailsActions.setServiceTouchedFlag(true));
     const newEndpoints = endpointRef.current.value;
     const updatedEndpoints = [...selectedServiceGroup.endpoints];
     const userInputEndpoints = newEndpoints.split(",");
@@ -63,6 +64,7 @@ const Region = () => {
   };
 
   const handleEndpointDelete = endpoint => {
+    dispatch(aiServiceDetailsActions.setServiceTouchedFlag(true));
     const index = selectedServiceGroup.endpoints.findIndex(el => el === endpoint);
     const updatedEndpoints = [...selectedServiceGroup.endpoints];
     updatedEndpoints.splice(index, 1);
@@ -75,6 +77,7 @@ const Region = () => {
     if (event.keyCode !== keyCodes.enter) {
       return;
     }
+    dispatch(aiServiceDetailsActions.setServiceTouchedFlag(true));
     const newEndpoints = testEndpointRef.current.value;
     const updatedEndpoints = [...selectedServiceGroup.testEndpoints];
     const userInputEndpoints = newEndpoints.split(",");
@@ -95,6 +98,7 @@ const Region = () => {
   };
 
   const handleTestEndpointDelete = endpoint => {
+    dispatch(aiServiceDetailsActions.setServiceTouchedFlag(true));
     const index = selectedServiceGroup.testEndpoints.findIndex(el => el === endpoint);
     const updatedEndpoints = [...selectedServiceGroup.testEndpoints];
     updatedEndpoints.splice(index, 1);
@@ -105,6 +109,7 @@ const Region = () => {
 
   const handleFreeCallsChange = event => {
     const { value } = event.target;
+    dispatch(aiServiceDetailsActions.setServiceTouchedFlag(true));
     const updatedServiceGroups = [...serviceGroups];
     updatedServiceGroups[0] = { ...selectedServiceGroup, freeCallsAllowed: value };
     dispatch(aiServiceDetailsActions.setAiServiceGroups(updatedServiceGroups));
@@ -113,6 +118,7 @@ const Region = () => {
 
   const handlePriceChange = event => {
     const { value } = event.target;
+    dispatch(aiServiceDetailsActions.setServiceTouchedFlag(true));
     const updatedServicePricing = [...selectedServiceGroup.pricing];
     updatedServicePricing[0] = { ...selectedServicePricing, priceInCogs: value };
     const updatedServiceGroups = [...serviceGroups];

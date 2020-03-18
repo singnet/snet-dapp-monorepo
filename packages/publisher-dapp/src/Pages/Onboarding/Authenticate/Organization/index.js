@@ -24,7 +24,7 @@ const Organization = props => {
 
   useEffect(() => {
     if (organization.state.state === organizationSetupStatuses.APPROVAL_PENDING) {
-      history.push(GlobalRoutes.ORG_SETUP_STATUS.path.replace("orgUuid", organization.uuid));
+      history.push(GlobalRoutes.ORG_SETUP_STATUS.path.replace(":orgUuid", organization.uuid));
     }
   });
 
@@ -80,12 +80,16 @@ const Organization = props => {
     <Fragment>
       <div className={classes.box}>
         <Typography variant="h6">Organization Verification Required</Typography>
-        <Typography>
-          You need to provide your company organization details and your DUNS number for the verification process.
-        </Typography>
-        <BasicDetails />
-        <CompanyAddress />
-        <AlertBox type={alert.type} message={alert.message} />
+        <div className={classes.wrapper}>
+          <Typography>
+            Please provide your company organization details and your DUNS number for the verification process.
+          </Typography>
+          <BasicDetails />
+          <CompanyAddress />
+          <div className={classes.alertBoxContainer}>
+            <AlertBox type={alert.type} message={alert.message} />
+          </div>
+        </div>
       </div>
       <div className={classes.buttonsContainer}>
         <SNETButton color="primary" children="cancel" onClick={handleCancel} />

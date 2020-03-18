@@ -16,8 +16,12 @@ export const useStyles = MUITheme => ({
       margin: "48px 25px 0",
     },
   },
-  acceptedInvitationContent: { padding: "16px 22px 37px" },
+  acceptedInvitationContent: {
+    padding: "16px 24px 37px",
+    "& h6": { paddingBottom: 14 },
+  },
   actionContainer: {
+    marginTop: 15,
     display: "flex",
     alignItems: "center",
     "& button": { marginLeft: 30 },
@@ -47,5 +51,8 @@ export const useStyles = MUITheme => ({
       },
     },
     [MUITheme.breakpoints.down("sm")]: { width: "100%" },
+  },
+  metamaskAddBtn: {
+    "& button": { marginTop: -15 },
   },
 });

@@ -18,17 +18,17 @@ class MetaMaskAccountBalance extends Component {
     };
   }
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     const {
-      metamaskDetails,
       updateTokenBalance,
       updateTokenAllowance,
       fetchUserStakeBalanceFromBlockchain,
+      metamaskDetails,
     } = this.props;
 
-    updateTokenBalance(metamaskDetails);
-    updateTokenAllowance(metamaskDetails);
-    fetchUserStakeBalanceFromBlockchain(metamaskDetails);
+    await updateTokenBalance(metamaskDetails);
+    await updateTokenAllowance(metamaskDetails);
+    await fetchUserStakeBalanceFromBlockchain(metamaskDetails);
   };
 
   render() {

@@ -18,7 +18,11 @@ var useStyles = (0, _styles.makeStyles)(function (MUITheme) {
         background: "#fff",
         color: MUITheme.palette.text.darkGrey,
         fontSize: 12,
-        letterSpacing: 0.4
+        letterSpacing: 0.4,
+        transform: 'translate(14px, -6px) scale(0.90)'.concat(" !important")
+      },
+      "& .MuiOutlinedInput-notchedOutline": {
+        borderColor: MUITheme.palette.border.inputBorder
       }
     },
     selectEmpty: {

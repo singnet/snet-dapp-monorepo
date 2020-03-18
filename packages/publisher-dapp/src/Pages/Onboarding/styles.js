@@ -3,7 +3,6 @@ export const useStyles = MUITheme => ({
     padding: "40px",
     backgroundColor: MUITheme.palette.background.mainContent,
     "& ul": {
-      justifyContent: "center",
       "& li": {
         "&:before": {
           marginLeft: 16,
@@ -14,7 +13,6 @@ export const useStyles = MUITheme => ({
           "@media(max-width:470px)": { display: "none" },
         },
       },
-      "@media(max-width:470px)": { alignItems: "flex-start" },
     },
   },
   topSection: {
@@ -22,7 +20,7 @@ export const useStyles = MUITheme => ({
     "& h3": { marginBottom: 15 },
     "& span": {
       color: MUITheme.palette.text.primary,
-      fontFamily: MUITheme.typography.main,
+      fontFamily: MUITheme.typography.fontFamily,
       fontSize: 20,
       fontWeight: 300,
       lineHeight: "28px",

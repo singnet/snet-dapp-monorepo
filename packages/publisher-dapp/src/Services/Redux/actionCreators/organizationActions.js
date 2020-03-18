@@ -170,14 +170,9 @@ const getStatusAPI = () => async dispatch => {
   return await API.get(apiName, apiPath, apiOptions);
 };
 
-export const getStatus = async dispatch => {
-  const { data } = await dispatch(getStatusAPI());
-  if (isEmpty(data)) {
-    return data;
-  }
+const selectOrg = data => data[0];
 
-  const selectedOrg = data[0];
-
+const parseOrgData = selectedOrg => {
   const parseOrgAddress = () => {
     const { mail_address_same_hq_address, addresses } = selectedOrg.org_address;
     const mailingAddressData = addresses.find(el => el.address_type === addressTypes.MAILING);
@@ -247,6 +242,17 @@ export const getStatus = async dispatch => {
     }));
     organization.groups = parsedGroups;
   }
+
+  return organization;
+};
+
+export const getStatus = async dispatch => {
+  const { data } = await dispatch(getStatusAPI());
+  if (isEmpty(data)) {
+    return data;
+  }
+  const selectedOrg = selectOrg(data);
+  const organization = parseOrgData(selectedOrg);
   const OrganizationDetailsFromBlockChain = await findOrganizationInBlockchain(organization.id);
   dispatch(setAllAttributes(organization));
   dispatch(setOrgFoundInBlockchain(OrganizationDetailsFromBlockChain.found));
@@ -318,6 +324,9 @@ export const createOrganization = organization => async dispatch => {
     if (error.code) {
       throw new APIError(error.message);
     }
+    const createdOrganization = parseOrgData(data);
+    dispatch(setAllAttributes(createdOrganization));
+    dispatch(setOrgFoundInBlockchain(false));
     dispatch(loaderActions.stopAppLoader());
     return data;
   } catch (error) {

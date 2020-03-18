@@ -16,7 +16,8 @@ import Card from "../StakeSession/Card";
 import InfoBox from "../StakeSession/InfoBox";
 import { LoaderContent } from "../../Utils/Loader";
 import { loaderActions } from "../../Services/Redux/actionCreators";
-import { waitForTransaction, claimStake } from "../../Utils/BlockchainHelper";
+import { waitForTransaction, claimStake, withdrawStake } from "../../Utils/BlockchainHelper";
+import { toBigNumber } from "../../Utils/GenHelperFunctions";
 
 import InlineLoader from "../InlineLoader";
 
@@ -70,9 +71,36 @@ const ClaimStake = () => {
     }
   };
 
-  const handleClick = async (btnAction, stakeMapIndex) => {
+  const initiateWithdrawStake = async (stakeMapIndex, pendingForApprovalAmountBN) => {
+    let txHash;
+    try {
+      // Initiate the Withdraw Stake Operation
+      txHash = await withdrawStake(metamaskDetails, stakeMapIndex, pendingForApprovalAmountBN);
+
+      setAlert({ [stakeMapIndex]: { type: alertTypes.INFO, message: "Transaction is in Progress" } });
+
+      dispatch(loaderActions.startAppLoader(LoaderContent.WITHDRAW_STAKE));
+
+      await waitForTransaction(txHash);
+
+      setAlert({
+        [stakeMapIndex]: { type: alertTypes.SUCCESS, message: "Transaction has been completed successfully" },
+      });
+
+      dispatch(loaderActions.stopAppLoader());
+    } catch (err) {
+      setAlert({ [stakeMapIndex]: { type: alertTypes.ERROR, message: "Transaction has failed." } });
+      dispatch(loaderActions.stopAppLoader());
+    }
+  };
+
+  const handleClick = async (btnAction, stakeMapIndex, stakeDetails) => {
     if (btnAction === "reStake") {
       alert("reStake Coming Soon... Stay Tuned...");
+    }
+
+    if (btnAction === "withdrawStake") {
+      await initiateWithdrawStake(stakeMapIndex, toBigNumber(stakeDetails.pendingForApprovalAmount));
     }
 
     if (btnAction === "claimStake") {
@@ -80,7 +108,7 @@ const ClaimStake = () => {
     }
   };
 
-  const disableUserStakeActions = stakeDetails => {
+  const disableUserStakeActions = (btnAction, stakeDetails) => {
     const currentTimestamp = moment().unix();
 
     // Check for Metamask Connection
@@ -88,21 +116,41 @@ const ClaimStake = () => {
       return true;
     }
 
+    if (btnAction === "reStake") {
+      // Comming soon feature....
+      return true;
+    }
+
+    // Check Withdraw Stake in case if there is no action from the operator
+    if (btnAction === "withdrawStake") {
+      if (currentTimestamp > stakeDetails.approvalEndPeriod && stakeDetails.pendingForApprovalAmount !== 0)
+        return false;
+      else return true;
+    }
+
     // Check if the Stake is in Submission Phase and Not Open For external
-    if (
-      currentTimestamp > stakeDetails.startPeriod &&
-      currentTimestamp < stakeDetails.submissionEndPeriod &&
-      stakeDetails.openForExternal === false
-    ) {
-      return true;
+    if (btnAction === "claimStake") {
+      // Check for the Claim Actions
+      const gracePeriod =
+        parseInt(stakeDetails.endPeriod) + parseInt(stakeDetails.endPeriod - stakeDetails.requestWithdrawStartPeriod);
+
+      if (
+        stakeDetails.autoRenewal === false &&
+        currentTimestamp > stakeDetails.endPeriod &&
+        stakeDetails.approvedAmount !== 0
+      ) {
+        return false;
+      } else if (
+        stakeDetails.autoRenewal === true &&
+        currentTimestamp > gracePeriod &&
+        stakeDetails.approvedAmount !== 0
+      ) {
+        return false;
+      } else {
+        return true;
+      }
     }
 
-    // Check for the Claim Actions
-    const gracePeriod = stakeDetails.endPeriod + (stakeDetails.endPeriod - stakeDetails.requestWithdrawStartPeriod);
-
-    if (currentTimestamp > stakeDetails.endPeriod && currentTimestamp < gracePeriod) {
-      return true;
-    }
     return false;
   };
 
@@ -138,8 +186,8 @@ const ClaimStake = () => {
                   children={button.text}
                   color={button.color}
                   variant={button.variant}
-                  onClick={_e => handleClick(button.action, stake.stakeMapIndex)}
-                  disabled={disableUserStakeActions(stake)}
+                  onClick={_e => handleClick(button.action, stake.stakeMapIndex, stake)}
+                  disabled={disableUserStakeActions(button.action, stake)}
                 />
               ))}
             </div>

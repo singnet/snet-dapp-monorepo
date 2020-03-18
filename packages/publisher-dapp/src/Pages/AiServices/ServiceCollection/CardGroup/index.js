@@ -13,9 +13,10 @@ import { ServiceCreationRoutes } from "../../../AiServiceCreation/ServiceCreatio
 
 const CardGroup = () => {
   const classes = useStyles();
-  const { isLoading, serviceList } = useSelector(state => ({
+  const { isLoading, serviceList, orgImg } = useSelector(state => ({
     isLoading: state.loader.aiServiceList.isLoading,
     serviceList: state.aiServiceList.data,
+    orgImg: state.organization.assets.heroImage.url,
   }));
   const { orgUuid } = useParams();
   const [isAvailable] = useState(true);
@@ -44,6 +45,8 @@ const CardGroup = () => {
               totalRating={service.rating.totalUsersRated}
               cardDescription={service.shortDescription}
               isAvailable={isAvailable}
+              orgImg={orgImg}
+              serviceImg={service.heroImage.url}
             />
           </Link>
         </Grid>

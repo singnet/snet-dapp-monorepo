@@ -13,7 +13,7 @@ import UserStake from "../UserStake";
 import ClaimStake from "../ClaimStake";
 import StakeTransitions from "../StakeTransitions";
 import { useStyles } from "./styles";
-import { stakeActions } from "../../Services/Redux/actionCreators";
+import { stakeActions, userActions } from "../../Services/Redux/actionCreators";
 
 class StakeTab extends Component {
   constructor(props) {
@@ -24,12 +24,21 @@ class StakeTab extends Component {
   }
 
   componentDidMount = () => {
-    const { metamaskDetails, fetchCurrentActiveStakeWindow, fetchActiveStakes, fetchClaimStakes } = this.props;
+    const {
+      metamaskDetails,
+      fetchCurrentActiveStakeWindow,
+      fetchActiveStakes,
+      fetchClaimStakes,
+      getUserPreferences,
+    } = this.props;
 
     // Initiate the Fetch Calls
     fetchCurrentActiveStakeWindow(metamaskDetails);
     fetchActiveStakes(metamaskDetails);
     fetchClaimStakes(metamaskDetails);
+
+    // Get the User Preferences
+    getUserPreferences();
   };
 
   componentDidUpdate = async (prevProps, _prevState) => {
@@ -123,6 +132,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(stakeActions.fetchCurrentActiveStakeWindow(metamaskDetails)),
   fetchActiveStakes: metamaskDetails => dispatch(stakeActions.fetchActiveStakes(metamaskDetails)),
   fetchClaimStakes: metamaskDetails => dispatch(stakeActions.fetchClaimStakes(metamaskDetails)),
+  getUserPreferences: () => dispatch(userActions.preferenceActions.getUserPreferences()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(useStyles)(StakeTab));

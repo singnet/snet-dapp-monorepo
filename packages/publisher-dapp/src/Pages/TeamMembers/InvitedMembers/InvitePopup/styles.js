@@ -8,7 +8,8 @@ export const useStyles = MUITheme => ({
       borderBottomWidth: 1,
       borderBottomStyle: "solid",
       borderBottomColor: MUITheme.palette.border.primary,
-      marginBottom: 23,
+      marginBottom: 35,
+      fontWeight: 400,
     },
     [MUITheme.breakpoints.down("xs")]: {
       width: "auto",
@@ -30,4 +31,5 @@ export const useStyles = MUITheme => ({
     padding: "31px 22px",
     justifyContent: "center",
   },
+  alertContainer: { padding: "15px 22px 0" },
 });

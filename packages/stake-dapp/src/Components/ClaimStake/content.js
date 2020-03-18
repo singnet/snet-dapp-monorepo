@@ -24,7 +24,7 @@ const computeReward = stakeDetails => {
 export const cardDetails = stakeDetails => [
   {
     title: "Claim Account",
-    value: fromWei(stakeDetails.approvedAmount),
+    value: parseInt(fromWei(stakeDetails.approvedAmount)) + parseInt(fromWei(stakeDetails.pendingForApprovalAmount)),
     unit: "AGI",
   },
   {
@@ -61,6 +61,12 @@ export const btnDetails = [
   //   variant: "text",
   //   text: "re-stake",
   // },
+  {
+    action: "withdrawStake",
+    color: "primary",
+    variant: "contained",
+    text: "widthdraw stake",
+  },
   {
     action: "claimStake",
     color: "primary",

@@ -85,7 +85,13 @@ const Settings = ({ classes, groups, group, groupIndex, foundInBlockchain }) => 
   return (
     <div className={classes.settingsContainer}>
       <div className={classes.dropDownBtn}>
-        <StyledDropdown name="id" value={name} labelTxt="Groups / Region" list={[{ value: name, label: name }]} />
+        <StyledDropdown
+          name="id"
+          value={name}
+          inputLabel="Groups / Region"
+          labelTxt="Groups / Region"
+          list={[{ value: name, label: name }]}
+        />
       </div>
       <Typography variant="subtitle1">Groups / Region Settings</Typography>
       <div className={classes.grayBoxContainer}>
@@ -112,7 +118,7 @@ const Settings = ({ classes, groups, group, groupIndex, foundInBlockchain }) => 
               icon
               name="id"
               label="ETCD Endpoint"
-              description="Enter all the ETCD end points that will be used. separated by comma and press enter"
+              description="Enter all the ETCD end points that will be used."
               onKeyUp={handleAddEndpoints}
               inputRef={etcdEndpointsRef}
             />

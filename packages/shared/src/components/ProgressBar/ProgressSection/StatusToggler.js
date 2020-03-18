@@ -9,12 +9,18 @@ const StatusToggler = ({ progressNumber, progressStatus }) => {
 
   if (progressStatus === ProgressStatusList.COMPLETED) {
     return (
-      <span className={classes.completedIcon}>
-        <CheckCircleIcon />
-      </span>
+      <div className={classes.numberContaienr}>
+        <span className={classes.completedIcon}>
+          <CheckCircleIcon />
+        </span>
+      </div>
     );
   }
-  return <span className={classes.number}>{progressNumber}</span>;
+  return (
+    <div className={classes.numberContaienr}>
+      <span className={classes.number}>{progressNumber}</span>
+    </div>
+  );
 };
 
 export default StatusToggler;

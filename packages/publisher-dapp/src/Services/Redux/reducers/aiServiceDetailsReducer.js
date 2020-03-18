@@ -24,7 +24,7 @@ const initialState = {
   serviceState: {
     state: serviceCreationStatus.NOT_STARTED,
   },
-  touch: false,
+  touched: false,
   status: serviceSetupStatuses.NOT_STARTED,
   uuid: "",
   name: "",
@@ -71,8 +71,8 @@ const serviceDetailsReducer = (state = initialState, action) => {
   switch (action.type) {
     case aiServiceDetailsActions.SET_ALL_SERVICE_DETAILS_ATTRIBUTES:
       return { ...state, ...action.payload };
-    case aiServiceDetailsActions.SET_AI_SERVICE_TOUCH_FLAG:
-      return { ...state, touch: action.payload };
+    case aiServiceDetailsActions.SET_AI_SERVICE_TOUCHED_FLAG:
+      return { ...state, touched: action.payload };
     case aiServiceDetailsActions.SET_AI_SERVICE_ID:
       return { ...state, id: action.payload };
     case aiServiceDetailsActions.SET_AI_SERVICE_ID_AVAILABILITY:

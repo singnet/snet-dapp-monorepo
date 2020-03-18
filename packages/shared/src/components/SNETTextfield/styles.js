@@ -55,4 +55,7 @@ export const useStyles = MUITheme => ({
     letterSpacing: 0.4,
     lineHeight: "16px",
   },
+  errorField: {
+    "& .MuiOutlinedInput-notchedOutline": { borderColor: MUITheme.palette.border.alertBox },
+  },
 });

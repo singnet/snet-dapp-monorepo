@@ -13,5 +13,12 @@ export const useStyles = () => ({
     },
   },
   basicDetailsTextfield: { backgroundColor: "red" },
-  orgWebsiteUrl: { padding: "0 30px" },
+  orgWebsiteUrl: {
+    padding: "0 30px",
+    "& div": {
+      "& p": { marginTop: 15 },
+    },
+    "& .MuiFormControl-marginNormal": { marginBottom: 0 },
+    "& span": { paddingLeft: 10 },
+  },
 });

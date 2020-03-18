@@ -23,10 +23,11 @@ const SNETTextfield = ({
   onKeyUp,
   extraInfo,
   inputRef,
+  error,
   ...rest
 }) => {
   return (
-    <Grid container>
+    <Grid container className={error ? classes.errorField : ""}>
       <Grid item sx={12} sm={12} md={6} lg={6} className={classes.basicTextFieldGrid}>
         {icon ? (
           <div className={classes.infoIconContainer}>

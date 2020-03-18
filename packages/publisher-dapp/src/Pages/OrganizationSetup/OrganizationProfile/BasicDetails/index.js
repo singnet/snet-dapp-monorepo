@@ -92,8 +92,6 @@ const BasicDetails = ({ classes }) => {
           label="Organization Website URL"
           description="Your organization’s website must be publicly available and the domain name must be associated with your organization."
         />
-      </div>
-      <div className={classes.orgWebsiteUrl}>
         <AlertText type={websiteValidation.type} message={websiteValidation.message} />
       </div>
     </Grid>

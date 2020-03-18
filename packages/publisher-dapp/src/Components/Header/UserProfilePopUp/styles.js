@@ -35,4 +35,9 @@ export const useStyles = MUITheme => ({
       },
     },
   },
+  signoutLink: {
+    borderTopWidth: 1,
+    borderTopStyle: "solid",
+    borderTopColor: MUITheme.palette.text.disabled,
+  },
 });

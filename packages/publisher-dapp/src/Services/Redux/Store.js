@@ -14,4 +14,6 @@ const configureStore = () => {
   return createStore(rootReducer, composeEnhancers(applyMiddleware(...middlewares)));
 };
 
-export default configureStore;
+const store = configureStore();
+
+export default store;

@@ -15,6 +15,8 @@ var _styles = require("@material-ui/styles");
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
+var _AnchorLink = _interopRequireDefault(require("../AnchorLink"));
+
 var _SNETButton = _interopRequireDefault(require("shared/dist/components/SNETButton"));
 
 var _styles2 = require("./styles");
@@ -35,7 +37,8 @@ var SNETStatusBanner = function SNETStatusBanner(_ref) {
       img = _ref.img,
       description = _ref.description,
       actions = _ref.actions,
-      type = _ref.type;
+      type = _ref.type,
+      anchorDetails = _ref.anchorDetails;
   return _react.default.createElement(_Grid.default, {
     container: true,
     spacing: 24,
@@ -64,7 +67,14 @@ var SNETStatusBanner = function SNETStatusBanner(_ref) {
     return _react.default.createElement(_SNETButton.default, _extends({
       key: action.children
     }, action));
-  })));
+  }), anchorDetails ? anchorDetails.map(function (detail) {
+    return _react.default.createElement(_AnchorLink.default, {
+      label: detail.label,
+      href: detail.linkTo,
+      key: detail.label,
+      newTab: detail.newTab
+    });
+  }) : null));
 };
 
 SNETStatusBanner.propTypes = {

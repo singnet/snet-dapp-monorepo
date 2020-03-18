@@ -8,7 +8,7 @@ exports.useStyles = void 0;
 var useStyles = function useStyles(MUITheme) {
   return {
     tabsContainer: {
-      width: 630,
+      width: 600,
       paddingTop: 41,
       margin: "0 auto",
       "& ul": {
@@ -22,38 +22,31 @@ var useStyles = function useStyles(MUITheme) {
         }
       },
       "& li": {
+        width: "100%",
         display: "flex",
-        alignItems: "flex-start",
+        flexDirection: "column",
+        alignItems: "center",
         listStyle: "none",
-        "& div": {
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          textAlign: "center"
-        },
-        "&:first-of-type": {
-          "&::before": {
-            display: "none"
-          }
-        },
-        "&::before": {
-          content: '""',
-          width: 90,
-          height: 1,
-          marginTop: 15,
-          display: "inline-block",
-          backgroundColor: MUITheme.palette.background.grey
-        },
+        textAlign: "center",
         "& i": {
           marginRight: 5,
           color: MUITheme.palette.success,
           fontSize: 20
         },
+        "&:last-of-type": {
+          "& > div": {
+            "& span": {
+              "&::after": {
+                display: "none"
+              }
+            }
+          }
+        },
         "@media (max-width:470px)": {
           marginBottom: 20
         }
       },
-      "@media (max-width:724px)": {
+      "@media (max-width:660px)": {
         width: "90%"
       }
     }

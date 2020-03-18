@@ -28,6 +28,7 @@ const UploadDemoFiles = ({ classes, orgUuid, serviceUuid, demoFilesUrl }) => {
             aiServiceDetailsActions.uploadFile(assetTypes.SERVICE_PAGE_COMPONENTS, fileBlob, orgUuid, serviceUuid)
           );
           dispatch(aiServiceDetailsActions.setServiceDemoFilesUrl(url));
+          dispatch(aiServiceDetailsActions.setServiceTouchedFlag(true));
           return setAlert({ type: alertTypes.SUCCESS, message: "File accepted" });
         } catch (error) {
           setAlert({ type: alertTypes.ERROR, message: "Unable to upload file" });

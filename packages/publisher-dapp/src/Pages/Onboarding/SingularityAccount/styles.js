@@ -95,17 +95,29 @@ export const useStyles = MUITheme => ({
     justifyContent: "center",
   },
   verifyInvitationContainer: {
-    padding: "0 27px",
+    padding: "0 24px",
     alignItems: "center",
     "& > div": {
       "& > div": {
         "& > div": {
           maxWidth: "100%",
           flexBasis: "91%",
+          "&:last-of-type": { display: "none" },
+          "& > div": {
+            "& > div": { marginBottom: 0 },
+          },
           [MUITheme.breakpoints.down("sm")]: { flexBasis: "100%" },
         },
       },
     },
+    "& > span": {
+      padding: "3px 0 0 16px",
+      fontFamily: MUITheme.typography.fontFamily,
+      fontSize: 12.17,
+      letterSpacing: 0.4,
+      lineHeight: "17px",
+    },
+    "& button": { marginTop: 15 },
   },
   dropDownContainer: {
     paddingRight: 29,

@@ -2,12 +2,11 @@ export const useStyles = MUITheme => ({
   headQuartersCompanyMailingContainer: { paddingTop: 48 },
   headquartersContainer: {
     "& h6": {
-      marginBottom: 60,
+      marginBottom: 42,
       fontWeight: "normal",
     },
     "& .MuiTextField-root": {
       boxSizing: "border-box",
-      paddingRight: 20,
     },
     "& label": {
       color: MUITheme.palette.text.darkGrey,
@@ -17,12 +16,11 @@ export const useStyles = MUITheme => ({
     },
   },
   mailingAddressContainer: {
+    paddingLeft: 40,
     "& h6": { fontWeight: "normal" },
     "& .MuiTextField-root": {
       boxSizing: "border-box",
-      paddingLeft: 20,
       "& label": {
-        paddingLeft: 20,
         color: MUITheme.palette.text.darkGrey,
         fontSize: 12,
         letterSpacing: 0.4,
@@ -32,7 +30,6 @@ export const useStyles = MUITheme => ({
     [MUITheme.breakpoints.down("sm")]: { marginTop: 25 },
   },
   checkbox: {
-    marginBottom: 18,
     "& .MuiCheckbox-root": { color: MUITheme.palette.text.darkGrey },
     "& .MuiCheckbox-colorPrimary.Mui-checked": { color: MUITheme.palette.primary.main },
     "& .MuiFormControlLabel-label": {
@@ -41,4 +38,5 @@ export const useStyles = MUITheme => ({
       letterSpacing: 0.25,
     },
   },
+  postalCode: { paddingRight: 16 },
 });

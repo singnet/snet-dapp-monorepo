@@ -13,6 +13,12 @@ const initialState = {
   inviteeStatus: "",
   inviteCode: "",
   walletList: [],
+  userPreferences: {
+    preferenceType: "TOKEN_STAKE_NOTIFICATION",
+    communicationType: "EMAIL",
+    source: "STAKE_DAPP",
+    status: 0,
+  },
 };
 
 const userReducer = (state = initialState, action) => {
@@ -40,6 +46,9 @@ const userReducer = (state = initialState, action) => {
     }
     case userActions.userWalletActions.SET_WALLET_LIST:
       return { ...state, walletList: action.payload };
+    case userActions.preferenceActions.SET_USER_PREFERENCE: {
+      return { ...state, userPreferences: action.payload };
+    }
     default:
       return state;
   }

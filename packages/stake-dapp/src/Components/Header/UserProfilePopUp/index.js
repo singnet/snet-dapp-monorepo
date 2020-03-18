@@ -1,24 +1,35 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import SettingIcon from "@material-ui/icons/Settings";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-
-import { useStyles } from "./styles";
-import UserProfileCard from "shared/dist/components/UserProfileCard";
 import { Modal } from "@material-ui/core";
+import UserProfileCard from "shared/dist/components/UserProfileCard";
+import { useStyles } from "./styles";
 import { userActions } from "../../../Services/Redux/actionCreators";
 
+import { GlobalRoutes } from "../../../GlobalRouter/Routes";
+
 const UserProfilePopUp = ({ classes, show, handleClose }) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   const { nickname } = useSelector(state => ({
     nickname: state.user.nickname,
-    //orgName: state.organization.name,
   }));
-  const dispatch = useDispatch();
 
   const handleSignout = () => {
     dispatch(userActions.loginActions.signout);
+  };
+
+  const handleAccountclick = () => {
+    history.push(`${GlobalRoutes.USER_PROFILE.path}/account`);
+  };
+
+  const handleSettingsclick = () => {
+    history.push(`${GlobalRoutes.USER_PROFILE.path}/setting`);
   };
 
   return (
@@ -28,11 +39,11 @@ const UserProfilePopUp = ({ classes, show, handleClose }) => {
         <ul className={classes.userProfileMenuList}>
           <li>
             <AccountCircleIcon />
-            <span>Account</span>
+            <span onClick={handleAccountclick}>Account</span>
           </li>
           <li>
             <SettingIcon />
-            <span>Settings</span>
+            <span onClick={handleSettingsclick}>Settings</span>
           </li>
           <li className={classes.signOutLink}>
             <ExitToAppIcon />

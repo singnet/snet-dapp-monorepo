@@ -1,7 +1,7 @@
 export const useStyles = MUITheme => ({
   orgImgContainer: { padding: "0 54px" },
   title: {
-    marginTop: 16,
+    margin: "16px 0 12px",
     color: MUITheme.palette.text.darkGrey,
     fontSize: 18,
     lineHeight: "23px",
@@ -15,6 +15,7 @@ export const useStyles = MUITheme => ({
     },
   },
   previewText: {
+    margin: "65px 0 22px",
     color: MUITheme.palette.text.lightGrey,
     fontSize: 14,
     letterSpacing: 0.25,
@@ -44,6 +45,9 @@ export const useStyles = MUITheme => ({
     "& > div": {
       minWidth: "100% !important",
       width: "100% !important",
+      "& > div": {
+        "& > div:first-of-type": { display: "none" },
+      },
     },
     "& > button": { marginTop: 10 },
     [MUITheme.breakpoints.down("sm")]: {

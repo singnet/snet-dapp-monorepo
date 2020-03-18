@@ -12,3 +12,8 @@ export const validBlockChainAdressEquality = attributeToCompare => ({
     return web3.utils.isAddress(v1);
   },
 });
+
+export const getEmailDomain = email => {
+  let domain = email.replace(/.*@/, "");
+  return domain.toLowerCase();
+};

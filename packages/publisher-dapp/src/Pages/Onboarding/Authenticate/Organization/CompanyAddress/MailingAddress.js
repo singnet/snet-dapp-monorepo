@@ -72,7 +72,7 @@ const MailingAddress = ({ classes }) => {
         fullWidth
       />
       <Grid container>
-        <Grid item sx={12} sm={12} md={4} lg={4}>
+        <Grid item sx={12} sm={12} md={4} lg={4} className={classes.postalCode}>
           <StyledTextField
             {...mailingAddressFormData.ZIP}
             disabled={sameMailingAddress}

@@ -2,6 +2,7 @@ import { lazy } from "react";
 import withLightHeaderAndFooter from "../HOC/withLightHeaderAndFooter";
 import withRegistrationHeader from "../HOC/withRegistrationHeader";
 import withDashboardMenu from "../HOC/withDashboardMenu";
+import store from "../Services/Redux/Store";
 
 const Enroll = lazy(() => import("../Pages/Enroll"));
 const Login = lazy(() => import("../Pages/Login"));
@@ -115,7 +116,8 @@ export const GlobalRoutes = {
   },
 };
 
-export const setupRouteAuthentications = state => {
+export const setupRouteAuthentications = () => {
+  const state = store.getState();
   const { isLoggedIn } = state.user;
   return {
     ...GlobalRoutes,

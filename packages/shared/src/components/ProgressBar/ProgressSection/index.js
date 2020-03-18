@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 
 import { useStyles } from "./styles";
@@ -15,10 +15,10 @@ const ProgressSection = ({ progressNumber, progressText, progressStatus }) => {
 
   return (
     <li className={classes[progressStatus]}>
-      <div>
+      <Fragment>
         <StatusToggler progressStatus={progressStatus} progressNumber={progressNumber} />
         <span className={classes.TabTitle}>{progressText}</span>
-      </div>
+      </Fragment>
     </li>
   );
 };

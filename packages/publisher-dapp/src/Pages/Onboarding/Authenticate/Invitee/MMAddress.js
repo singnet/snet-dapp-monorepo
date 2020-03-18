@@ -20,7 +20,7 @@ const MMAddress = ({ address, setAddress, classes }) => {
         <Grid item xs={12} sm={12} md={6} lg={6} className={classes.metamaskAddTxtField}>
           <SNETTextfield name="ownerAddress" value={address} icon label="Metamask Address" />
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={6}>
+        <Grid item xs={12} sm={12} md={6} lg={6} className={classes.metamaskAddBtn}>
           <SNETButton color="primary" variant="contained" children="capture from metamask" onClick={handleConnetMM} />
         </Grid>
       </Fragment>

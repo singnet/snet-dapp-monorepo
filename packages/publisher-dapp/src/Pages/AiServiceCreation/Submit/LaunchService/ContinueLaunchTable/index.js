@@ -6,13 +6,13 @@ import DoneIcon from "@material-ui/icons/Done";
 import HourGlassIcon from "@material-ui/icons/HourglassEmpty";
 import ArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 
-import { serviceCreationStatus, serviceData } from "../../../constant";
+import { serviceData } from "../../../constant";
 import { useStyles } from "../styles";
 
 import AlertBox, { alertTypes } from "shared/dist/components/AlertBox";
 import SNETButton from "shared/dist/components/SNETButton";
 
-const ContinueLaunchTable = ({ classes, serviceDetails, handlePublishToBlockchain }) => {
+const ContinueLaunchTable = ({ classes }) => {
   return (
     <Fragment>
       <Grid container className={classes.table}>
@@ -54,13 +54,7 @@ const ContinueLaunchTable = ({ classes, serviceDetails, handlePublishToBlockchai
           header="Review in progress..."
           icon={HourGlassIcon}
         />
-        <SNETButton
-          color="primary"
-          variant="contained"
-          disabled={serviceDetails.serviceState.state === serviceCreationStatus.APPROVAL_PENDING}
-          onClick={handlePublishToBlockchain}
-          children="Continue to Launch"
-        />
+        <SNETButton color="primary" variant="contained" disabled children="Continue to Launch" />
       </div>
     </Fragment>
   );

@@ -1,10 +1,12 @@
 import React from "react";
+import { useSelector } from "react-redux";
+
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
-import { useStyles } from "./styles";
 import SNETTextfield from "shared/dist/components/SNETTextfield";
-import { useSelector } from "react-redux";
+
+import { useStyles } from "./styles";
 import MMAddress from "./MMAddress";
 
 const TechnicalInfo = ({ classes }) => {
@@ -15,7 +17,6 @@ const TechnicalInfo = ({ classes }) => {
       <MMAddress classes={classes} />
       {groups.map(group => (
         <div key={group.id} className={classes.groupInfoContainer}>
-          <Typography variant="subtitle1">Group Information</Typography>
           <SNETTextfield
             disabled
             label="Payment Address"

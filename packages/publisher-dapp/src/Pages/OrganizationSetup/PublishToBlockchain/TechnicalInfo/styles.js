@@ -4,7 +4,7 @@ export const useStyles = MUITheme => ({
     borderTopWidth: 1,
     borderTopStyle: "solid",
     borderTopColor: MUITheme.palette.border.grey,
-    margin: "31px 24px 0",
+    margin: "24px 24px 0",
     "& h6": {
       padding: "0 !important",
       border: "none !important",
@@ -12,14 +12,19 @@ export const useStyles = MUITheme => ({
       lineHeight: "23px",
     },
   },
+  alertBoxBtnContainer: {
+    marginTop: 23,
+    alignItems: "flex-end",
+  },
   technicalInfo: {
-    alignItems: "center",
+    marginTop: 8,
+    alignItems: "baseline",
     [MUITheme.breakpoints.down("sm")]: { marginBottom: 25 },
   },
   btnContainer: {
     paddingLeft: 30,
     marginBottom: 15,
-    [MUITheme.breakpoints.down("sm")]: {
+    [MUITheme.breakpoints.down("xs")]: {
       paddingLeft: 0,
       marginBottom: 0,
     },
@@ -29,15 +34,8 @@ export const useStyles = MUITheme => ({
       "& div": {
         maxWidth: "100%",
         flexBasis: "100%",
+        "& + div": { display: "none" },
       },
     },
-  },
-  topSectionContainer: { marginTop: 27 },
-  groupInfoContainer: {
-    padding: "31px 0 0",
-    borderTopColor: MUITheme.palette.text.disabled,
-    borderTopStyle: "solid",
-    borderTopWidth: 1,
-    marginTop: 30,
   },
 });

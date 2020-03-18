@@ -113,11 +113,11 @@ const TableRow = ({ handleExpandeTable, expandTable, stakeWindow }) => {
         <Typography className={classes.unit}>AGI</Typography>
       </Grid>
       <Grid item xs={12} sm={12} md={2} lg={2} className={classes.tableData}>
-        <Typography className={classes.value}>{fromWei(stakeWindow.rewardAmount)}</Typography>
+        <Typography className={classes.value}>{fromWei(stakeWindow.windowTotalStake)}</Typography>
         <Typography className={classes.unit}>AGI</Typography>
       </Grid>
       <Grid item xs={12} sm={12} md={2} lg={2} className={classes.tableData}>
-        <Typography className={classes.value}>{fromWei(stakeWindow.windowTotalStake)}</Typography>
+        <Typography className={classes.value}>{fromWei(stakeWindow.rewardAmount)}</Typography>
         <Typography className={classes.unit}>AGI</Typography>
       </Grid>
       <Grid item xs={12} sm={12} md={1} lg={1} className={classes.tableData}>

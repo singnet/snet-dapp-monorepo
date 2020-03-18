@@ -15,7 +15,7 @@ const Approved = () => {
   const history = useHistory();
 
   const handleOrgSetup = () => {
-    history.push(GlobalRoutes.ORGANIZATION_SETUP.path.replace("orgUuid", orgUuid));
+    history.push(GlobalRoutes.ORGANIZATION_SETUP.path.replace(":orgUuid", orgUuid));
   };
 
   const handleInviteSetup = () => {

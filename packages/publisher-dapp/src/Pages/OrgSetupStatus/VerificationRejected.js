@@ -1,5 +1,6 @@
 import React from "react";
-import SNETStatusBanner from "shared/dist/components/SNETStatusBanner";
+import VerificationFailed from "shared/dist/assets/images/VerificationFailed.png";
+import SNETStatusBanner, { statusTitleType } from "shared/dist/components/SNETStatusBanner";
 import { useHistory, useParams } from "react-router-dom";
 import { GlobalRoutes } from "../../GlobalRouter/Routes";
 import { AuthenticateRoutes } from "../Onboarding/Authenticate/AuthenitcateRouter/Routes";
@@ -20,15 +21,19 @@ const VerificationRejected = () => {
 
   return (
     <SNETStatusBanner
-      title="Verification rejected."
-      img="http://placehold.it/302x242"
-      description={`You can continue finishing setting up your company details and publish your company entity to the blockchain.
-                    Then you will be ready to create and publish your new AI services to the AI Marketplace. You can also invite
-                team members to help setup and manage your AI services more efficiently.`}
+      title="Your Jumio ID verification was unsuccesful."
+      img={VerificationFailed}
+      description="Please check and re-prepare the required documents, then retry the Jumio ID verification process. If you believe there was an error by Jumio or by SingularityNET, please contact our support staff who will assist you."
       actions={[
-        { children: "Edit Details", variant: "contained", color: "primary", onClick: handleEditOrgDetails },
-        { children: "Invite Team Members", variant: "outlined", color: "primary", disabled: true },
+        {
+          children: "access jumio verification",
+          variant: "contained",
+          color: "primary",
+          onClick: handleEditOrgDetails,
+        },
+        { children: "contact support", variant: "outlined", color: "primary", disabled: true },
       ]}
+      type={statusTitleType.REJECTED}
     />
   );
 };

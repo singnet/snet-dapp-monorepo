@@ -11,9 +11,15 @@ export const useStyles = MUITheme => ({
       borderBottomWidth: 1,
       borderBottomStyle: "solid",
       borderBottomColor: MUITheme.palette.border.primary,
+      fontWeight: 400,
+    },
+    "& .MuiTypography-subtitle2": {
+      borderBottom: "none",
+      marginBottom: 24,
     },
     [MUITheme.breakpoints.down("sm")]: { width: "100%" },
   },
+  alertContainer: { margin: "23px 42px 0 23px" },
   buttonsContainer: {
     marginTop: 40,
     marginBottom: 64,
@@ -21,7 +27,14 @@ export const useStyles = MUITheme => ({
     justifyContent: "center",
     "& button": {
       padding: " 13px 60px 11px",
+      "&:first-of-type": {
+        paddingRight: 0,
+        [MUITheme.breakpoints.down("xs")]: { paddingRight: 60 },
+      },
     },
-    [MUITheme.breakpoints.down("xs")]: { flexDirection: "column" },
+    [MUITheme.breakpoints.down("xs")]: {
+      margin: "0 25px 40px",
+      flexDirection: "column",
+    },
   },
 });

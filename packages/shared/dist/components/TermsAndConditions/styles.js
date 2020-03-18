@@ -27,6 +27,7 @@ var useStyles = function useStyles(MUITheme) {
         borderBottomColor: MUITheme.palette.border.primary,
         margin: 0,
         color: MUITheme.palette.text.darkGrey,
+        fontFamily: MUITheme.typography.fontFamily,
         fontSize: 20,
         fontWeight: 400,
         textAlign: "left"
@@ -48,6 +49,7 @@ var useStyles = function useStyles(MUITheme) {
       backgroundColor: "#f6f6f6",
       "& p": {
         color: MUITheme.palette.text.lightGrey,
+        fontFamily: MUITheme.typography.fontFamily,
         lineHeight: "21px"
       },
       "& span": {
@@ -64,15 +66,12 @@ var useStyles = function useStyles(MUITheme) {
       justifyContent: "space-between",
       "& label": {
         "& span:last-of-type": {
-          color: MUITheme.palette.text.primary,
+          color: MUITheme.palette.text.darkGrey,
           fontSize: 14,
           letterSpacing: 0.25,
           lineHeight: "20px"
         },
         "& span": {
-          "&:last-of-type": {
-            color: MUITheme.palette.text.primary
-          },
           "&.MuiCheckbox-colorPrimary": {
             color: MUITheme.palette.text.primary
           },

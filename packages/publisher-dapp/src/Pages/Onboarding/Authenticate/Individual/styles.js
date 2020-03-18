@@ -11,16 +11,18 @@ export const useStyles = MUITheme => ({
     backgroundColor: MUITheme.palette.background.white,
     boxShadow: "0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.2)",
     "& > h6": {
-      padding: "0 23px",
+      padding: "0 22px",
       borderBottomWidth: 1,
       borderBottomStyle: "solid",
       borderBottomColor: MUITheme.palette.border.primary,
+      fontWeight: 400,
       lineHeight: "50px !important",
     },
   },
   descriptionLogoSection: {
-    padding: "16px 24px 14px",
+    padding: "16px 24px 17px",
     display: "flex",
+    alignItems: "center",
     [MUITheme.breakpoints.down("xs")]: { flexDirection: "column" },
   },
   description: {
@@ -35,7 +37,7 @@ export const useStyles = MUITheme => ({
   },
   jumioLogo: { textAlign: "center" },
   docListSection: {
-    padding: "0 25px 41px",
+    padding: "0 25px 29px",
     "& > p": {
       paddingBottom: 8,
       color: MUITheme.palette.text.darkGrey,
@@ -57,6 +59,7 @@ export const useStyles = MUITheme => ({
           content: "'-'",
           width: 10,
           height: 10,
+          paddingRight: 5,
           display: "inline-block",
         },
       },

@@ -11,13 +11,17 @@ export const useStyles = MUITheme => ({
       borderBottomWidth: 1,
       borderBottomStyle: "solid",
       borderBottomColor: MUITheme.palette.border.primary,
+      fontWeight: 400,
     },
     "& + p": {
       width: 754,
       margin: "0 auto",
       [MUITheme.breakpoints.down("sm")]: { width: "auto" },
     },
-    [MUITheme.breakpoints.down("sm")]: { width: "auto" },
+    [MUITheme.breakpoints.down("sm")]: {
+      width: "auto",
+      margin: "48px 25px 0",
+    },
   },
   inputFields: { padding: "0 24px" },
   description: {
@@ -27,13 +31,11 @@ export const useStyles = MUITheme => ({
     lineHeight: "21px",
   },
   buttonsContainer: {
-    marginTop: 40,
-    marginBottom: 64,
+    padding: "0 25px",
+    margin: "40px 0 64px",
     display: "flex",
     justifyContent: "center",
-    "& button": {
-      padding: " 13px 60px 11px",
-    },
+    "& button": { padding: " 13px 60px 11px" },
     [MUITheme.breakpoints.down("xs")]: { flexDirection: "column" },
   },
 });

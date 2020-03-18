@@ -3,7 +3,7 @@ export const onboardingSections = {
     key: 1,
     heading: {
       title: "Lets Get Started",
-      description: "You will need to log in or create your SingularityNet account",
+      description: "Log in or create your SingularityNET account",
     },
   },
   ACCEPT_SERVICE_AGREEMENT: {

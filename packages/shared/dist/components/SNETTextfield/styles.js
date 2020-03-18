@@ -68,6 +68,11 @@ var useStyles = function useStyles(MUITheme) {
       fontSize: 12.17,
       letterSpacing: 0.4,
       lineHeight: "16px"
+    },
+    errorField: {
+      "& .MuiOutlinedInput-notchedOutline": {
+        borderColor: MUITheme.palette.border.alertBox
+      }
     }
   };
 };

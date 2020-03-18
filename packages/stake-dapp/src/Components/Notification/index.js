@@ -156,7 +156,6 @@ class Notification extends Component {
 
   storeMetamaskDetails = async (isConnected, account, networkId, isTxnsAllowed) => {
     const { updateMetamaskDetails, walletList, registerWallet } = this.props;
-
     await updateMetamaskDetails(isConnected, account, networkId, isTxnsAllowed);
 
     if (isTxnsAllowed) {

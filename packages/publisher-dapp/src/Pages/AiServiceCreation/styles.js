@@ -1,4 +1,10 @@
 export const useStyles = MUITheme => ({
+  appBar: {
+    marginTop: 84,
+  },
+  appBarTitle: {
+    flexGrow: 1,
+  },
   serviceCreationContainer: {
     paddingTop: 40,
     "& h3": { lineHeight: "48px" },

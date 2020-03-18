@@ -47,7 +47,7 @@ const OrganizationProfile = ({ classes, history, handleFinishLater }) => {
       return setAlert({ type: alertTypes.ERROR, message: errorMsg.IMAGE_NOT_FOUND });
     }
 
-    history.push(OrganizationSetupRoutes.REGION.path.replace("orgUuid", organization.uuid));
+    history.push(OrganizationSetupRoutes.REGION.path.replace(":orgUuid", organization.uuid));
   };
 
   const onFinishLater = async () => {
@@ -66,12 +66,16 @@ const OrganizationProfile = ({ classes, history, handleFinishLater }) => {
   return (
     <Fragment>
       <Grid className={classes.box}>
-        <Typography variant="h6">OrganizationProfile</Typography>
+        <Typography variant="h6">Organization Profile</Typography>
         <BasicDetails />
         <OrgImg />
         <hr />
         <SupportDetails />
-        <AlertBox type={alert.type} message={alert.message} />
+        {alert.message ? (
+          <div className={classes.errorContainer}>
+            <AlertBox type={alert.type} message={alert.message} />
+          </div>
+        ) : null}
       </Grid>
       <div className={classes.buttonsContainer}>
         <SNETButton color="primary" children="finish later" onClick={onFinishLater} />

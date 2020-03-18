@@ -62,7 +62,7 @@ const PublishToBlockchain = ({ classes, handleFinishLater, history }) => {
   };
 
   const handleBack = () => {
-    history.push(OrganizationSetupRoutes.REGION.path.replace("orgUuid", organization.uuid));
+    history.push(OrganizationSetupRoutes.REGION.path.replace(":orgUuid", organization.uuid));
   };
 
   const shouldPublishBeDisabled = () => !ownerAddress || email !== ownerEmail;
@@ -72,8 +72,8 @@ const PublishToBlockchain = ({ classes, handleFinishLater, history }) => {
       <div className={classes.box}>
         <Typography variant="h6">Publish Organization to Blockchain</Typography>
         <Typography className={classes.description}>
-          Lorem ipsum dolor sit amet, consectetur et mihi. Accusatores directam qui ut accusatoris. Communiter videbatur
-          hominum vitam ut qui eiusdem fore accommodatior maximis vetere communitatemque.
+          Add your organisation to the blockchain, making sure you enter all relevant information correctly, as once the
+          data is submitted you will be unable to edit it.
         </Typography>
         <div className={classes.inputFields}>
           <SNETTextfield
@@ -88,7 +88,7 @@ const PublishToBlockchain = ({ classes, handleFinishLater, history }) => {
           />
           <SNETTextfield
             label="Company Organization Name"
-            description="The company name is displayed as the provider to users on the AI service page name.11111. "
+            description="The company name is displayed as the provider to users on the AI service page name. "
             name="name"
             disabled
             value={name}

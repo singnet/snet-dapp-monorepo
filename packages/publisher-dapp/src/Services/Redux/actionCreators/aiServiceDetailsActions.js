@@ -19,7 +19,7 @@ export const SET_AI_SERVICE_ID = "SET_AI_SERVICE_ID";
 export const SET_AI_SERVICE_ID_AVAILABILITY = "SET_AI_SERVICE_ID_AVAILABILITY";
 export const SET_AI_SERVICE_NAME = "SET_AI_SERVICE_NAME";
 export const SET_AI_SERVICE_UUID = "SET_AI_SERVICE_UUID";
-export const SET_AI_SERVICE_TOUCH_FLAG = "SET_AI_SERVICE_TOUCH_FLAG";
+export const SET_AI_SERVICE_TOUCHED_FLAG = "SET_AI_SERVICE_TOUCHED_FLAG";
 export const SET_AI_SERVICE_GROUPS = "SET_AI_SERVICE_ENDPOINTS";
 export const SET_AI_SERVICE_FREE_CALL_SIGNER_ADDRESS = "SET_AI_SERVICE_FREE_CALL_SIGNER_ADDRESS";
 export const SET_AI_SERVICE_DETAIL_LEAF = "SET_AI_SERVICE_DETAIL_LEAF";
@@ -33,8 +33,8 @@ export const SET_SERVICE_DETAILS_FOUND_IN_BLOCKCHAIN = "SET_SERVICE_DETAILS_FOUN
 
 export const setAllAttributes = value => ({ type: SET_ALL_SERVICE_DETAILS_ATTRIBUTES, payload: value });
 
-export const setServiceTouchFlag = touchFlag => ({
-  type: SET_AI_SERVICE_TOUCH_FLAG,
+export const setServiceTouchedFlag = touchFlag => ({
+  type: SET_AI_SERVICE_TOUCHED_FLAG,
   payload: touchFlag,
 });
 
@@ -221,6 +221,7 @@ export const saveServiceDetails = (orgUuid, serviceUuid, serviceDetails) => asyn
       dispatch(loaderActions.stopAppLoader());
       throw new APIError(error.message);
     }
+    dispatch(setAiServiceStateState(serviceCreationStatus.DRAFT));
     dispatch(loaderActions.stopAppLoader());
   } catch (error) {
     dispatch(loaderActions.stopAppLoader());
@@ -356,7 +357,7 @@ const submitServiceDetailsForReviewAPI = (orgUuid, serviceUuid, serviceDetailsPa
 
 export const submitServiceDetailsForReview = (orgId, orgUuid, serviceUuid, serviceDetails) => async dispatch => {
   try {
-    dispatch(loaderActions.startAppLoader(LoaderContent.FREE_CALL_SIGNER_ADDRESS));
+    dispatch(loaderActions.startAppLoader(LoaderContent.SUBMIT_SERVICE_FOR_REVIEW));
     // TODO remove orgId. MPS has to figure out orgId from orgUuid
     const serviceDetailsPayload = generateSaveServicePayload(serviceDetails, orgId);
     const { error } = await dispatch(submitServiceDetailsForReviewAPI(orgUuid, serviceUuid, serviceDetailsPayload));

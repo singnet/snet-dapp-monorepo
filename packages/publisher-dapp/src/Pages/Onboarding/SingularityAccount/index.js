@@ -85,7 +85,7 @@ const SingularityAccount = ({ classes, history }) => {
               onChange={handleEntityChange}
             />
           </Grid>
-          {userEntity == userEntities.INVITEE ? (
+          {userEntity === userEntities.INVITEE ? (
             <Grid item sx={12} sm={12} md={6} lg={6}>
               <Typography>
                 Owner of an existing approved company entity will need to send you an invitation through your email.

@@ -9,7 +9,7 @@ export const relatedLinks = [
   },
   {
     label: "How to set up ETCD Cluster.",
-    href: "https://dev.singularitynet.io/docs/ai-developers/etcdsetup/",
+    linkTo: "https://dev.singularitynet.io/docs/ai-developers/etcdsetup/",
     newTab: true,
   },
   {

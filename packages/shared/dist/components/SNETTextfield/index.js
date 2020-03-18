@@ -44,10 +44,12 @@ var SNETTextfield = function SNETTextfield(_ref) {
       onKeyUp = _ref.onKeyUp,
       extraInfo = _ref.extraInfo,
       inputRef = _ref.inputRef,
-      rest = _objectWithoutProperties(_ref, ["classes", "name", "label", "helperText", "value", "onChange", "maxCount", "minCount", "disabled", "description", "icon", "onKeyUp", "extraInfo", "inputRef"]);
+      error = _ref.error,
+      rest = _objectWithoutProperties(_ref, ["classes", "name", "label", "helperText", "value", "onChange", "maxCount", "minCount", "disabled", "description", "icon", "onKeyUp", "extraInfo", "inputRef", "error"]);
 
   return _react.default.createElement(_Grid.default, {
-    container: true
+    container: true,
+    className: error ? classes.errorField : ""
   }, _react.default.createElement(_Grid.default, {
     item: true,
     sx: 12,

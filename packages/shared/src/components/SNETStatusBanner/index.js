@@ -4,6 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/styles";
 import PropTypes from "prop-types";
 
+import AnchorLink from "../AnchorLink";
 import SNETButton from "shared/dist/components/SNETButton";
 import { useStyles } from "./styles";
 
@@ -12,7 +13,7 @@ export const statusTitleType = {
   REJECTED: "REJECTED",
 };
 
-const SNETStatusBanner = ({ classes, title, img, description, actions, type }) => {
+const SNETStatusBanner = ({ classes, title, img, description, actions, type, anchorDetails }) => {
   return (
     <Grid container spacing={24} className={classes.statusBannerContainer}>
       <Grid item xs={12} sm={4} md={4} lg={4} className={classes.statusBannerMedia}>
@@ -26,6 +27,11 @@ const SNETStatusBanner = ({ classes, title, img, description, actions, type }) =
         {actions.map(action => (
           <SNETButton key={action.children} {...action} />
         ))}
+        {anchorDetails
+          ? anchorDetails.map(detail => (
+              <AnchorLink label={detail.label} href={detail.linkTo} key={detail.label} newTab={detail.newTab} />
+            ))
+          : null}
       </Grid>
     </Grid>
   );

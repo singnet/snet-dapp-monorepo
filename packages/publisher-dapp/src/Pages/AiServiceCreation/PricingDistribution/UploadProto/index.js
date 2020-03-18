@@ -43,6 +43,7 @@ const UploadProto = () => {
             aiServiceDetailsActions.uploadFile(assetTypes.SERVICE_PROTO_FILES, fileBlob, orgUuid, serviceUuid)
           );
           dispatch(aiServiceDetailsActions.setServiceDetailsProtoUrl(url));
+          dispatch(aiServiceDetailsActions.setServiceTouchedFlag(true));
           return setAlert({ type: alertTypes.SUCCESS, message: "File accepted" });
         } catch (error) {
           setAlert({ type: alertTypes.ERROR, message: "Unable to upload file" });

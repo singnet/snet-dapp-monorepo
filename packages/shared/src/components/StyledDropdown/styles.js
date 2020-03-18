@@ -11,7 +11,9 @@ export const useStyles = makeStyles(MUITheme => ({
       color: MUITheme.palette.text.darkGrey,
       fontSize: 12,
       letterSpacing: 0.4,
+      transform: `${"translate(14px, -6px) scale(0.90)"} !important`,
     },
+    "& .MuiOutlinedInput-notchedOutline": { borderColor: MUITheme.palette.border.inputBorder },
   },
   selectEmpty: {
     color: `${MUITheme.palette.text.darkGrey} !important`,

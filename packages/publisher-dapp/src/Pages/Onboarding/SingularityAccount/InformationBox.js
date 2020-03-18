@@ -8,7 +8,7 @@ import AlertBox, { alertTypes } from "shared/dist/components/AlertBox";
 const InformationBox = () => {
   const userEntity = useSelector(state => state.user.entity);
 
-  if (userEntity == userEntities.ORGANIZATION) {
+  if (userEntity === userEntities.ORGANIZATION) {
     return (
       <AlertBox
         type={alertTypes.INFO}
@@ -17,7 +17,7 @@ const InformationBox = () => {
     );
   }
 
-  if (userEntity == userEntities.INDIVIDUAL) {
+  if (userEntity === userEntities.INDIVIDUAL) {
     return (
       <AlertBox
         type={alertTypes.INFO}

@@ -58,7 +58,7 @@ const UserProfilePopUp = ({ classes, show, handleClose }) => {
             </Fragment>
           ) : null}
 
-          <li>
+          <li className={classes.signoutLink}>
             <ExitToAppIcon />
             <span onClick={handleSignout}>Sign Out</span>
           </li>

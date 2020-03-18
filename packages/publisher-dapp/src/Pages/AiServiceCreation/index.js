@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
 import last from "lodash/last";
-
 import ProgressBar from "shared/dist/components/ProgressBar";
+
 import { progressText, serviceCreationSections } from "./constant";
 import { ServiceCreationRoutes } from "./ServiceCreationRouter/Routes";
 import ServiceCreationRouter from "./ServiceCreationRouter";
@@ -12,6 +12,8 @@ import { useStyles } from "./styles";
 import { aiServiceDetailsActions, aiServiceListActions, loaderActions } from "../../Services/Redux/actionCreators";
 import Loader from "./Loader";
 import { LoaderContent } from "../../Utils/Loader";
+import EditHeader from "./EditHeader";
+import { GlobalRoutes } from "../../GlobalRouter/Routes";
 
 class AiServiceCreation extends Component {
   initData = async () => {
@@ -57,15 +59,36 @@ class AiServiceCreation extends Component {
     return PROFILE;
   };
 
+  handleBackToDashboard = () => {
+    const { orgUuid, history } = this.props;
+    history.push(GlobalRoutes.SERVICES.path.replace(":orgUuid", orgUuid));
+  };
+
+  handleSubmit = async () => {
+    const { orgUuid, serviceUuid, history, location, saveServiceDetails, serviceDetails } = this.props;
+    await saveServiceDetails(orgUuid, serviceUuid, serviceDetails);
+    if (!location.pathname.match(ServiceCreationRoutes.SUBMIT.match)) {
+      history.push(ServiceCreationRoutes.SUBMIT.path.replace(":orgUuid", orgUuid).replace(":serviceUuid", serviceUuid));
+    }
+  };
+
   render() {
-    const { classes } = this.props;
+    const { classes, serviceFoundInBlockchain, serviceTouched } = this.props;
     return (
-      <div className={classes.serviceCreationContainer}>
-        <Heading {...this.activeSection().heading} />
-        <ProgressBar activeSection={this.activeSection().key} progressText={progressText} />
-        <ServiceCreationRouter />
-        <Loader />
-      </div>
+      <Fragment>
+        <EditHeader
+          show={serviceFoundInBlockchain}
+          onBack={this.handleBackToDashboard}
+          allowSubmit={serviceTouched}
+          onSubmit={this.handleSubmit}
+        />
+        <div className={classes.serviceCreationContainer}>
+          <Heading {...this.activeSection().heading} />
+          <ProgressBar activeSection={this.activeSection().key} progressText={progressText} />
+          <ServiceCreationRouter />
+          <Loader />
+        </div>
+      </Fragment>
     );
   }
 }
@@ -74,6 +97,9 @@ const mapStateToProps = state => ({
   orgId: state.organization.id,
   orgUuid: state.organization.uuid,
   serviceUuid: state.aiServiceDetails.uuid,
+  serviceFoundInBlockchain: state.aiServiceDetails.foundInBlockchain,
+  serviceTouched: state.aiServiceDetails.touched,
+  serviceDetails: state.aiServiceDetails,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -83,5 +109,7 @@ const mapDispatchToProps = dispatch => ({
   getAiServiceList: (orgUuid, pagination) => dispatch(aiServiceListActions.getAiServiceList(orgUuid, pagination)),
   getServiceDetails: (orgUuid, serviceUuid, orgId) =>
     dispatch(aiServiceDetailsActions.getServiceDetails(orgUuid, serviceUuid, orgId)),
+  saveServiceDetails: (orgUuid, serviceUuid, serviceDetails) =>
+    dispatch(aiServiceDetailsActions.saveServiceDetails(orgUuid, serviceUuid, serviceDetails)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(useStyles)(AiServiceCreation));

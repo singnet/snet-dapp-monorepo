@@ -3,12 +3,14 @@ export const useStyles = MUITheme => ({
     boxSizing: "content-box",
     width: 845,
     margin: "0 auto",
-    padding: "40px",
+    padding: "45px 0",
     [MUITheme.breakpoints.down("sm")]: { width: "auto" },
   },
   description: {
+    "& h3": { lineHeight: "48px" },
     "& p": {
-      marginTop: 8,
+      paddingBottom: 6,
+      marginTop: 15,
       color: MUITheme.palette.text.darkGrey,
       fontSize: 22,
       fontWeight: 200,

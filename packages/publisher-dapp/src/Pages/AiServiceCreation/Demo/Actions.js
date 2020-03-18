@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import SNETButton from "shared/dist/components/SNETButton";
 import { ServiceCreationRoutes } from "../ServiceCreationRouter/Routes";
 import { aiServiceDetailsActions } from "../../../Services/Redux/actionCreators";
+import { GlobalRoutes } from "../../../GlobalRouter/Routes";
 
 const Actions = ({ classes }) => {
   const history = useHistory();
@@ -12,21 +13,26 @@ const Actions = ({ classes }) => {
   const { orgUuid, serviceUuid } = useParams();
   const dispatch = useDispatch();
 
-  const handleFinishLater = () => {
-    // TODO handleFinishLater
-  };
-
   const handleBack = () => {
     history.push(ServiceCreationRoutes.PROFILE.path.replace(":orgUuid", orgUuid).replace(":serviceUuid", serviceUuid));
   };
 
-  const handleContinue = async () => {
+  const handleSave = async () => {
     await dispatch(aiServiceDetailsActions.saveServiceDetails(orgUuid, serviceUuid, serviceDetails));
+  };
+
+  const handleContinue = async () => {
+    await handleSave();
     history.push(
       ServiceCreationRoutes.PRICING_AND_DISTRIBUTION.path
         .replace(":orgUuid", orgUuid)
         .replace(":serviceUuid", serviceUuid)
     );
+  };
+
+  const handleFinishLater = async () => {
+    await handleSave();
+    history.push(GlobalRoutes.SERVICES.path.replace(":orgUuid", orgUuid));
   };
 
   return (

@@ -1,12 +1,14 @@
 import { lazy } from "react";
 import withLightHeaderAndFooter from "../HOC/withLightHeaderAndFooter";
 import withRegistrationHeader from "../HOC/withRegistrationHeader";
+import store from "../Services/Redux/Store";
 
 const Login = lazy(() => import("../Pages/Login"));
 const Signup = lazy(() => import("../Pages/Signup"));
 const HowItWorks = lazy(() => import("../Pages/HowItWorks"));
 const SignupConfirm = lazy(() => import("../Pages/SignupConfirm"));
 const AcceptAgreement = lazy(() => import("../Pages/AcceptServiceAgreement"));
+const UserProfile = lazy(() => import("../Pages/UserProfile"));
 
 const Landing = lazy(() => import("../Pages/Landing"));
 
@@ -21,6 +23,7 @@ const HowItWorksComponent = withLightHeaderAndFooter(HowItWorks);
 const AcceptAgreementComponent = withLightHeaderAndFooter(AcceptAgreement);
 
 const LandingComponent = withLightHeaderAndFooter(Landing);
+const UserProfileComponent = withLightHeaderAndFooter(UserProfile);
 
 export const GlobalRoutes = {
   LOGIN: {
@@ -53,18 +56,32 @@ export const GlobalRoutes = {
     path: "/acceptagreement",
     component: AcceptAgreementComponent,
   },
+  USER_PROFILE: {
+    name: "userprofile",
+    path: "/userprofile",
+    component: UserProfileComponent,
+  },
 };
 
-export const setupRouteAuthentications = state => ({
-  ...GlobalRoutes,
-  LANDING: {
-    ...GlobalRoutes.LANDING,
-    isAllowed: state.user.isLoggedIn,
-    redirectTo: GlobalRoutes.LOGIN.path,
-  },
-  ACCEPT_AGREEMENT: {
-    ...GlobalRoutes.ACCEPT_AGREEMENT,
-    isAllowed: state.user.isLoggedIn,
-    redirectTo: GlobalRoutes.LOGIN.path,
-  },
-});
+export const setupRouteAuthentications = () => {
+  const state = store.getState();
+  const { isLoggedIn } = state.user;
+  return {
+    ...GlobalRoutes,
+    LANDING: {
+      ...GlobalRoutes.LANDING,
+      isAllowed: isLoggedIn,
+      redirectTo: GlobalRoutes.LOGIN.path,
+    },
+    ACCEPT_AGREEMENT: {
+      ...GlobalRoutes.ACCEPT_AGREEMENT,
+      isAllowed: isLoggedIn,
+      redirectTo: GlobalRoutes.LOGIN.path,
+    },
+    USER_PROFILE: {
+      ...GlobalRoutes.USER_PROFILE,
+      isAllowed: state.user.isLoggedIn,
+      redirectTo: GlobalRoutes.LOGIN.path,
+    },
+  };
+};

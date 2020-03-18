@@ -12,6 +12,7 @@ export const useStyles = MUITheme => ({
       marginLeft: 10,
       display: "inline-block",
       background: "#979797",
+      opacity: "50%",
       verticalAlign: "middle",
     },
   },
