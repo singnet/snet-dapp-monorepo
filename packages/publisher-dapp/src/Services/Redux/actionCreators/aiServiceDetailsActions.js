@@ -184,7 +184,7 @@ const generateSaveServicePayload = (serviceDetails, orgId) => {
         ipfs_hash: serviceDetails.assets.demoFiles.ipfsHash,
       },
     },
-    contributors: serviceDetails.contributors.split(",").map(c => ({ name: c, email_id: "" })),
+    contributors: serviceDetails.contributors.map(c => ({ name: c, email_id: "" })),
     ipfs_hash: serviceDetails.ipfsHash,
     groups: generateGroupsPayload(),
     tags: serviceDetails.tags,

@@ -46,7 +46,7 @@ const CardGroup = () => {
               cardDescription={service.shortDescription}
               isAvailable={isAvailable}
               orgImg={orgImg}
-              serviceImg={service.heroImage.url}
+              serviceImg={service.assets.heroImage.url}
             />
           </Link>
         </Grid>
@@ -55,6 +55,7 @@ const CardGroup = () => {
             status={service.state.state}
             groups={service.groups}
             editServiceLink={editServiceLink}
+            serviceUuid={service.uuid}
           />
         </Grid>
       </Grid>

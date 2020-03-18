@@ -59,15 +59,17 @@ const parseAiServiceData = service => ({
   shortDescription: service.short_description,
   description: service.description,
   projectUrl: service.project_url,
-  heroImage: isEmpty(service.assets.hero_image)
-    ? {}
-    : { url: service.assets.hero_image.url, ipfsHash: service.assets.hero_image.ipfs_hash },
-  protoFiles: isEmpty(service.assets.proto)
-    ? {}
-    : { url: service.assets.proto.url, ipfsHash: service.assets.proto.ipfs_hash },
-  demoFiles: isEmpty(service.assets.demo_files)
-    ? {}
-    : { url: service.assets.demo_files.url, ipfsHash: service.assets.demo_files.ipfs_hash },
+  assets: {
+    heroImage: isEmpty(service.assets.hero_image)
+      ? {}
+      : { url: service.assets.hero_image.url, ipfsHash: service.assets.hero_image.ipfs_hash },
+    protoFiles: isEmpty(service.assets.proto)
+      ? {}
+      : { url: service.assets.proto.url, ipfsHash: service.assets.proto.ipfs_hash },
+    demoFiles: isEmpty(service.assets.demo_files)
+      ? {}
+      : { url: service.assets.demo_files.url, ipfsHash: service.assets.demo_files.ipfs_hash },
+  },
   rating: isEmpty(service.rating)
     ? {}
     : { rating: service.rating.rating, totalUsersRated: service.rating.total_users_rated },
@@ -80,6 +82,7 @@ const parseAiServiceData = service => ({
   comments: isEmpty(service.comments)
     ? { serviceProvider: [] }
     : { serviceProvider: service.comments.service_provider },
+  verify: true,
 });
 
 const parseAiServiceListResponse = response => response.map(parseAiServiceData);
