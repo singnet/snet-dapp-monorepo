@@ -19,6 +19,9 @@ export const useStyles = MUITheme => ({
     lineHeight: "23px",
     textTransform: "uppercase",
   },
+  configValidButton: {
+    display: "inline-flex",
+  },
   serviceStatusActions: {
     paddingTop: 24,
     borderTopWidth: 1,

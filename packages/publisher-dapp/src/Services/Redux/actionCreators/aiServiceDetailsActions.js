@@ -137,7 +137,7 @@ export const validateServiceId = (orgUuid, serviceId) => async dispatch => {
 };
 
 // TODO remove orgId. MPS has to figure out orgId from orgUuid
-const generateSaveServicePayload = (serviceDetails, orgId) => {
+const generateSaveServicePayload = (serviceDetails, orgId, verifyDaemonFlag) => {
   const generatePricingpayload = pricing =>
     pricing.map(price => ({
       default: price.default,
@@ -184,7 +184,7 @@ const generateSaveServicePayload = (serviceDetails, orgId) => {
         ipfs_hash: serviceDetails.assets.demoFiles.ipfsHash,
       },
     },
-    contributors: serviceDetails.contributors.map(c => ({ name: c, email_id: "" })),
+    contributors: serviceDetails.contributors.split(",").map(c => ({ name: c, email_id: "" })),
     ipfs_hash: serviceDetails.ipfsHash,
     groups: generateGroupsPayload(),
     tags: serviceDetails.tags,
@@ -194,6 +194,7 @@ const generateSaveServicePayload = (serviceDetails, orgId) => {
       service_provider: serviceDetails.comments.serviceProvider,
     },
     mpe_address: MPENetworks[process.env.REACT_APP_ETH_NETWORK].address,
+    verify: verifyDaemonFlag ? verifyDaemonFlag : undefined,
   };
 
   // TODO remove orgId. MPS has to figure out orgId from orgUuid
@@ -212,10 +213,10 @@ const saveServiceDetailsAPI = (orgUuid, serviceUuid, serviceDetailsPayload) => a
   return await API.put(apiName, apiPath, apiOptions);
 };
 
-export const saveServiceDetails = (orgUuid, serviceUuid, serviceDetails) => async dispatch => {
+export const saveServiceDetails = (orgUuid, serviceUuid, serviceDetails, verifyDaemonFlag) => async dispatch => {
   try {
     dispatch(loaderActions.startAppLoader(LoaderContent.SAVE_SERVICE_DETAILS));
-    const serviceDetailsPayload = generateSaveServicePayload(serviceDetails);
+    const serviceDetailsPayload = generateSaveServicePayload(serviceDetails, null, verifyDaemonFlag);
     const { error } = await dispatch(saveServiceDetailsAPI(orgUuid, serviceUuid, serviceDetailsPayload));
     if (error.code) {
       dispatch(loaderActions.stopAppLoader());

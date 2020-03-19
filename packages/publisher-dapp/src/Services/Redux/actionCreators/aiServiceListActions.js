@@ -74,15 +74,12 @@ const parseAiServiceData = service => ({
     ? {}
     : { rating: service.rating.rating, totalUsersRated: service.rating.total_users_rated },
   ranking: service.ranking,
-  contributors: isEmpty(service.contributors)
-    ? []
-    : service.contributors.map(contributor => ({ name: contributor.name, email: contributor.email_id })),
+  contributors: isEmpty(service.contributors) ? [] : service.contributors.map(c => c.name).join(","),
   groups: isEmpty(service.groups) ? [] : parseGroups(service.groups),
   tags: service.tags,
   comments: isEmpty(service.comments)
     ? { serviceProvider: [] }
     : { serviceProvider: service.comments.service_provider },
-  verify: true,
 });
 
 const parseAiServiceListResponse = response => response.map(parseAiServiceData);

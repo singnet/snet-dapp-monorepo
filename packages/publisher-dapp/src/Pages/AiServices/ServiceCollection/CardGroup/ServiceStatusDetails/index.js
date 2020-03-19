@@ -16,6 +16,8 @@ import Changelog from "./Changelog";
 import { useStyles } from "./styles";
 import { ConfigurationServiceRequest } from "../../../../../Utils/Daemon/ConfigurationService";
 import { aiServiceDetailsActions } from "../../../../../Services/Redux/actionCreators";
+import { checkIfKnownError } from "shared/dist/utils/error";
+
 const selectState = state => ({ serviceDetails: state.aiServiceList });
 
 const ServiceStatusDetails = props => {
@@ -23,9 +25,8 @@ const ServiceStatusDetails = props => {
   const [activeTab] = useState(2);
   const [alert, setAlert] = useState({});
   const { serviceDetails } = useSelector(selectState);
-  let invalidConfig = false;
+  let DaemonConfigvalidateAlert = {};
   const dispatch = useDispatch();
-
   const tabs = [
     { name: "Revenue", activeIndex: 0, component: <Revenue /> },
     { name: "Usage", activeIndex: 1, component: <Usage /> },
@@ -56,19 +57,27 @@ const ServiceStatusDetails = props => {
         configValidation.forEach(element1 => {
           if (element[0] === element1[0]) {
             if (element[1] !== element1[1]) {
-              invalidConfig = true;
-              setAlert({ type: alertTypes.ERROR, message: element1[0] + " should be " + element1[1] });
+              DaemonConfigvalidateAlert = {
+                type: alertTypes.ERROR,
+                message: element1[0] + " should be " + element1[1],
+              };
+              setAlert(DaemonConfigvalidateAlert);
             }
           }
         });
       });
-      if (invalidConfig.length) {
-        const classKeys = serviceUuid;
-        const result = serviceDetails.data.filter(({ uuid }) => classKeys.includes(uuid));
-        await dispatch(aiServiceDetailsActions.saveServiceDetails(result[0].orgUuid, serviceUuid, result[0]));
+      if (DaemonConfigvalidateAlert) {
+        const result = serviceDetails.data.filter(({ uuid }) => serviceUuid === uuid);
+        if (!result[0]) {
+          await dispatch(aiServiceDetailsActions.saveServiceDetails(result[0].orgUuid, serviceUuid, result[0], true));
+        } else {
+          throw new Error("Unable to Validate , Please try later");
+        }
       }
     } catch (error) {
-      return setAlert({ type: alertTypes.ERROR, message: error.message });
+      if (checkIfKnownError(error)) {
+        return setAlert({ type: alertTypes.ERROR, message: "something went wrong" });
+      }
     }
   };
   return (
@@ -94,10 +103,10 @@ const ServiceStatusDetails = props => {
           <SNETButton children="edit" color="primary" variant="contained" />
         </Link>
         {props.status === "PUBLISHED" ? (
-          <SNETButton children="pause service" color="primary" variant="contained" />
-        ) : null}
-        {props.status === "PUBLISHED" ? (
-          <SNETButton children="validate daemon" color="primary" variant="contained" onClick={validateDaemonConfig} />
+          <div className={classes.configValidButton}>
+            <SNETButton children="pause service" color="primary" variant="contained" />
+            <SNETButton children="validate daemon" color="primary" variant="contained" onClick={validateDaemonConfig} />
+          </div>
         ) : null}
       </div>
       <br />
