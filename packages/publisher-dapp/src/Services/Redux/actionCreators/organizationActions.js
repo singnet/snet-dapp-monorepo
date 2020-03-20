@@ -397,7 +397,7 @@ const registerOrganizationInBlockChain = (organization, metadataIpfsUri, history
         resolve(hash);
       })
       .once(blockChainEvents.CONFIRMATION, async () => {
-        dispatch(setOrgStateState(organizationSetupStatuses.PUBLISHED));
+        dispatch(setOrgStateState(organizationSetupStatuses.PUBLISH_IN_PROGRESS));
         await history.push(GlobalRoutes.SERVICES.path.replace(":orgUuid", organization.uuid));
         await dispatch(setOrgFoundInBlockchain(true));
         dispatch(loaderActions.stopAppLoader());
@@ -423,7 +423,7 @@ const updateOrganizationInBlockChain = (organization, metadataIpfsUri, history) 
         resolve(hash);
       })
       .once(blockChainEvents.CONFIRMATION, async () => {
-        dispatch(setOrgStateState(organizationSetupStatuses.PUBLISHED));
+        dispatch(setOrgStateState(organizationSetupStatuses.PUBLISH_IN_PROGRESS));
         await history.push(GlobalRoutes.SERVICES.path.replace(":orgUuid", organization.uuid));
         dispatch(loaderActions.stopAppLoader());
         await method.off();

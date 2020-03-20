@@ -31,10 +31,14 @@ exports.ProgressStatusList = ProgressStatusList;
 var ProgressSection = function ProgressSection(_ref) {
   var progressNumber = _ref.progressNumber,
       progressText = _ref.progressText,
-      progressStatus = _ref.progressStatus;
+      progressStatus = _ref.progressStatus,
+      onSectionClick = _ref.onSectionClick;
   var classes = (0, _styles.useStyles)();
   return _react.default.createElement("li", {
-    className: classes[progressStatus]
+    className: "".concat(classes[progressStatus], " ").concat(onSectionClick ? classes.clickableSection : ""),
+    onClick: function onClick() {
+      return onSectionClick(progressNumber, progressText, progressStatus);
+    }
   }, _react.default.createElement(_react.Fragment, null, _react.default.createElement(_StatusToggler.default, {
     progressStatus: progressStatus,
     progressNumber: progressNumber
@@ -46,7 +50,8 @@ var ProgressSection = function ProgressSection(_ref) {
 ProgressSection.propTypes = {
   progressNumber: _propTypes.default.number.isRequired,
   progressText: _propTypes.default.string.isRequired,
-  progressStatus: _propTypes.default.oneOf(["idle", "active", "completed"])
+  progressStatus: _propTypes.default.oneOf(["idle", "active", "completed"]),
+  onSectionClick: _propTypes.default.func
 };
 var _default = ProgressSection;
 exports.default = _default;

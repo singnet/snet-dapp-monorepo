@@ -31,13 +31,13 @@ export const useStyles = MUITheme => ({
     },
   },
   popupDescription: {
-    margin: "34px 0 27px",
+    margin: "32px 0 35px",
     color: MUITheme.palette.text.primary,
     fontSize: 16,
     lineHeight: "24px",
   },
   btnContainer: {
-    padding: "31px 22px",
+    padding: "0 22px 40px",
     justifyContent: "center",
   },
 });

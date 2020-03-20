@@ -70,11 +70,13 @@ var FileStats = function FileStats(props) {
   }, _react.default.createElement(_SNETButton.default, {
     children: "download files",
     color: "primary",
-    variant: "text"
+    variant: "text",
+    disabled: !uploadSuccess
   })), _react.default.createElement(_SNETButton.default, {
     children: "delete files",
     color: "red",
-    variant: "text"
+    variant: "text",
+    disabled: !uploadSuccess
   }))));
 };
 

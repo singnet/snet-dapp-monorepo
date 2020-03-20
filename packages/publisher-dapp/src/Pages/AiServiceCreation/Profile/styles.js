@@ -2,16 +2,16 @@ export const useStyles = MUITheme => ({
   profileContainer: {
     width: 845,
     paddingBottom: 144,
-    margin: "48px auto 0",
+    margin: "50px auto 0",
     [MUITheme.breakpoints.down("sm")]: {
       width: "100%",
       padding: "0 30px 100px",
     },
   },
   box: {
-    paddingBottom: 33,
+    paddingBottom: 48,
     borderRadius: 4,
-    marginBottom: 27,
+    marginBottom: 48,
     backgroundColor: MUITheme.palette.background.white,
     boxShadow: "0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.2)",
     "& > h6": {
@@ -19,6 +19,7 @@ export const useStyles = MUITheme => ({
       borderBottomWidth: 1,
       borderBottomStyle: "solid",
       borderBottomColor: MUITheme.palette.border.primary,
+      fontWeight: 400,
       lineHeight: "50px !important",
     },
     "& .MuiTypography-subtitle1": { fontWeight: "normal" },
@@ -31,11 +32,13 @@ export const useStyles = MUITheme => ({
     },
   },
   description: {
-    margin: "7px 0 15px",
+    margin: "21px 0 24px",
     color: MUITheme.palette.text.primary,
-    fontSize: 16,
+    fontSize: 14,
     lineHeight: "21px",
   },
+  shortDescContainer: { marginTop: 25 },
+  longDescContainer: { "& span": { marginBottom: 5 } },
   publishingCompanyContainer: {
     display: "flex",
     alignItems: "center",
@@ -52,19 +55,37 @@ export const useStyles = MUITheme => ({
       alignItems: "flex-start",
     },
   },
-  profileImgContainer: { padding: "30px 0 41px" },
+  profileImgContainer: {
+    padding: "30px 0 0 30px",
+  },
   uploaderContentConatiner: {
+    marginTop: 12,
     display: "flex",
     [MUITheme.breakpoints.down("sm")]: { flexDirection: "column" },
   },
   profileImgContent: {
-    paddingTop: 60,
-    marginLeft: 28,
-    "& h6:first-of-type": { marginBottom: 25 },
+    paddingTop: 9,
+    marginLeft: 37,
+    "& h6": {
+      color: MUITheme.palette.text.lightGrey,
+      fontSize: 14,
+      letterSpacing: 0.25,
+      lineHeight: "20px",
+      "&:first-of-type": { marginBottom: 25 },
+    },
     [MUITheme.breakpoints.down("sm")]: {
       paddingTop: 20,
       marginLeft: 0,
       marginBottom: 25,
+    },
+  },
+  imgUploader: {
+    "& > div": {
+      "& > div": {
+        "& > div": {
+          "&:first-of-type": { display: "none" },
+        },
+      },
     },
   },
   images: {
@@ -105,13 +126,36 @@ export const useStyles = MUITheme => ({
     },
   },
   addedTagsContainer: {
-    paddingTop: 30,
-    // display: "flex",
+    paddingTop: 20,
+    position: "relative",
+    "& div": {
+      width: "100%",
+      display: "flex",
+    },
     "& svg": {
       color: MUITheme.palette.text.disabled,
       padding: "5px 10px 0 0",
       fontSize: 20,
     },
+  },
+  addTagLabel: {
+    padding: "0 20px 0 5px",
+    position: "absolute",
+    top: 13,
+    left: 40,
+    background: MUITheme.palette.text.white,
+    color: MUITheme.palette.text.darkGrey,
+    fontFamily: MUITheme.typography.fontFamily,
+    fontSize: 12,
+    letterSpacing: 0.4,
+    lineHeight: "16px",
+  },
+  addTagExtraInfo: {
+    paddingLeft: 45,
+    color: MUITheme.palette.text.primary,
+    fontFamily: MUITheme.typography.fontFamily,
+    fontSize: 12,
+    letterSpacing: 0.39,
   },
   card: {
     boxSizing: "border-box",
@@ -119,16 +163,30 @@ export const useStyles = MUITheme => ({
     minHeight: 100,
     boxShadow: "none",
     padding: 15,
-    border: "1px solid #828282",
+    border: "1px solid rgba(25,25,25,.32)",
     borderRadius: 4,
   },
   chip: { marginLeft: 10 },
-  projUrlContainer: { paddingLeft: 29 },
-  alertTextContainer: {
-    paddingTop: 25,
-    "& span": {
-      padding: "10px 45px 20px",
-      display: "inline-block",
+  projUrlContainer: {
+    padding: "0 29px",
+    [MUITheme.breakpoints.down("sm")]: { paddingRight: 0 },
+  },
+  contributorsContainer: {
+    "& > div": {
+      "& > div": {
+        "&:last-of-type": {
+          maxWidth: "100%",
+          flexBasis: "100%",
+        },
+      },
+    },
+    "& + div": {
+      padding: "0 29px",
+      [MUITheme.breakpoints.down("sm")]: { paddingRight: 0 },
     },
   },
+  alertTextContainer: {
+    "& span": { paddingLeft: 45 },
+  },
+  alertContainer: { marginTop: 40 },
 });

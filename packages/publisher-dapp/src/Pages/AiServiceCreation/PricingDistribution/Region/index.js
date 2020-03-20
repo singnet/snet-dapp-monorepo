@@ -1,10 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useRef, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import InfoIcon from "@material-ui/icons/Info";
 import Card from "@material-ui/core/Card";
 import Chip from "@material-ui/core/Chip";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { useStyles } from "./styles";
 import StyledDropdown from "shared/dist/components/StyledDropdown";
@@ -23,7 +23,6 @@ const Region = () => {
   const [showRegion] = useState(true);
   const { serviceGroups, orgGroups } = useSelector(selectState);
   const endpointRef = useRef(null);
-  const testEndpointRef = useRef(null);
   const dispatch = useDispatch();
 
   const selectedServiceGroup = serviceGroups[0];
@@ -74,37 +73,12 @@ const Region = () => {
   };
 
   const handleNewTestEndpointsChange = event => {
-    if (event.keyCode !== keyCodes.enter) {
-      return;
-    }
     dispatch(aiServiceDetailsActions.setServiceTouchedFlag(true));
-    const newEndpoints = testEndpointRef.current.value;
-    const updatedEndpoints = [...selectedServiceGroup.testEndpoints];
-    const userInputEndpoints = newEndpoints.split(",");
-    userInputEndpoints.forEach(endpoint => {
-      endpoint = endpoint.replace(/\s/g, "");
-      if (endpoint) {
-        const index = updatedEndpoints.findIndex(el => el === endpoint);
-        if (index === -1) {
-          updatedEndpoints.push(endpoint);
-        }
-      }
-    });
+    const newEndpoints = [event.target.value];
     const updatedServiceGroups = [...serviceGroups];
-    updatedServiceGroups[0] = { ...selectedServiceGroup, testEndpoints: updatedEndpoints };
+    updatedServiceGroups[0] = { ...selectedServiceGroup, testEndpoints: newEndpoints };
     dispatch(aiServiceDetailsActions.setAiServiceGroups(updatedServiceGroups));
-    testEndpointRef.current.value = "";
     updateGroupId();
-  };
-
-  const handleTestEndpointDelete = endpoint => {
-    dispatch(aiServiceDetailsActions.setServiceTouchedFlag(true));
-    const index = selectedServiceGroup.testEndpoints.findIndex(el => el === endpoint);
-    const updatedEndpoints = [...selectedServiceGroup.testEndpoints];
-    updatedEndpoints.splice(index, 1);
-    const updatedServiceGroups = [...serviceGroups];
-    updatedServiceGroups[0] = { ...selectedServiceGroup, testEndpoints: updatedEndpoints };
-    dispatch(aiServiceDetailsActions.setAiServiceGroups(updatedServiceGroups));
   };
 
   const handleFreeCallsChange = event => {
@@ -155,7 +129,7 @@ const Region = () => {
                 onChange={handlePriceChange}
               />
             </Grid>
-            <Grid item xs={12} sm={12} md={6} lg={6}>
+            <Grid item xs={12} sm={12} md={6} lg={6} className={classes.entityTypeDropDown}>
               <StyledDropdown
                 inputLabel="Entity Type"
                 value={selectedServicePricing && selectedServicePricing.priceModel}
@@ -209,32 +183,12 @@ const Region = () => {
             <SNETTextfield
               icon
               name="testEndpoints"
-              inputRef={testEndpointRef}
-              onKeyUp={handleNewTestEndpointsChange}
+              // inputRef={testEndpointRef}
+              value={selectedServiceGroup.testEndpoints}
+              onChange={handleNewTestEndpointsChange}
               label="Ropsten - Daemon Endpoints"
               description="Enter all the public Daemon end points that will be used to call the service in the ropsten network for testing the service."
             />
-          </Grid>
-          <Grid item xs={12} sm={12} md={12} lg={12} className={classes.addedEndpointsContainer}>
-            <div className={classes.infoIconContainer}>
-              <InfoIcon />
-            </div>
-            <div className={classes.cardContainer}>
-              <span className={classes.label}>Added Endpoints</span>
-              <Card className={classes.card}>
-                {selectedServiceGroup.testEndpoints &&
-                  selectedServiceGroup.testEndpoints.map(endpoint => (
-                    <Chip
-                      className={classes.chip}
-                      key={endpoint}
-                      label={endpoint}
-                      color="primary"
-                      onDelete={() => handleTestEndpointDelete(endpoint)}
-                    />
-                  ))}
-              </Card>
-              <span className={classes.extraInfo}>You can add up to 20 endpoints</span>
-            </div>
           </Grid>
         </Grid>
       </div>

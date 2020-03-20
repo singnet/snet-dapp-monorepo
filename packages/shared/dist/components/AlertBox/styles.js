@@ -20,6 +20,7 @@ var useStyles = function useStyles(MUITheme) {
       "& p": {
         margin: "0 !important",
         color: MUITheme.palette.text.primary,
+        fontFamily: MUITheme.typography.fontFamily,
         fontSize: 14,
         lineHeight: "18px"
       }

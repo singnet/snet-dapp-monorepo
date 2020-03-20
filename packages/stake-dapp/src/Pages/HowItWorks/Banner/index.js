@@ -131,13 +131,14 @@ const Banner = ({ classes, recentStakeWindow }) => {
         <Grid item xs={12} sm={12} md={6} lg={6} className={classes.bannerDescriptionContainer}>
           <Typography className={classes.bannerTitle}>Earn more while holding AGI tokens</Typography>
           <Typography className={classes.bannerDescPara1}>
-            By staking AGI coins, you support the operations of a blockchain network as well as rewarded with more AGI
-            tokens for your contributions.
+            By staking AGI coins, you support the operations of our blockchain network and in doing so you will be
+            rewarded with more AGI tokens for your contributions.
           </Typography>
           <Typography className={classes.bannerDescPara2}>
-            Every month there will be open staking sessions for you to add your AGI tokens to be vested for 30 days. The
-            SingularityNET foundation will use all or partial amount of your staked amounted. You can always auto renew
-            for continual compounded rewards and benefits.
+            Vest your AGI tokens in 30 day staking sessions. Tokens staked in this way will be used to fulfill
+            blockchain transactions on the SingularityNET platform. At the end of the 30 day period you can either
+            continue to allow your tokens to vest or withdraw them along with any reward earned during the staking
+            period.
           </Typography>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={6} className={classes.bannerForm}>

@@ -12,7 +12,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var useStyles = (0, _styles.makeStyles)(function (MUITheme) {
   return {
     grayBox: {
-      padding: "0 45px",
+      padding: "50px 45px",
       borderWidth: 1,
       borderStyle: "dashed",
       borderColor: MUITheme.palette.border.grey,
@@ -22,6 +22,7 @@ var useStyles = (0, _styles.makeStyles)(function (MUITheme) {
       alignItems: "center",
       justifyContent: "center",
       backgroundColor: "#F8F8F8",
+      cursor: "pointer",
       textAlign: "center",
       "& svg": {
         color: MUITheme.palette.primary.main,
@@ -56,6 +57,7 @@ var useStyles = (0, _styles.makeStyles)(function (MUITheme) {
     },
     uploadStatusContainer: {
       display: "flex",
+      alignItems: "center",
       fontSize: 18,
       lineHeight: "23px",
       "& svg": {
@@ -64,19 +66,21 @@ var useStyles = (0, _styles.makeStyles)(function (MUITheme) {
       },
       "& p": {
         marginLeft: 10,
-        color: "rgba(0,0,0,0.25)"
+        color: "rgba(0,0,0,0.25)",
+        fontSize: 18,
+        lineHeight: "23px"
       }
     },
     successfullUpload: {
       display: "flex",
       alignItems: "center",
       "& svg": {
-        color: MUITheme.palette.success,
+        color: MUITheme.palette.success.main,
         fontSize: 41
       },
       "& p": {
         marginLeft: 10,
-        color: MUITheme.palette.success
+        color: MUITheme.palette.success.main
       }
     },
     imgUploaderContainer: _defineProperty({

@@ -186,22 +186,24 @@ const Profile = ({ classes }) => {
             icon
             name="name"
             label="AI Service Name"
-            minCount={0}
+            minCount={serviceDetails.name.length}
             maxCount={50}
             description="The name of your service cannot be same name as another service."
             value={serviceDetails.name}
             onChange={handleControlChange}
           />
-          <SNETTextfield
-            icon
-            name="id"
-            label="AI Service Id"
-            minCount={0}
-            maxCount={50}
-            description="The ID of your service cannot be same ID as another service."
-            value={serviceDetails.newId ? serviceDetails.newId : serviceDetails.id}
-            onChange={handleControlChange}
-          />
+          <div className={classes.serviceIdContainer}>
+            <SNETTextfield
+              icon
+              name="id"
+              label="AI Service Id"
+              minCount={serviceDetails.newId ? serviceDetails.newId.length : serviceDetails.id.length}
+              maxCount={50}
+              description="The ID of your service cannot be same ID as another service."
+              value={serviceDetails.newId ? serviceDetails.newId : serviceDetails.id}
+              onChange={handleControlChange}
+            />
+          </div>
           <ServiceIdAvailability
             serviceDetails={serviceDetails}
             id={serviceDetails.newId || serviceDetails.id}
@@ -209,53 +211,60 @@ const Profile = ({ classes }) => {
             classes={classes}
             loading={isValidateServiceIdLoading}
           />
-          <SNETTextarea
-            showInfoIcon
-            name="shortDescription"
-            label="Short Description"
-            minCount={0}
-            maxCount={160}
-            rowCount={3}
-            colCount={105}
-            value={serviceDetails.shortDescription}
-            onChange={handleControlChange}
-          />
+          <div className={classes.shortDescContainer}>
+            <SNETTextarea
+              showInfoIcon
+              name="shortDescription"
+              label="Short Description"
+              minCount={serviceDetails.shortDescription.length}
+              maxCount={160}
+              rowCount={3}
+              colCount={105}
+              value={serviceDetails.shortDescription}
+              onChange={handleControlChange}
+            />
+          </div>
 
-          <SNETTextarea
-            showInfoIcon
-            name="longDescription"
-            label="Long Description"
-            minCount={0}
-            maxCount={5000}
-            rowCount={8}
-            colCount={105}
-            value={serviceDetails.longDescription}
-            onChange={handleControlChange}
-          />
+          <div className={classes.longDescContainer}>
+            <SNETTextarea
+              showInfoIcon
+              name="longDescription"
+              label="Long Description"
+              minCount={serviceDetails.longDescription.length}
+              maxCount={5000}
+              rowCount={8}
+              colCount={105}
+              value={serviceDetails.longDescription}
+              onChange={handleControlChange}
+            />
+          </div>
 
           <SNETTextfield
             icon
             name="tags"
-            label="Service Tags"
-            description="Insert multiple items separated with commas, press enter to add"
+            label="Input Tags"
+            extraInfo="Insert multiple items separated with commas, press hit enter"
             value={tags}
             onKeyUp={handleAddTags}
             onChange={e => setTags(e.target.value.toLowerCase())}
           />
           <div className={classes.addedTagsContainer}>
-            <InfoIcon />
-            <span>Added Tags</span>
-            <Card className={classes.card}>
-              {serviceDetails.tags.map(tag => (
-                <Chip
-                  className={classes.chip}
-                  key={tag}
-                  label={tag}
-                  color="primary"
-                  onDelete={() => handleDeleteTag(tag)}
-                />
-              ))}
-            </Card>
+            <div>
+              <InfoIcon />
+              <span className={classes.addTagLabel}>Added Tags</span>
+              <Card className={classes.card}>
+                {serviceDetails.tags.map(tag => (
+                  <Chip
+                    className={classes.chip}
+                    key={tag}
+                    label={tag}
+                    color="primary"
+                    onDelete={() => handleDeleteTag(tag)}
+                  />
+                ))}
+              </Card>
+            </div>
+            <span className={classes.addTagExtraInfo}>You can add up to 20 tag items</span>
           </div>
 
           <div className={classes.projUrlContainer}>
@@ -268,13 +277,23 @@ const Profile = ({ classes }) => {
             />
           </div>
 
+          <div className={classes.contributorsContainer}>
+            <SNETTextfield
+              icon
+              name="contributors"
+              label="Contributors"
+              minCount={serviceDetails.contributors.length}
+              maxCount={100}
+              value={serviceDetails.contributors}
+              onChange={handleControlChange}
+            />
+          </div>
+
           <SNETTextfield
-            icon
-            name="contributors"
-            label="Contributors"
-            minCount={0}
-            maxCount={100}
-            value={serviceDetails.contributors}
+            name="suppportEmail"
+            label="Support Email"
+            description="Email address of the user who will receive the alert when the service is down or any error occurs."
+            value={serviceDetails.supportemail}
             onChange={handleControlChange}
           />
 
@@ -319,8 +338,11 @@ const Profile = ({ classes }) => {
               </div>
             </div>
           </div>
-
-          <AlertBox type={alert.type} message={alert.message} />
+          {alert.message ? (
+            <div className={classes.alertContainer}>
+              <AlertBox type={alert.type} message={alert.message} />
+            </div>
+          ) : null}
         </div>
       </Grid>
 

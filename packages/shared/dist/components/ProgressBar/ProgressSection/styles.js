@@ -83,6 +83,9 @@ var useStyles = (0, _styles.makeStyles)(function (MUITheme) {
           color: MUITheme.palette.text.darkGrey
         }
       }
+    },
+    clickableSection: {
+      cursor: "pointer"
     }
   };
 });

@@ -2,12 +2,11 @@ import { makeStyles } from "@material-ui/core";
 
 export const useStyles = makeStyles(MUITheme => ({
   buttonsContainer: {
-    marginTop: 40,
-    marginBottom: 64,
+    margin: "70px auto",
     display: "flex",
     justifyContent: "center",
     "& button": {
-      padding: " 13px 60px 11px",
+      padding: " 13px 50px 11px",
     },
     [MUITheme.breakpoints.down("xs")]: { flexDirection: "column" },
   },

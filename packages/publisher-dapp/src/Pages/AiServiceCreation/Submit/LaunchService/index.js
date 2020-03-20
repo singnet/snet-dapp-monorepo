@@ -14,6 +14,8 @@ import { useStyles } from "./styles";
 import DaemonConfig from "../DaemonConfig";
 import { alertTypes } from "shared/dist/components/AlertBox";
 import AlertBox from "shared/dist/components/AlertBox";
+import Rejected from "./Rejected";
+import { ServiceCreationRoutes } from "../../ServiceCreationRouter/Routes";
 
 class LaunchService extends React.Component {
   state = { daemonConfig: {}, alert: {} };
@@ -57,6 +59,12 @@ class LaunchService extends React.Component {
     await publishService(organization, serviceDetails, metadata_ipfs_hash, serviceDetails.tags, history);
   };
 
+  handleContinueEdit = () => {
+    const { history, match } = this.props;
+    const { orgUuid, serviceUuid } = match.params;
+    history.push(ServiceCreationRoutes.PROFILE.path.replace(":orgUuid", orgUuid).replace(":serviceUuid", serviceUuid));
+  };
+
   render() {
     const { classes, serviceDetails } = this.props;
     const { daemonConfig, alert } = this.state;
@@ -77,6 +85,10 @@ class LaunchService extends React.Component {
           <MessageToReviewers />
         </div>
       );
+    }
+
+    if (serviceDetails.serviceState.state === serviceCreationStatus.REJECTED) {
+      return <Rejected onContinueToEdit={this.handleContinueEdit} />;
     }
 
     return (

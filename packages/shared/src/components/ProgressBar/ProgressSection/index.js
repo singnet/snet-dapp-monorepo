@@ -10,11 +10,14 @@ export const ProgressStatusList = {
   COMPLETED: "completed",
 };
 
-const ProgressSection = ({ progressNumber, progressText, progressStatus }) => {
+const ProgressSection = ({ progressNumber, progressText, progressStatus, onSectionClick }) => {
   const classes = useStyles();
 
   return (
-    <li className={classes[progressStatus]}>
+    <li
+      className={`${classes[progressStatus]} ${onSectionClick ? classes.clickableSection : ""}`}
+      onClick={() => onSectionClick(progressNumber, progressText, progressStatus)}
+    >
       <Fragment>
         <StatusToggler progressStatus={progressStatus} progressNumber={progressNumber} />
         <span className={classes.TabTitle}>{progressText}</span>
@@ -27,6 +30,7 @@ ProgressSection.propTypes = {
   progressNumber: PropTypes.number.isRequired,
   progressText: PropTypes.string.isRequired,
   progressStatus: PropTypes.oneOf(["idle", "active", "completed"]),
+  onSectionClick: PropTypes.func,
 };
 
 export default ProgressSection;

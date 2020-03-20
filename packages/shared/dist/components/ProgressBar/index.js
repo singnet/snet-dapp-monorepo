@@ -26,7 +26,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var ProgressBar = function ProgressBar(_ref) {
   var classes = _ref.classes,
       activeSection = _ref.activeSection,
-      progressText = _ref.progressText;
+      progressText = _ref.progressText,
+      onSectionClick = _ref.onSectionClick;
 
   var computeProgressStatus = function computeProgressStatus(progressNumber, activeSection) {
     if (progressNumber < activeSection) {
@@ -49,14 +50,16 @@ var ProgressBar = function ProgressBar(_ref) {
       progressNumber: index + 1,
       progressText: text,
       progressStatus: computeProgressStatus(index + 1, activeSection),
-      key: text
+      key: text,
+      onSectionClick: onSectionClick
     });
   })));
 };
 
 ProgressBar.propTypes = {
   activeSection: _propTypes.default.number,
-  progressText: _propTypes.default.arrayOf(_propTypes.default.string)
+  progressText: _propTypes.default.arrayOf(_propTypes.default.string),
+  onSectionClick: _propTypes.default.func
 };
 
 var _default = (0, _styles.withStyles)(_styles2.useStyles)(ProgressBar);

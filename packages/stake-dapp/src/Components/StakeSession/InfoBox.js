@@ -42,6 +42,19 @@ const InfoBox = ({ stakeDetails }) => {
     );
   }
 
+  // An Edge case handling for amounts not Approved by token operator
+  if (currentTime >= stakeDetails.approvalEndPeriod && stakeDetails.pendingForApprovalAmount !== 0) {
+    return (
+      <AlertBox type={alertTypes.ERROR}>
+        <InfoIcon />
+        <div>
+          <Typography>Stake Not Approved</Typography>
+          <Typography>Unfortunately your stake was not approved before incubation.</Typography>
+        </div>
+      </AlertBox>
+    );
+  }
+
   // Incubation
   if (currentTime > stakeDetails.submissionEndPeriod && currentTime < stakeDetails.requestWithdrawStartPeriod) {
     return (
@@ -93,7 +106,7 @@ const InfoBox = ({ stakeDetails }) => {
         <InfoIcon />
         <div>
           <Typography>Auto Renewal Disabled</Typography>
-          <Typography>We appologize for the inconvenience. You can review the detailed explaination here.</Typography>
+          <Typography>We appologize for the inconvenience.</Typography>
         </div>
       </AlertBox>
     );

@@ -23,31 +23,27 @@ const Benefits = ({ classes }) => {
             <li>
               <CheckIcon />
               <div>
-                <Typography>Feature Benefit 1: </Typography>
+                <Typography>Support the Platform: </Typography>
                 <Typography>
-                  Lorem ipsum dolor sit amet, mea eu stet repudiare, est no vidit paulo, ius adhuc cetero phaedrum eu.
-                  Vix commodo aliquam detracto in, solum tibique vis cu.
+                  Take an active part in the platform operations by helping fulfill AI Marketplace transactions.
                 </Typography>
               </div>
             </li>
             <li>
               <CheckIcon />
               <div>
-                <Typography>Feature Benefit 2: </Typography>
+                <Typography>Support Adoption: </Typography>
                 <Typography>
-                  Lorem ipsum dolor sit amet, mea eu stet repudiare, est no vidit paulo, ius adhuc cetero phaedrum eu.
-                  Vix commodo aliquam detracto in, solum tibique vis cu.
+                  Staked tokens will allow ordinary everyday businesses to use the marketplace through a fiat gateway,
+                  greatly improving platform adoption.
                 </Typography>
               </div>
             </li>
             <li>
               <CheckIcon />
               <div>
-                <Typography>Feature Benefit 3: </Typography>
-                <Typography>
-                  Lorem ipsum dolor sit amet, mea eu stet repudiare, est no vidit paulo, ius adhuc cetero phaedrum eu.
-                  Vix commodo aliquam detracto in, solum tibique vis cu.
-                </Typography>
+                <Typography>Earn Rewards: </Typography>
+                <Typography>Earn more AGI tokens in reward for putting your token to use.</Typography>
               </div>
             </li>
           </ul>

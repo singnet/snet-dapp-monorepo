@@ -45,9 +45,9 @@ const FileStats = props => {
         </div>
         <div className={classes.uploadBtns}>
           <a href={fileDownloadURL} download onClick={e => e.stopPropagation()}>
-            <SNETButton children="download files" color="primary" variant="text" />
+            <SNETButton children="download files" color="primary" variant="text" disabled={!uploadSuccess} />
           </a>
-          <SNETButton children="delete files" color="red" variant="text" />
+          <SNETButton children="delete files" color="red" variant="text" disabled={!uploadSuccess} />
         </div>
       </div>
     </div>

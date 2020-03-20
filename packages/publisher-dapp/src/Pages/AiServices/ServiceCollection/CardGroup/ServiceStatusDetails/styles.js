@@ -5,7 +5,10 @@ export const useStyles = MUITheme => ({
     flexDirection: "column",
     justifyContent: "space-between",
   },
-  statusDetails: { display: "flex" },
+  statusDetails: {
+    display: "flex",
+    alignItems: "baseline",
+  },
   property: {
     color: `${MUITheme.palette.text.darkGrey} !important`,
     fontSize: "16px !important",
@@ -14,7 +17,7 @@ export const useStyles = MUITheme => ({
   },
   value: {
     paddingLeft: 16,
-    color: `${MUITheme.palette.success} !important`,
+    color: `${MUITheme.palette.success.main} !important`,
     fontSize: "18px !important",
     lineHeight: "23px",
     textTransform: "uppercase",
@@ -35,9 +38,18 @@ export const useStyles = MUITheme => ({
       width: "auto",
       textDecoration: "none",
     },
+    "@media(max-width:1040px)": {
+      flexDirection: "column",
+      alignItems: "center",
+      "& button": {
+        marginTop: 10,
+        "&:first-of-type": { marginRight: "0 !important" },
+      },
+    },
     [MUITheme.breakpoints.down("sm")]: { marginTop: 50 },
   },
   tabsHeader: {
+    width: "80%",
     margin: "15px 0 24px",
     background: "#fff",
     color: MUITheme.palette.text.lightGrey,

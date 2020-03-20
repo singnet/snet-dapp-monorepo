@@ -6,7 +6,7 @@ export const useStyles = makeStyles(MUITheme => ({
     position: "absolute",
     right: 0,
     left: 0,
-    zIndex: 999,
+    zIndex: 9999,
     backgroundColor: MUITheme.palette.background.footer,
     color: MUITheme.palette.text.footerText,
     "@media (max-width:767px)": { padding: "21px 0 52px" },

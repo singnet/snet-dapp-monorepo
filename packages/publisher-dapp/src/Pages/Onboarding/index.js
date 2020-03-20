@@ -18,7 +18,10 @@ class Onboarding extends Component {
     const { email, ownerEmail, orgStatus, orgUuid, orgType, location, history } = this.props;
     if (!isEmpty(email) && Boolean(orgUuid) && !isEmpty(ownerEmail) && email === ownerEmail) {
       if (orgType === organizationTypes.INDIVIDUAL) {
-        if (orgStatus === organizationSetupStatuses.PUBLISHED) {
+        if (
+          orgStatus === organizationSetupStatuses.PUBLISHED ||
+          orgStatus === organizationSetupStatuses.PUBLISH_IN_PROGRESS
+        ) {
           return history.push(GlobalRoutes.SERVICES.path.replace(":orgUuid", orgUuid));
         } else if (location.pathname !== AuthenticateRoutes.INDIVIDUAL.path) {
           return history.push(AuthenticateRoutes.INDIVIDUAL.path);
@@ -29,7 +32,10 @@ class Onboarding extends Component {
             return history.push(AuthenticateRoutes.ORGANIZATION.path);
           }
           return;
-        } else if (orgStatus === organizationSetupStatuses.PUBLISHED) {
+        } else if (
+          orgStatus === organizationSetupStatuses.PUBLISHED ||
+          orgStatus === organizationSetupStatuses.PUBLISH_IN_PROGRESS
+        ) {
           return history.push(GlobalRoutes.SERVICES.path.replace(":orgUuid", orgUuid));
         }
         history.push(GlobalRoutes.ORG_SETUP_STATUS.path.replace(":orgUuid", orgUuid));

@@ -46,10 +46,21 @@ const OrganizationSetup = ({ classes, location, history }) => {
     return ORGANIZATION_PROFILE;
   };
 
+  const handleSectionClick = progressNumber => {
+    const clickedSection = Object.values(organizationSetupSections).find(el => el.key === progressNumber);
+    if (clickedSection) {
+      history.push(clickedSection.route.path.replace(":orgUuid", organization.uuid));
+    }
+  };
+
   return (
     <div className={classes.organizationSetupContainer}>
       <Heading {...activeSection().heading} />
-      <ProgressBar activeSection={activeSection().key} progressText={progressText} />
+      <ProgressBar
+        activeSection={activeSection().key}
+        progressText={progressText}
+        onSectionClick={progressNumber => handleSectionClick(progressNumber)}
+      />
       <OrganizationSetupRouter handleFinishLater={handleFinishLater} />
     </div>
   );

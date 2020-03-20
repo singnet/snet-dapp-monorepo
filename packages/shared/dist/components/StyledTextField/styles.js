@@ -18,8 +18,8 @@ var useStyles = function useStyles(MUITheme) {
       "& fieldset": {
         borderColor: MUITheme.palette.border.inputBorder
       },
-      "& p": {
-        color: MUITheme.palette.text.disabled
+      '& .MuiFormHelperText-contained': {
+        color: 'rgba(0,0,0,.6)'
       },
       "& .MuiInputLabel-outlined.MuiInputLabel-shrink": {
         transform: "translate(14px, -6px) scale(0.90)"

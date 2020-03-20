@@ -1,19 +1,23 @@
 import React, { Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+
 import { withStyles } from "@material-ui/core/styles";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import MoodIcon from "@material-ui/icons/Mood";
+import PeopleIcon from "@material-ui/icons/People";
 import CheckIcon from "@material-ui/icons/Check";
 import DeviceHubIcon from "@material-ui/icons/DeviceHub";
+import Avatar from "@material-ui/core/Avatar";
+import { Modal } from "@material-ui/core";
+
+import SingularityLogo from "shared/dist/assets/images/avatar.png";
+import UserProfileCard from "shared/dist/components/UserProfileCard";
 
 import { useStyles } from "./styles";
-import UserProfileCard from "shared/dist/components/UserProfileCard";
-import { Modal } from "@material-ui/core";
 import { userActions } from "../../../Services/Redux/actionCreators";
 import { GlobalRoutes } from "../../../GlobalRouter/Routes";
 
-const UserProfilePopUp = ({ classes, show, handleClose }) => {
+const UserProfilePopUp = ({ classes, show, handleClose, orgImg }) => {
   const { nickname, orgName, orgUuid } = useSelector(state => ({
     orgUuid: state.organization.uuid,
     nickname: state.user.nickname,
@@ -42,18 +46,20 @@ const UserProfilePopUp = ({ classes, show, handleClose }) => {
         <ul className={classes.userProfileMenuList}>
           {orgUuid ? (
             <Fragment>
-              <li>
-                <MoodIcon />
-                <span>{orgName}</span>
+              <li className={classes.orgNameContainer}>
+                <div>
+                  <Avatar aria-label="recipe" className={classes.avatar} src={orgImg || SingularityLogo} />
+                  <span>{orgName}</span>
+                </div>
                 <CheckIcon />
               </li>
               <li onClick={handleEdit}>
                 <DeviceHubIcon />
-                <span>Edit</span>
+                <span>Edit Companies</span>
               </li>
               <li onClick={handleTeamMembers}>
-                <DeviceHubIcon />
-                <span>Team Members</span>
+                <PeopleIcon />
+                <span>Team</span>
               </li>
             </Fragment>
           ) : null}

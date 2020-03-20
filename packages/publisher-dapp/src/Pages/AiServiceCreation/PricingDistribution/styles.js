@@ -1,7 +1,6 @@
 export const useStyles = MUITheme => ({
   pricingContainer: {
     width: 845,
-    paddingBottom: 144,
     margin: "48px auto 0",
     [MUITheme.breakpoints.down("sm")]: {
       width: "100%",
@@ -10,7 +9,6 @@ export const useStyles = MUITheme => ({
   },
   box: {
     borderRadius: 4,
-    marginBottom: 27,
     backgroundColor: MUITheme.palette.background.white,
     boxShadow: "0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.2)",
     "& > h6": {

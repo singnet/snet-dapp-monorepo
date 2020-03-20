@@ -8,6 +8,7 @@ export const useStyles = MUITheme => ({
       background: MUITheme.palette.background.mainContent,
       "&:first-of-type": { marginRight: 4 },
     },
+    "@media(max-width:1040px)": { paddingRight: 70 },
   },
   title: {
     width: 120,

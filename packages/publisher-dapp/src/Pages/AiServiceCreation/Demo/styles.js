@@ -10,7 +10,6 @@ export const useStyles = MUITheme => ({
   box: {
     paddingBottom: 33,
     borderRadius: 4,
-    marginBottom: 27,
     backgroundColor: MUITheme.palette.background.white,
     boxShadow: "0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.2)",
     "& > h6": {
@@ -18,13 +17,20 @@ export const useStyles = MUITheme => ({
       borderBottomWidth: 1,
       borderBottomStyle: "solid",
       borderBottomColor: MUITheme.palette.border.primary,
+      fontWeight: 400,
       lineHeight: "50px !important",
     },
     [MUITheme.breakpoints.down("sm")]: { width: "100%" },
   },
   wrapper: {
-    padding: "30px 23px 21px",
-    "& h6": { fontWeight: 400 },
+    padding: "21px 23px 21px",
+    "& h6": {
+      fontWeight: 400,
+      "& a": {
+        color: MUITheme.palette.primary.main,
+        textDecoration: "none",
+      },
+    },
     "& hr": {
       margin: 0,
       backgroundColor: MUITheme.palette.text.lightGrey,
@@ -32,13 +38,17 @@ export const useStyles = MUITheme => ({
     },
   },
   demoPageDescription: {
-    marginBottom: 56,
+    marginBottom: 28,
     color: MUITheme.palette.text.primary,
     fontSize: 16,
     lineHeight: "24px",
+    "& span": {
+      marginTop: 35,
+      display: "block",
+    },
   },
   downloadBtn: {
-    padding: "43px 0 54px",
+    padding: "40px 0 54px",
     textAlign: "center",
     "& a": {
       textDecoration: "none",
@@ -53,6 +63,7 @@ export const useStyles = MUITheme => ({
       "& li": {
         paddingTop: 24,
         listStyle: "none",
+        wordBreak: "break-word",
         "& span": { fontWeight: "bold" },
       },
     },
@@ -136,8 +147,7 @@ export const useStyles = MUITheme => ({
     "& > div": { marginTop: 20 },
   },
   buttonsContainer: {
-    marginTop: 40,
-    marginBottom: 64,
+    margin: "50px auto 92px",
     display: "flex",
     justifyContent: "center",
     "& button": {

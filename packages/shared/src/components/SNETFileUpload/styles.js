@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/styles";
 
 export const useStyles = makeStyles(MUITheme => ({
   grayBox: {
-    padding: "0 45px",
+    padding: "50px 45px",
     borderWidth: 1,
     borderStyle: "dashed",
     borderColor: MUITheme.palette.border.grey,
@@ -12,6 +12,7 @@ export const useStyles = makeStyles(MUITheme => ({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#F8F8F8",
+    cursor: "pointer",
     textAlign: "center",
     "& svg": {
       color: MUITheme.palette.primary.main,
@@ -44,6 +45,7 @@ export const useStyles = makeStyles(MUITheme => ({
   },
   uploadStatusContainer: {
     display: "flex",
+    alignItems: "center",
     fontSize: 18,
     lineHeight: "23px",
     "& svg": {
@@ -53,18 +55,20 @@ export const useStyles = makeStyles(MUITheme => ({
     "& p": {
       marginLeft: 10,
       color: "rgba(0,0,0,0.25)",
+      fontSize: 18,
+      lineHeight: "23px",
     },
   },
   successfullUpload: {
     display: "flex",
     alignItems: "center",
     "& svg": {
-      color: MUITheme.palette.success,
+      color: MUITheme.palette.success.main,
       fontSize: 41,
     },
     "& p": {
       marginLeft: 10,
-      color: MUITheme.palette.success,
+      color: MUITheme.palette.success.main,
     },
   },
   imgUploaderContainer: {

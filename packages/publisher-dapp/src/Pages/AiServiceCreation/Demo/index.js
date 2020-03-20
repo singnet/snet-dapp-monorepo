@@ -23,6 +23,7 @@ const Demo = ({ classes }) => {
             AI publishers can create a unique demo experience that users on the AI Marketplace can engage with. A
             positive demo experience will encourage users to engage and integrate your AI into their applications. We
             encourage you to follow our best practices on how to properly set up your demo on our AI Marketplace.
+            <span>The steps for creating a demo UI involves:</span>
           </Typography>
 
           <div className={classes.stepOneContainer}>
@@ -30,12 +31,16 @@ const Demo = ({ classes }) => {
               Step 1: Download DApp source code
             </Typography>
             <Typography variant="subtitle2">
-              Using our DApp source code will help you to set up a local development and testing environment. Download
-              the code from the following link and follow the instructions to set up a local working environment.
+              Using our starter node demo UI package will help you to set up a local development and testing
+              environment. Download the package from the following link and follow the instructions to set up a local
+              <a href="#" alt="Click Here">
+                Click here
+              </a>
+              to see the contents of the package.
             </Typography>
             <div className={classes.downloadBtn}>
               <a href="https://github.com/singnet/snet-dapp/archive/master.zip" download>
-                <SNETButton children="download source code v1.03" color="primary" variant="contained" />
+                <SNETButton children="download source code" color="primary" variant="contained" />
               </a>
             </div>
             <hr />
@@ -46,8 +51,9 @@ const Demo = ({ classes }) => {
               Step 2: Set Up Local Test Environment
             </Typography>
             <Typography variant="subtitle2">
-              Extract the contents of the downloaded zip and navigate to that path in terminal / command prompt. Run the
-              following commands
+              Once you download the package extract the components, check for the prerequisite. Lorem ipsum dolor sit
+              amet, clita dicant postulant ne duo, adipisci expetenda has eu. Minimum deseruisse sea et, eu alterum
+              legimus nam. Cum ex purto feugiat verterem, euismod voluptatibus qui in.
             </Typography>
             <ul>
               <li>

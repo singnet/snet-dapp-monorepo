@@ -1,5 +1,6 @@
 import React from "react";
 import { withStyles } from "@material-ui/styles";
+
 // import { useSelector, useDispatch } from "react-redux";
 
 // import ToolBar from "./ToolBar";
@@ -25,6 +26,10 @@ const ServiceCollection = ({ classes }) => {
   // const handlePageChange = offset => {
   //   dispatch(setAiServiceListPagination({ offset }));
   // };
+
+  // if (isEmpty(serviceList)) {
+  //   return <CardGroup />;
+  // }
 
   return (
     <div className={classes.serviceCollection}>

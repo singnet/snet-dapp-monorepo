@@ -23,6 +23,16 @@ var useStyles = (0, _styles.makeStyles)(function (MUITheme) {
       boxShadow: "0 1px 1px 0 rgba(0,0,0,0.07), 0 2px 1px -1px rgba(0,0,0,0.07), 0 1px 3px 0 rgba(0,0,0,0.1)",
       "& button": {
         width: "100%"
+      },
+      "& label": {
+        top: -3
+      },
+      "& input": {
+        color: MUITheme.palette.text.darkGrey,
+        letterSpacing: 0.15
+      },
+      "& .MuiInputLabel-outlined.MuiInputLabel-shrink": {
+        transform: "translate(14px, -6px) scale(0.90)"
       }
     }, _defineProperty(_signupForm, MUITheme.breakpoints.down("xs"), {
       width: "auto",

@@ -60,7 +60,13 @@ const BasicDetails = ({ allowDuns, setAllowDuns }) => {
   return (
     <Grid container>
       <SNETTextField {...basicDetailsFormData.ORG_ID} value={id} onChange={handleChange} />
-      <SNETTextField {...basicDetailsFormData.ORGANIZATION_NAME} value={name} onChange={handleChange} />
+      <SNETTextField
+        {...basicDetailsFormData.ORGANIZATION_NAME}
+        value={name}
+        minCount={name.length}
+        maxCount={50}
+        onChange={handleChange}
+      />
       <div className={classes.dunsContainer}>
         <FormControlLabel
           control={<Checkbox color="primary" checked={allowDuns} onChange={e => setAllowDuns(e.target.checked)} />}

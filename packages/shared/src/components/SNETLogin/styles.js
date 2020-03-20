@@ -39,6 +39,7 @@ export const useStyles = makeStyles(MUITheme => ({
       letterSpacing: 0.4,
       lineHeight: "16px",
     },
+    "& .MuiInputLabel-outlined.MuiInputLabel-shrink": { transform: "translate(14px, -6px) scale(0.90)" },
     "& fieldset": { borderColor: "#828282 !important" },
     "& div": { color: "#212121 !important" },
   },

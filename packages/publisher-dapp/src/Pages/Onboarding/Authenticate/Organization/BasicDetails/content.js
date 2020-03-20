@@ -9,7 +9,6 @@ export const basicDetailsFormData = {
     id: "organization Name - 15/50 char",
     name: "name",
     label: "Organization Name",
-    helperText: "15/50 char",
     description: `The organization name will be displayed on the AI Marketplace.`,
   },
   DUNS: {

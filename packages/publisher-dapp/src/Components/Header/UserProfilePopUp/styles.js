@@ -21,19 +21,26 @@ export const useStyles = MUITheme => ({
       display: "flex",
       cursor: "pointer",
       listStyle: "none",
+      "& > div": { display: "flex" },
       "& svg": {
         paddingRight: 15,
         color: "#757575",
         verticalAlign: "middle",
       },
       "& span": {
+        paddingLeft: 12,
         color: MUITheme.palette.text.darkGrey,
         fontFamily: MUITheme.typography.fontFamily,
         fontSize: 16,
         lineHeight: "28px",
         letterSpacing: 0.5,
       },
+      "&:hover": { background: MUITheme.palette.background.mainContent },
     },
+  },
+  orgNameContainer: {
+    display: "flex",
+    justifyContent: "space-between",
   },
   signoutLink: {
     borderTopWidth: 1,

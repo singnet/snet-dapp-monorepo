@@ -62,4 +62,7 @@ export const useStyles = makeStyles(MUITheme => ({
       },
     },
   },
+  clickableSection: {
+    cursor: "pointer",
+  },
 }));

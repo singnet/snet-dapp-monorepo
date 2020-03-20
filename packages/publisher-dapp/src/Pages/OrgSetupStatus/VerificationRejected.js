@@ -1,11 +1,12 @@
 import React from "react";
-import VerificationFailed from "shared/dist/assets/images/VerificationFailed.png";
-import SNETStatusBanner, { statusTitleType } from "shared/dist/components/SNETStatusBanner";
+import { useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
+
 import { GlobalRoutes } from "../../GlobalRouter/Routes";
 import { AuthenticateRoutes } from "../Onboarding/Authenticate/AuthenitcateRouter/Routes";
-import { useSelector } from "react-redux";
 import { organizationSetupStatuses } from "../../Utils/organizationSetup";
+import VerificationFailed from "shared/dist/assets/images/VerificationFailed.png";
+import SNETStatusBanner, { statusTitleType } from "shared/dist/components/SNETStatusBanner";
 
 const VerificationRejected = () => {
   const status = useSelector(state => state.organization.state.state);
@@ -21,9 +22,11 @@ const VerificationRejected = () => {
 
   return (
     <SNETStatusBanner
-      title="Your Jumio ID verification was unsuccesful."
+      title="Your organization was rejected."
       img={VerificationFailed}
-      description="Please check and re-prepare the required documents, then retry the Jumio ID verification process. If you believe there was an error by Jumio or by SingularityNET, please contact our support staff who will assist you."
+      description="Unfortunatetly your organization is rejected during the internal verification.
+       Please check your inbox for mail from singularitynet team with detailed explanation for your rejection.
+       You can reinitiate the organization creation once all criteria is met."
       actions={[
         {
           children: "access jumio verification",

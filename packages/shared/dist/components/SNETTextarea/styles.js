@@ -48,6 +48,7 @@ var useStyles = function useStyles(MUITheme) {
       display: "block",
       paddingLeft: 14,
       color: MUITheme.palette.text.primary,
+      fontFamily: MUITheme.typography.fontFamily,
       fontSize: 12,
       letterSpacing: 0.39
     },

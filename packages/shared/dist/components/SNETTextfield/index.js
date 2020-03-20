@@ -76,14 +76,14 @@ var SNETTextfield = function SNETTextfield(_ref) {
     className: classes.charLength
   }, minCount, "/", maxCount, " char") : null, extraInfo ? _react.default.createElement("span", {
     className: classes.extraInfo
-  }, extraInfo) : null)), _react.default.createElement(_Grid.default, {
+  }, extraInfo) : null)), description ? _react.default.createElement(_Grid.default, {
     item: true,
     sx: 12,
     sm: 12,
     md: 6,
     lg: 6,
     className: classes.description
-  }, _react.default.createElement(_Typography.default, null, description)));
+  }, _react.default.createElement(_Typography.default, null, description)) : null);
 };
 
 SNETTextfield.propTypes = {

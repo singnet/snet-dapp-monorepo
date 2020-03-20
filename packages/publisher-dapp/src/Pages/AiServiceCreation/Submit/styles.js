@@ -17,6 +17,7 @@ export const useStyles = MUITheme => ({
       borderBottomWidth: 1,
       borderBottomStyle: "solid",
       borderBottomColor: MUITheme.palette.border.primary,
+      fontWeight: 400,
       lineHeight: "50px !important",
     },
     [MUITheme.breakpoints.down("sm")]: { width: "100%" },

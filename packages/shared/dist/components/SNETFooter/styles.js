@@ -14,7 +14,7 @@ var useStyles = (0, _styles.makeStyles)(function (MUITheme) {
       position: "absolute",
       right: 0,
       left: 0,
-      zIndex: 999,
+      zIndex: 9999,
       backgroundColor: MUITheme.palette.background.footer,
       color: MUITheme.palette.text.footerText,
       "@media (max-width:767px)": {

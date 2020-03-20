@@ -22,9 +22,11 @@ const VerificationPending = () => {
 
   return (
     <SNETStatusBanner
-      title="Your Jumio ID verfication is in progress…"
+      title="Your Organization entity review is in progress…"
       img={orgSetupPendingImg}
-      description="This review may take a few minutes to complete. In the meantime, you can add team members to your organization to help you set up and manage your AI services more efficiently."
+      description="This review may take a day or two. In the meantime,
+      you can add team members to your organization to help you set up and manage your AI services more efficiently.
+       You can also view our guides and tutorials."
       actions={[
         {
           children: "Invite Team members",

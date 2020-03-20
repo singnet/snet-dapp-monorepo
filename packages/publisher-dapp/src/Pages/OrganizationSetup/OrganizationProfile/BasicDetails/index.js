@@ -56,7 +56,7 @@ const BasicDetails = ({ classes }) => {
         label="Organization Name"
         description="The organziation name is displayed to users on the AI Marketplace."
         onChange={handleFormInputsChange}
-        minCount="15"
+        minCount={name.length}
         maxCount="50"
         disabled={foundInBlockchain}
       />
@@ -64,7 +64,7 @@ const BasicDetails = ({ classes }) => {
         label="Short Description"
         rowCount="4"
         colCount="102"
-        minCount="0"
+        minCount={shortDescription.length}
         maxCount="160"
         name="shortDescription"
         value={shortDescription}
@@ -76,7 +76,7 @@ const BasicDetails = ({ classes }) => {
         label="Long Description"
         rowCount="8"
         colCount="102"
-        minCount="0"
+        minCount={longDescription.length}
         maxCount="5000"
         name="longDescription"
         value={longDescription}

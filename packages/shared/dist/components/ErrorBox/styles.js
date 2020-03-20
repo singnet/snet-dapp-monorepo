@@ -31,6 +31,17 @@ var useStyles = function useStyles(theme) {
       "& button": {
         fontWeight: 600
       }
+    },
+    grayBoxContainer: {
+      padding: "0 24px"
+    },
+    grayBox: {
+      padding: "24px 16px 36px",
+      borderWidth: 1,
+      borderStyle: "solid",
+      borderColor: "#F1F1F1",
+      borderRadius: 4,
+      backgroundColor: "#F6F6F6"
     }
   };
 };

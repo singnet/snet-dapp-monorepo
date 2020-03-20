@@ -99,8 +99,8 @@ class TeamMembers extends Component {
 
   handleAddToBlockChain = async () => {
     try {
-      const { members, orgId, uuid, addAndPublishMembers } = this.props;
-      await addAndPublishMembers(members[memberStatus.ACCEPTED], orgId, uuid);
+      const { members, orgId, uuid, addAndPublishMembers, ownerAddress } = this.props;
+      await addAndPublishMembers(members[memberStatus.ACCEPTED], orgId, uuid, ownerAddress);
       this.setState({
         addBlockChainAlert: { type: alertTypes.SUCCESS, message: "Members have been added to blockchain" },
       });
@@ -185,6 +185,7 @@ const mapStateToProps = state => ({
   members: state.organization.members,
   email: state.user.email,
   ownerEmail: state.organization.owner,
+  ownerAddress: state.organization.ownerAddress,
   orgStatus: state.organization.state.state,
   orgFoundInBlockchain: state.organization.foundInBlockchain,
 });
@@ -192,8 +193,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getAllMembers: uuid => dispatch(inviteMembersActions.getAllMembers(uuid)),
   inviteMembers: (members, uuid) => dispatch(inviteMembersActions.inviteMembers(members, uuid)),
-  addAndPublishMembers: (members, orgId, uuid) =>
-    dispatch(inviteMembersActions.addAndPublishMembers(members, orgId, uuid)),
+  addAndPublishMembers: (members, orgId, uuid, ownerAddress) =>
+    dispatch(inviteMembersActions.addAndPublishMembers(members, orgId, uuid, ownerAddress)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(useStyles)(TeamMembers));

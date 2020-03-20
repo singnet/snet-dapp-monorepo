@@ -72,6 +72,16 @@ class AiServiceCreation extends Component {
     }
   };
 
+  handleSectionClick = progressNumber => {
+    const { history, match } = this.props;
+    const { orgUuid, serviceUuid } = match.params;
+    // const clickedSection = Object.values(serviceCreationSections).find(el => el.key === progressNumber);
+    const [key] = Object.entries(serviceCreationSections).find(([_key, value]) => value.key === progressNumber);
+    if (ServiceCreationRoutes[key]) {
+      history.push(ServiceCreationRoutes[key].path.replace(":orgUuid", orgUuid).replace(":serviceUuid", serviceUuid));
+    }
+  };
+
   render() {
     const { classes, serviceFoundInBlockchain, serviceTouched } = this.props;
     return (
@@ -84,7 +94,11 @@ class AiServiceCreation extends Component {
         />
         <div className={classes.serviceCreationContainer}>
           <Heading {...this.activeSection().heading} />
-          <ProgressBar activeSection={this.activeSection().key} progressText={progressText} />
+          <ProgressBar
+            activeSection={this.activeSection().key}
+            progressText={progressText}
+            onSectionClick={progressNumber => this.handleSectionClick(progressNumber)}
+          />
           <ServiceCreationRouter />
           <Loader />
         </div>

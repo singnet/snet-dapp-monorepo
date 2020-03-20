@@ -26,7 +26,7 @@ export const useStyles = MUITheme => ({
     marginBottom: 15,
     [MUITheme.breakpoints.down("xs")]: {
       paddingLeft: 0,
-      marginBottom: 0,
+      margin: "15px 0 0",
     },
   },
   owmnerMMTextfield: {

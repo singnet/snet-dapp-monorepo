@@ -6,15 +6,17 @@ export const useStyles = makeStyles(MUITheme => ({
     "& button": { margin: "5px 0 0 11px" },
   },
   grayBox: {
+    width: "auto",
     padding: "15px 35px 30px 30px",
     borderWidth: 1,
     borderStyle: "solid",
     borderColor: "#F1F1F1",
     borderRadius: 4,
-    marginBottom: 67,
+    margin: "0 20px 67px",
     backgroundColor: "#F6F6F6",
   },
   regionNameIdContainer: {
+    padding: "0 10px",
     display: "flex",
   },
   header: {
@@ -33,9 +35,23 @@ export const useStyles = makeStyles(MUITheme => ({
     "& > div": {
       "& > div": {
         "& > div": {
-          maxWidth: "93%",
-          flexBasis: "93%",
+          maxWidth: "100%",
+          flexBasis: "100%",
+          "& > div": {
+            "&:last-of-type": {
+              "& > div": { marginTop: 0 },
+            },
+          },
         },
+      },
+    },
+  },
+  entityTypeDropDown: {
+    "& > div": {
+      width: "93%",
+      "& label": { padding: "0 5px" },
+      "& > div": {
+        background: MUITheme.palette.text.white,
       },
     },
   },
@@ -57,7 +73,7 @@ export const useStyles = makeStyles(MUITheme => ({
     minHeight: 100,
     boxShadow: "none",
     padding: 15,
-    border: "1px solid #828282",
+    border: "1px solid rgba(25,25,25,.32)",
     borderRadius: 4,
   },
   extraInfo: {
@@ -83,5 +99,6 @@ export const useStyles = makeStyles(MUITheme => ({
     textAlign: "center",
     "& button": { padding: "45px 100px" },
   },
+  alertContainer: { marginTop: 49 },
   btnContainer: { textAlign: "right" },
 }));

@@ -15,7 +15,11 @@ import { serviceCreationStatus } from "../constant";
 import { checkIfKnownError } from "shared/src/utils/error";
 
 class SubmitForReview extends React.Component {
-  state = { daemonConfig: {}, alert: {} };
+  state = {
+    daemonConfig: {},
+    charCount: 0,
+    alert: {},
+  };
 
   fetchSampleDaemonConfig = async () => {
     try {
@@ -48,6 +52,15 @@ class SubmitForReview extends React.Component {
       this.setState({ alert: {} });
       const { submitServiceDetailsForReview, orgId, orgUuid, orgStatus, serviceDetails } = this.props;
       if (orgStatus !== organizationSetupStatuses.PUBLISHED) {
+        if (orgStatus === organizationSetupStatuses.PUBLISH_IN_PROGRESS) {
+          return this.setState({
+            alert: {
+              type: alertTypes.ERROR,
+              message:
+                "Organization is being published in blockchain. Service can be submitted only when organization is published",
+            },
+          });
+        }
         return this.setState({
           alert: {
             type: alertTypes.ERROR,
@@ -73,6 +86,9 @@ class SubmitForReview extends React.Component {
   render() {
     const { classes, serviceDetails } = this.props;
     const { daemonConfig, alert } = this.state;
+    const charCount = serviceDetails.comments.serviceProvider[0]
+      ? serviceDetails.comments.serviceProvider[0].length
+      : 0;
 
     return (
       <Grid container className={classes.submitContainer}>
@@ -80,16 +96,14 @@ class SubmitForReview extends React.Component {
           <Typography variant="h6">Review Process</Typography>
           <div className={classes.wrapper}>
             <Typography className={classes.submitDescription}>
-              After you submitted your service, SNET admins will review your service protocals. This process could take
-              a few days. After the review you will be notified if your service as has been ACCEPTED or if some your
-              inputs needs to be refined. You will be able to review and respond to the feedback from the SNET Admins
-              here.
+              Once you have submitted your service, SingularityNET will review your service protocols. You will be
+              notified once the review has been completed, please be patient as this process could take a few days.
             </Typography>
             <DaemonConfig config={daemonConfig} footerNote="lore ipsum doler amet" />
             <div className={classes.commentField}>
               <SNETTextarea
                 label="Comments for Reviewers (optional)"
-                minCount={0}
+                minCount={charCount}
                 maxCount={5000}
                 rowCount={8}
                 colCount={105}

@@ -1,12 +1,12 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Typography from "@material-ui/core/Typography";
+import { useDispatch, useSelector } from "react-redux";
 
 import BasicDetails from "./BasicDetails";
 import CompanyAddress from "./CompanyAddress";
 import SNETButton from "shared/dist/components/SNETButton";
 import { useStyles } from "./styles";
 import { OnboardingRoutes } from "../../OnboardingRouter/Routes";
-import { useSelector, useDispatch } from "react-redux";
 import { organizationActions } from "../../../../Services/Redux/actionCreators";
 import validator from "shared/dist/utils/validator";
 import { orgOnboardingConstraints } from "./validationConstraints";
