@@ -25,7 +25,6 @@ const ServiceStatusDetails = props => {
   const [activeTab] = useState(2);
   const [alert, setAlert] = useState({});
   const { serviceDetails } = useSelector(selectState);
-  let DaemonConfigvalidateAlert = {};
   const dispatch = useDispatch();
   const tabs = [
     { name: "Revenue", activeIndex: 0, component: <Revenue /> },
@@ -47,8 +46,9 @@ const ServiceStatusDetails = props => {
 
   const activeComponent = tabs.find(el => el.activeIndex === activeTab);
 
-  // TODO use the appropriate endpoint of the service's daemon
+  // TODO\\\\\\ use the appropriate endpoint of the service's daemon
   const validateDaemonConfig = async () => {
+    let DaemonConfigvalidateAlert = {};
     try {
       const serviceEndpoint = "https://example-service-a.singularitynet.io:8083";
       const configurationServiceRequest = new ConfigurationServiceRequest(serviceEndpoint);
@@ -68,15 +68,17 @@ const ServiceStatusDetails = props => {
       });
       if (DaemonConfigvalidateAlert) {
         const result = serviceDetails.data.filter(({ uuid }) => serviceUuid === uuid);
-        if (!result[0]) {
-          await dispatch(aiServiceDetailsActions.saveServiceDetails(result[0].orgUuid, serviceUuid, result[0], true));
-        } else {
-          throw new Error("Unable to Validate , Please try later");
+
+        const { error } = await dispatch(
+          aiServiceDetailsActions.saveServiceDetails(result[0].orgUuid, serviceUuid, result[0], true)
+        );
+        if (error.code) {
+          throw new Error(error.message);
         }
       }
     } catch (error) {
       if (checkIfKnownError(error)) {
-        return setAlert({ type: alertTypes.ERROR, message: "something went wrong" });
+        return setAlert({ type: alertTypes.ERROR, message: error.message });
       }
     }
   };
