@@ -19,67 +19,88 @@ import { aiServiceDetailsActions } from "../../../../../Services/Redux/actionCre
 import { checkIfKnownError } from "shared/dist/utils/error";
 
 const selectState = state => ({ serviceDetails: state.aiServiceList });
+const selectstate1 = state => ({ groupDetails: state.aiServiceDetails });
 
 const ServiceStatusDetails = props => {
-  const { classes, status, groups, editServiceLink, serviceUuid } = props;
+  const { classes, status, groups, editServiceLink, serviceUuid, orgUuid } = props;
   const [activeTab] = useState(2);
   const [alert, setAlert] = useState({});
   const { serviceDetails } = useSelector(selectState);
+  const { groupDetails } = useSelector(selectstate1);
   const dispatch = useDispatch();
+  let DaemonConfigvalidateAlert = {};
   const tabs = [
     { name: "Revenue", activeIndex: 0, component: <Revenue /> },
     { name: "Usage", activeIndex: 1, component: <Usage /> },
     { name: "Pricing", activeIndex: 2, component: <Pricing groups={groups} /> },
     { name: "Changelog", activeIndex: 3, component: <Changelog /> },
   ];
-
+  //Todo check for valid url    ["daemon_end_point", "0.0.0.0:8083"],    ["passthrough_endpoint", "http://localhost:7003"],
   const configValidation = [
     ["blockchain_enabled", "true"],
     ["ipfs_end_point", "http://ipfs.singularitynet.io:80"],
     ["blockchain_network_selected", "main"],
     ["passthrough_enabled", "true"],
-    ["organization_id", "sohit1"],
-    ["service_id", "sohit1"],
-    ["daemon_end_point", "0.0.0.0:8083"],
-    ["passthrough_endpoint", "http://localhost:7003"],
+    ["organization_id", { orgUuid }],
+    ["service_id", { serviceUuid }],
   ];
 
   const activeComponent = tabs.find(el => el.activeIndex === activeTab);
 
-  // TODO\\\\\\ use the appropriate endpoint of the service's daemon
-  const validateDaemonConfig = async () => {
-    let DaemonConfigvalidateAlert = {};
-    try {
-      const serviceEndpoint = "https://example-service-a.singularitynet.io:8083";
-      const configurationServiceRequest = new ConfigurationServiceRequest(serviceEndpoint);
-      const res = await configurationServiceRequest.getConfiguration();
-      res.currentConfigurationMap.forEach(element => {
-        configValidation.forEach(element1 => {
-          if (element[0] === element1[0]) {
-            if (element[1] !== element1[1]) {
-              DaemonConfigvalidateAlert = {
-                type: alertTypes.ERROR,
-                message: element1[0] + " should be " + element1[1],
-              };
-              setAlert(DaemonConfigvalidateAlert);
-            }
+  const getGrpcConfig = async endpoint => {
+    const serviceEndpoint = endpoint;
+    const configurationServiceRequest = new ConfigurationServiceRequest(serviceEndpoint);
+    const res = await configurationServiceRequest.getConfiguration();
+    res.currentConfigurationMap.forEach(element => {
+      configValidation.forEach(element1 => {
+        if (element[0] === element1[0]) {
+          if (element[1] !== element1[1]) {
+            DaemonConfigvalidateAlert = {
+              type: alertTypes.ERROR,
+              message: element1[0] + " should be " + element1[1],
+            };
+            setAlert(DaemonConfigvalidateAlert);
           }
+        }
+      });
+    });
+  };
+  // TODO use the appropriate endpoint of the service's daemon
+  const validateDaemonConfig = async () => {
+    let checkEndpoint = true;
+    try {
+      groupDetails.groups.forEach(group => {
+        if (!group.endpoints.length) {
+          checkEndpoint = false;
+        }
+        group.endpoints.forEach(endpoint => {
+          getGrpcConfig(endpoint);
         });
       });
-      if (DaemonConfigvalidateAlert) {
-        const result = serviceDetails.data.filter(({ uuid }) => serviceUuid === uuid);
-
-        const { error } = await dispatch(
-          aiServiceDetailsActions.saveServiceDetails(result[0].orgUuid, serviceUuid, result[0], true)
-        );
-        if (error.code) {
-          throw new Error(error.message);
-        }
+    } catch (error) {
+      if (checkIfKnownError(error)) {
+        return setAlert({ type: alertTypes.ERROR, message: error.message });
+      }
+      return setAlert({ type: alertTypes.ERROR, message: "Something went wrong please try" });
+    }
+    if (DaemonConfigvalidateAlert && checkEndpoint) {
+      saveApi();
+    }
+  };
+  const saveApi = async () => {
+    try {
+      const result = serviceDetails.data.filter(({ uuid }) => serviceUuid === uuid);
+      const { error } = await dispatch(
+        aiServiceDetailsActions.saveServiceDetails(result[0].orgUuid, serviceUuid, result[0], true)
+      );
+      if (error.code) {
+        throw new Error(error.message);
       }
     } catch (error) {
       if (checkIfKnownError(error)) {
         return setAlert({ type: alertTypes.ERROR, message: error.message });
       }
+      return setAlert({ type: alertTypes.ERROR, message: "Unable to Validate , Please try later" });
     }
   };
   return (

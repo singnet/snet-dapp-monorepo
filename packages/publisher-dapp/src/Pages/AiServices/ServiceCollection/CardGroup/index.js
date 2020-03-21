@@ -56,6 +56,7 @@ const CardGroup = () => {
             groups={service.groups}
             editServiceLink={editServiceLink}
             serviceUuid={service.uuid}
+            orgUuid={orgUuid}
           />
         </Grid>
       </Grid>

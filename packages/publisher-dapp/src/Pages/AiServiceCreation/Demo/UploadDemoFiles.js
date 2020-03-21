@@ -38,7 +38,7 @@ const UploadDemoFiles = ({ classes, orgUuid, serviceUuid, demoFilesUrl }) => {
     [dispatch, orgUuid, serviceUuid]
   );
 
-  const acceptedFileTypes = "application/zip";
+  const acceptedFileTypes = ["application/zip", "application/x-zip-compressed"];
 
   return (
     <div className={classes.stepThreeContainer}>

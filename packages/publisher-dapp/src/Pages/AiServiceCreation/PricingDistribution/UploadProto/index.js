@@ -53,7 +53,7 @@ const UploadProto = () => {
     [dispatch, orgUuid, serviceUuid]
   );
 
-  const acceptedFileTypes = "application/zip";
+  const acceptedFileTypes = ["application/zip", "application/x-zip-compressed"];
 
   return (
     <Fragment>
