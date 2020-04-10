@@ -53,6 +53,7 @@ const ServiceStatusDetails = props => {
   const tabs = [{ name: "Pricing", activeIndex: 2, component: <Pricing groups={groups} /> }];
   const activeComponent = tabs.find(el => el.activeIndex === activeTab);
   const validateDaemonConfig = () => {
+    let multiErrors = [];
     const result = serviceDetails.data.filter(({ uuid }) => serviceUuid === uuid);
     let DaemonConfigvalidateAlert = [];
     let errorMessage = [];
@@ -74,6 +75,7 @@ const ServiceStatusDetails = props => {
           }
           try {
             const res = await configurationServiceRequest.getConfiguration(signature, currentBlock);
+            DaemonConfigvalidateAlert.push(`Please fix the errors for ${endpoint}:`);
             res.currentConfigurationMap.forEach(element => {
               configValidation.forEach(element1 => {
                 if (element[0] === element1[0]) {
@@ -84,10 +86,14 @@ const ServiceStatusDetails = props => {
                 }
               });
             });
+            errorMessage = generateDetailedErrorMessageFromValidation(DaemonConfigvalidateAlert);
+            multiErrors.push(errorMessage);
+            setAlert({ type: alertTypes.ERROR, children: multiErrors });
           } catch (error) {
             DaemonConfigvalidateAlert.push(endpoint + " is not a valid endpoint ");
             errorMessage = generateDetailedErrorMessageFromValidation(DaemonConfigvalidateAlert);
-            setAlert({ type: alertTypes.ERROR, children: errorMessage });
+            multiErrors.push(errorMessage);
+            setAlert({ type: alertTypes.ERROR, children: multiErrors });
           }
           if (isEmpty(DaemonConfigvalidateAlert)) {
             await dispatch(aiServiceDetailsActions.saveServiceDetails(result[0].orgUuid, serviceUuid, result[0], true));
