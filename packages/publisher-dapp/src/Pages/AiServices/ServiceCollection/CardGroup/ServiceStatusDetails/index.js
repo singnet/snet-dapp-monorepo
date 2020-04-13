@@ -90,7 +90,9 @@ const ServiceStatusDetails = props => {
             setAlert({ type: alertTypes.ERROR, children: errorMessage });
           }
           if (isEmpty(DaemonConfigvalidateAlert)) {
-            await dispatch(aiServiceDetailsActions.saveServiceDetails(result[0].orgUuid, serviceUuid, result[0], true));
+            await dispatch(
+              aiServiceDetailsActions.submitServiceDetailsForReview(result[0].orgUuid, serviceUuid, result[0], true)
+            );
           } else {
             errorMessage = generateDetailedErrorMessageFromValidation(DaemonConfigvalidateAlert);
             setAlert({ type: alertTypes.ERROR, children: errorMessage });
