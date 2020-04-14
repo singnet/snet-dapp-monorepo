@@ -27,8 +27,10 @@ export const useStyles = MUITheme => ({
       color: MUITheme.palette.text.primary,
       fontSize: 14,
       lineHeight: "21px",
+      "@media(max-width:600px)": { paddingRight: 0 },
     },
     "& button": {
+      marginBottom: 10,
       "&:first-of-type": {
         padding: "13px 18px 11px",
         marginRight: 22,

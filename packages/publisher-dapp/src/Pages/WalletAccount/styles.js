@@ -137,7 +137,7 @@ export const useStyles = MUITheme => ({
     },
   },
   walletAccWrapper: { padding: "24px 23px 40px" },
-  alertBoxContainer: { marginTop: 24 },
+  alertBoxContainer: { marginTop: 124 },
   headerAccountDetails: {
     padding: "0 23px",
     borderBottomWidth: 1,
@@ -350,7 +350,7 @@ export const useStyles = MUITheme => ({
   },
   metamaskContent: {
     position: "relative",
-    "& div": {
+    "& > div": {
       width: "100%",
       position: "absolute",
       bottom: -95,

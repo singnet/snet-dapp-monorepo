@@ -29,7 +29,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 var validator = _validate.default;
 
-var hasLowerCase = function hasLowerCase(value, options, key, attributes) {
+var hasLowerCase = function hasLowerCase(value, options) {
   if (/[a-z]/.test(value)) {
     return;
   }
@@ -37,7 +37,7 @@ var hasLowerCase = function hasLowerCase(value, options, key, attributes) {
   return options.message || "must contain a lowercase character";
 };
 
-var hasUpperCase = function hasUpperCase(value, options, key, attributes) {
+var hasUpperCase = function hasUpperCase(value, options) {
   if (/[A-Z]/.test(value)) {
     return;
   }
@@ -45,7 +45,7 @@ var hasUpperCase = function hasUpperCase(value, options, key, attributes) {
   return options.message || "must contain an uppercase character";
 };
 
-var hasNumber = function hasNumber(value, options, key, attributes) {
+var hasNumber = function hasNumber(value, options) {
   if (/[0-9]/.test(value)) {
     return;
   }
@@ -53,7 +53,7 @@ var hasNumber = function hasNumber(value, options, key, attributes) {
   return options.message || "must contain a number";
 };
 
-var hasAWSPasswordSplChar = function hasAWSPasswordSplChar(value, options, key, attributes) {
+var hasAWSPasswordSplChar = function hasAWSPasswordSplChar(value, options) {
   // eslint-disable-next-line no-useless-escape
   if (/[\^\$\*\.\[\]\{\}\(\)\?\-\"\!\@\#\%\&\/\,\>\<\'\:\;\|\_\~\`]/.test(value)) {
     return;
@@ -67,7 +67,7 @@ var array = function array(arrayItems, itemConstraints, key) {
     return "".concat(key, " is not a valid array");
   }
 
-  var arrayItemErrors = arrayItems.reduce(function (errors, item, index) {
+  var arrayItemErrors = arrayItems.reduce(function (errors, item) {
     var error = (0, _validate.default)(item, itemConstraints);
     if (error) errors.push.apply(errors, _toConsumableArray(error));
     return errors;

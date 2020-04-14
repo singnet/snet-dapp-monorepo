@@ -21,11 +21,11 @@ var _WhiteLogo = _interopRequireDefault(require("../../assets/images/WhiteLogo.s
 
 var _styles = require("./styles");
 
-var _MobileHeader = _interopRequireDefault(require("./MobileHeader"));
-
 var _HeaderActions = _interopRequireDefault(require("./HeaderActions"));
 
 var _Navbar = _interopRequireDefault(require("./Navbar"));
+
+var _MobileHeader = _interopRequireDefault(require("./MobileHeader"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

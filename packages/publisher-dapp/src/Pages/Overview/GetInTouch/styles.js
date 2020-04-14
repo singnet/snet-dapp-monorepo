@@ -47,6 +47,7 @@ export const useStyles = MUITheme => ({
     "& button": {
       padding: "16px 28px 16px",
       marginTop: "0 !important",
+      [MUITheme.breakpoints.down("xs")]: { marginTop: "15px !important" },
     },
     [MUITheme.breakpoints.down("sm")]: {
       maxWidth: "100%",

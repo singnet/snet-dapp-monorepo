@@ -36,9 +36,13 @@ var useStyles = function useStyles(MUITheme) {
         margin: "24px 0 32px",
         color: MUITheme.palette.text.primary,
         fontSize: 14,
-        lineHeight: "21px"
+        lineHeight: "21px",
+        '@media(max-width:600px)': {
+          paddingRight: 0
+        }
       },
       "& button": {
+        marginBottom: 10,
         "&:first-of-type": {
           padding: "13px 18px 11px",
           marginRight: 22

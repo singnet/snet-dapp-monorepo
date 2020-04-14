@@ -1,76 +1,90 @@
-const imgPath = (directory = "RateReviewImprove", file = "RatingAIServices", extension = "png") =>
-  `${process.env.REACT_APP_SNET_CDN}/assets/images/GetStarted/${directory}/${file}.${extension}`;
+import WhitePaperImage from "shared/dist/assets/images/WhitePaper.png";
+import PlatformRoadmapImage from "shared/dist/assets/images/PlatformRoadmap.png";
+import ResearchInitiativesImage from "shared/dist/assets/images/ResearchInitiatives.png";
 
-export const GetStartedDetails = {
-  title: "How the AI Publishing Works",
-  description: "Have a sneak peak at what we have in our offering",
-};
+import SetYourOrgIcon from "shared/dist/assets/images/SetYourOrg.png";
+import DreamTeamIcon from "shared/dist/assets/images/DreamTeam.png";
+import CreateAIServicesIcon from "shared/dist/assets/images/CreateAIServices.png";
+import PublishDistributeIcon from "shared/dist/assets/images/PublishDistribute.png";
+import EditUpdateIcon from "shared/dist/assets/images/EditUpdate.png";
+import CollectAGIIcon from "shared/dist/assets/images/CollectAGI.png";
+import StayConnectedIcon from "shared/dist/assets/images/StayConnected.png";
 
-export const GetStartedCategories = [
+export const relatedContentData = [
   {
-    title: "Getting Started",
-    media: imgPath("RateReviewImprove", "RatingAIServices"),
-    content: [
-      {
-        type: "description",
-        value: `<p>If you’re new to development on SingularityNET Platforms, you can get started with our tools and resources for free. If you’re ready to build more advanced capabilities and distribute your AI services on the AI Marketplace, enroll in the Dev Publisher Program for free.</p>`,
-      },
-      {
-        type: "action",
-        value: {
-          type: "blue",
-          btnText: "start enrollment",
-        },
-        linkTo: "",
-      },
-    ],
+    cardMedia: WhitePaperImage,
+    cardTitle: "SingularityNET White Paper",
+    cardDescription:
+      "A Decentralized, Open Market and Network for AIs.  Read our white paper to get a better understanding our mission and technology development",
+    cardAction: "Download WhitePaper",
+    cardLinkTo: "https://dev.singularitynet.io/docs/overview/",
   },
   {
-    title: "Managing Your Account",
-    media: imgPath("RateReviewImprove", "RatingAIServices"),
-    content: [
-      {
-        type: "description",
-        value: `<p>As a member, you have full access to the resources you need to configure AI services and to submit new AI services and updates. If you’ve enrolled as an organization, you can invite additional developers to your team within your account. <a href="/">Learn How to  Manage Your Account.</a></p>`,
-      },
-    ],
+    cardMedia: PlatformRoadmapImage,
+    cardTitle: "Platform Roadmap",
+    cardDescription:
+      "SingularityNET lets anyone create, share, and monetize AI services at scale. It's a full-stack AI solution powered by a decentralized protocol…",
+    cardAction: "view",
+    cardLinkTo: "https://dev.singularitynet.io/docs/overview/",
   },
   {
-    title: "Building Your AI Services",
-    media: imgPath("RateReviewImprove", "RatingAIServices"),
-    content: [
-      {
-        type: "description",
-        value: `<p>Take advantage of a comprehensive set of frameworks you can implement in your AI service  to support advanced service capabilities and services other platforms. <a href="/"> View Developer Resources.</a></p>`,
-      },
-    ],
+    cardMedia: ResearchInitiativesImage,
+    cardTitle: "Research Initiatives",
+    cardDescription:
+      "SingularityNThe initiatives outlined below consist of core research areas that will strengthen the long-term AI capabilities of the network…",
+    cardAction: "view",
+    cardLinkTo: "https://dev.singularitynet.io/docs/overview/",
+  },
+];
+
+export const howItWorksContent = [
+  {
+    icon: SetYourOrgIcon,
+    title: "Setup Your Organization",
+    description: "on the blockchain as a company entity or individual developer",
+    btnTitle: "learn more",
+    linkTop: "https://dev.singularitynet.io/docs/overview/",
   },
   {
-    title: "Distributing Your AI Services",
-    media: imgPath("RateReviewImprove", "RatingAIServices"),
-    content: [
-      {
-        type: "description",
-        value: `<p>Lorem ipsum dolor sit amet, sed tempor tincidunt ne, ex choro interpretaris qui. Eu per modo apeirian, modus summo omittantur te nec. Amet elit vituperatoribus ex his. Et natum tractatos euripidis est, sed delenit sensibus deterruisset cu,  explicari ea mel. Lorem Ipsum Link</p>`,
-      },
-    ],
+    icon: DreamTeamIcon,
+    title: "Form a Dream Team",
+    description: "to help create and manage your AI services.  Share your revenue with your contributors.",
+    btnTitle: "learn more",
+    linkTop: "https://dev.singularitynet.io/docs/overview/",
   },
   {
-    title: "Enroll Free Today",
-    media: imgPath("RateReviewImprove", "RatingAIServices"),
-    content: [
-      {
-        type: "description",
-        value: `<p>Take advantage of a comprehensive set of frameworks you can implement in your AI service  to support advanced service capabilities and services other platforms.</p>`,
-      },
-      {
-        type: "action",
-        value: {
-          type: "blue",
-          btnText: "start enrollment",
-        },
-        linkTo: "",
-      },
-    ],
+    icon: CreateAIServicesIcon,
+    title: "Create AI Services",
+    description: "configurations, demos, tutorials, pricing, all in one place.",
+    btnTitle: "learn more",
+    linkTop: "https://dev.singularitynet.io/docs/overview/",
+  },
+  {
+    icon: PublishDistributeIcon,
+    title: "Publish & Distribute",
+    description: "AI services to the blockchain once, and launch everywhere.",
+    btnTitle: "learn more",
+    linkTop: "https://dev.singularitynet.io/docs/overview/",
+  },
+  {
+    icon: EditUpdateIcon,
+    title: "Quickly Edit & Update",
+    description: "AI services anytime with full control.",
+    btnTitle: "learn more",
+    linkTop: "https://dev.singularitynet.io/docs/overview/",
+  },
+  {
+    icon: CollectAGIIcon,
+    title: "Collect AGI Tokens",
+    description: "and transfer them to your preferred wallet and team memebers.",
+    btnTitle: "learn more",
+    linkTop: "https://dev.singularitynet.io/docs/overview/",
+  },
+  {
+    icon: StayConnectedIcon,
+    title: "Stay Connected",
+    description: "with alerts and notifications on actions and feedback from your users.",
+    btnTitle: "learn more",
+    linkTop: "https://dev.singularitynet.io/docs/overview/",
   },
 ];

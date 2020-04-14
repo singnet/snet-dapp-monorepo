@@ -67,9 +67,9 @@ var useStyles = function useStyles(MUITheme) {
           margin: "0 0 23px 0",
           listStyle: "none"
         },
-        '& > li': {
-          '&:last-of-type': {
-            borderBottom: 'none',
+        "& > li": {
+          "&:last-of-type": {
+            borderBottom: "none",
             marginBottom: 0
           }
         },
@@ -138,7 +138,7 @@ var useStyles = function useStyles(MUITheme) {
     },
     subMenues: {
       borderTopWidth: 2,
-      borderTopStyle: 'solid',
+      borderTopStyle: "solid",
       borderTopColor: "rgba(151, 151, 151, 0.1)",
       "& li": {
         paddingLeft: "0 !important",
@@ -148,7 +148,7 @@ var useStyles = function useStyles(MUITheme) {
         },
         "&:last-of-type": {
           paddingBottom: 9,
-          borderBottom: 'none'
+          borderBottom: "none"
         },
         "& a": {
           padding: "13px 0 13px 33px",
@@ -164,7 +164,7 @@ var useStyles = function useStyles(MUITheme) {
       }
     },
     whiteHeader: {
-      '& svg, & p': {
+      "& svg, & p": {
         color: MUITheme.palette.text.white
       }
     }

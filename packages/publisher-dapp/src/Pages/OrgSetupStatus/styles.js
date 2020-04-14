@@ -4,7 +4,10 @@ export const useStyles = MUITheme => ({
     width: 845,
     margin: "0 auto",
     padding: "45px 0",
-    [MUITheme.breakpoints.down("sm")]: { width: "auto" },
+    [MUITheme.breakpoints.down("sm")]: {
+      width: "auto",
+      padding: "45px 25px",
+    },
   },
   description: {
     "& h3": { lineHeight: "48px" },
