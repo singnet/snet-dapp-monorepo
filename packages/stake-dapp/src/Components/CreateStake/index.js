@@ -10,6 +10,7 @@ import SessionTime from "./SessionTime";
 import AccountBalance from "../AccountBalance";
 import StakeSession from "../StakeSession";
 import StakeSummary from "../StakeSummary";
+import StakingRules from "./StakingRules";
 import {
   btnDetails,
   agreementDetails,
@@ -63,6 +64,7 @@ const CreateStake = () => {
       <Grid container>
         <Grid item xs={12} sm={12} md={4} lg={4}>
           <AccountBalance />
+          <StakingRules />
         </Grid>
         <Grid item xs={12} sm={12} md={8} lg={8} className={classes.rightSideSection}>
           <div className={classes.noDataFoundSection}>
