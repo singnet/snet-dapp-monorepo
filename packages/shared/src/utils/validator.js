@@ -37,10 +37,10 @@ const array = (arrayItems, itemConstraints, key) => {
   }
   const arrayItemErrors = arrayItems.reduce((errors, item) => {
     const error = validate(item, itemConstraints);
-    if (error) errors.push(...error);
+    if (!!error) errors.push(error);
     return errors;
   }, []);
-  return validate.isEmpty(arrayItemErrors) ? null : `^${arrayItemErrors}`;
+  return validate.isEmpty(arrayItemErrors) ? null : `^${JSON.stringify(arrayItemErrors)}`;
 };
 const validURL = (str, options) => {
   var pattern = new RegExp(
@@ -67,8 +67,5 @@ validator.validators = {
   array,
   validURL,
 };
-
-// default options
-validator.options = { format: "flat" };
 
 export default validator;

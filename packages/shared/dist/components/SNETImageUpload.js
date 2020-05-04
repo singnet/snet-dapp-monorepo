@@ -566,7 +566,10 @@ var SNETImageUpload = /*#__PURE__*/function (_React$Component) {
           padding: "0 40px"
         }
       }, /*#__PURE__*/_react.default.createElement(_icons.CloudUpload, {
-        style: {
+        style: this.props.error ? {
+          fontSize: 48,
+          color: snetRed
+        } : {
           fontSize: 48,
           color: this.mainColor
         }
@@ -576,7 +579,13 @@ var SNETImageUpload = /*#__PURE__*/function (_React$Component) {
           padding: "0 40px"
         }
       }, /*#__PURE__*/_react.default.createElement(_Typography.default, {
-        style: {
+        style: this.props.error ? {
+          fontFamily: snetFont,
+          fontVariantCaps: "normal",
+          textTransform: "initial",
+          fontSize: 16,
+          color: snetRed
+        } : {
           fontFamily: snetFont,
           fontVariantCaps: "normal",
           textTransform: "initial",
@@ -1466,6 +1475,7 @@ SNETImageUpload.propTypes = {
   galleryCols: _propTypes.default.number,
   infoTip: _propTypes.default.string,
   mainColor: _propTypes.default.object,
+  error: _propTypes.default.bool,
   // Output mode props
   displayModeTitle: _propTypes.default.string,
   outputImage: _propTypes.default.string,

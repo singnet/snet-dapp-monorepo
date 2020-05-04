@@ -38,7 +38,8 @@ var SNETFileUpload = function SNETFileUpload(props) {
       fileName = props.fileName,
       fileSize = props.fileSize,
       fileDownloadURL = props.fileDownloadURL,
-      uploadSuccess = props.uploadSuccess;
+      uploadSuccess = props.uploadSuccess,
+      error = props.error;
   var classes = (0, _styles.useStyles)(); // eslint-disable-next-line no-unused-vars
 
   var _useDropzone = (0, _reactDropzone.useDropzone)({
@@ -75,7 +76,8 @@ var SNETFileUpload = function SNETFileUpload(props) {
     fileName: fileName,
     fileSize: fileSize,
     fileDownloadURL: fileDownloadURL,
-    uploadSuccess: uploadSuccess
+    uploadSuccess: uploadSuccess,
+    error: error
   })));
 };
 
