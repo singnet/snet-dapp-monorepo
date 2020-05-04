@@ -1,17 +1,24 @@
-name: Development Sync
-
+name: development-publisher -> development
 on:
   push:
-    branches: [ development-publisher ]
+    branches:
+      - development-publisher
+
 jobs:
-  publisher-sync:
+  sync-branches:
     runs-on: ubuntu-latest
+    name: Syncing branches
     steps:
-    - uses: actions/checkout@master
-    - name: repo-sync
-      uses: repo-sync/github-sync@v2
-      with:
-        source_repo: "https://github.com/Vivek205/snet-dapp-monorepo.git"
-        source_branch: "development-publisher"
-        destination_branch: "development"
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Opening pull request
+        id: pull
+        uses: tretuna/sync-branches@1.1.0
+        with:
+          GITHUB_TOKEN: ${{secrets.REPO_SYNC_TOKEN}}
+          FROM_BRANCH: "development-publisher"
+          TO_BRANCH: "development"
