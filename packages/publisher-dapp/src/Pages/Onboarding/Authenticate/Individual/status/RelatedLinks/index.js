@@ -11,7 +11,7 @@ import { useStyles } from "./styles";
 const RelatedLinks = ({ classes, show }) => {
   if (show) {
     return (
-      <Grid container spacing={24} className={classes.relatedLinksContainer}>
+      <Grid container className={classes.relatedLinksContainer}>
         <div className={classes.iconTitleContainer}>
           <LaunchIcon />
           <Typography>Related Links</Typography>

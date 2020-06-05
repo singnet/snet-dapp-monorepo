@@ -52,7 +52,7 @@ class AiServices extends Component {
     return (
       <Fragment>
         <div className={classes.AiServicesMainContainer}>
-          <Grid container spacing={24} className={classes.topSectionCotainer}>
+          <Grid container className={classes.topSectionCotainer}>
             <Grid item xs={12} sm={12} md={12} lg={12} className={classes.descriptionContainer}>
               <Grid item xs={12} sm={7} md={7} lg={7} className={classes.content}>
                 <div>

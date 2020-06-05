@@ -51,7 +51,7 @@ const OrgSetupStatus = ({ classes, history }) => {
   const CurrentStatus = Banners[status];
 
   return (
-    <Grid container spacing={24} className={classes.OrgSetupStatusContainer}>
+    <Grid container className={classes.OrgSetupStatusContainer}>
       <Grid item xs={12} sm={12} md={12} lg={12} className={classes.description}>
         <Typography variant="h3">Welcome to the AI Publisher</Typography>
         <Typography>With this publisher portal, you can publish and manage your AI services</Typography>

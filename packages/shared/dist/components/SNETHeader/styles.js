@@ -18,7 +18,8 @@ var useStyles = (0, _styles.makeStyles)(function (MUITheme) {
       flexDirection: "row",
       alignItems: "center",
       boxShadow: "0 2px 6px 0 rgba(0,0,0,0.2)",
-      zIndex: 1110
+      zIndex: 1110,
+      backgroundColor: MUITheme.palette.background.white
     }, _defineProperty(_appBar, MUITheme.breakpoints.down("md"), {
       padding: "14px 10px"
     }), _defineProperty(_appBar, "@media(max-width:1028px)", {

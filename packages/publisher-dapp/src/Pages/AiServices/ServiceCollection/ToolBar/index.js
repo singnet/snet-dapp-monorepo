@@ -16,7 +16,7 @@ const ToolBar = () => {
   };
 
   return (
-    <Grid container spacing={24} className={classes.toolBar}>
+    <Grid container className={classes.toolBar}>
       <Grid item xs={6} sm={6} md={6} lg={6} className={classes.sortBySection}>
         <ServiceSortOptions />
       </Grid>

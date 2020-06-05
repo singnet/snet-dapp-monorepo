@@ -34,7 +34,7 @@ const Header = () => {
       isLoggedIn={isLoggedIn}
       onLogoClick={handleLogoClick}
       portalName="AI Publisher"
-      color="white"
+      // color="white"
       NavigationBar={NavigationBar}
       LoggedInActions={LoggedInActions}
       LoggedOutActions={LoggedOutActions}

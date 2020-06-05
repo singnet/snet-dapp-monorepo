@@ -7,6 +7,7 @@ export const useStyles = makeStyles(MUITheme => ({
     alignItems: "center",
     boxShadow: "0 2px 6px 0 rgba(0,0,0,0.2)",
     zIndex: 1110,
+    backgroundColor: MUITheme.palette.background.white,
     [MUITheme.breakpoints.down("md")]: { padding: "14px 10px" },
     "@media(max-width:1028px)": { justifyContent: "space-between" },
   },
