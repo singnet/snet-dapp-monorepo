@@ -94,7 +94,12 @@ const Enroll = ({ classes, history }) => {
         <Typography variant="body2">
           In order to publish your AI services and company/individual entity to the blockchain, you will need to use the
           Metamask app plugin. It is recommended that you
-          <a href="https://youtu.be/YVgfHZMFFFQ" target="_blank" title="Setup and Install Metamask Wallet">
+          <a
+            href="https://youtu.be/YVgfHZMFFFQ"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Setup and Install Metamask Wallet"
+          >
             {" "}
             set up and install a Metamask Wallet{" "}
           </a>
@@ -119,7 +124,7 @@ const Enroll = ({ classes, history }) => {
         <Typography variant="h4">Joining Team Members</Typography>
         <Typography variant="body2">
           Joining team members will be required to provide their
-          <a href="https://metamask.io/" title="Metamask" target="_blank">
+          <a href="https://metamask.io/" title="Metamask" target="_blank" rel="noopener noreferrer">
             {" "}
             Metamask
           </a>{" "}

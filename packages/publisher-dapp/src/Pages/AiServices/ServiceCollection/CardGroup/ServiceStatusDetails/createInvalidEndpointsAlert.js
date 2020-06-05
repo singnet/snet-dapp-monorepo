@@ -9,14 +9,14 @@ export default (invalidEndpoints, setShowDaemonConfigModal) => (
     </ul>
     <p>
       Please
-      <a
+      <span
         onClick={e => {
           e.preventDefault();
           setShowDaemonConfigModal(true);
         }}
       >
         click here
-      </a>
+      </span>
       to see the production ready configuration
     </p>
   </Fragment>

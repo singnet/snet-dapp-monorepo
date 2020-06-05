@@ -38,7 +38,7 @@ const ReadyToLaunch = ({ classes, handlePublish, handleBackToDashboard, alert, o
               </li>
               <li>
                 <Typography>
-                  Click <a onClick={handleOpenDaemonConfigModal}>here</a> to open daemon config modal
+                  Click <span onClick={handleOpenDaemonConfigModal}>here</span> to open daemon config modal
                 </Typography>
               </li>
             </ul>
