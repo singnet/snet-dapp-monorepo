@@ -46,7 +46,7 @@ const OverviewArticle = ({ classes, title, description, list, media, btnDetails,
         ) : null}
         {btnDetails.linkTo ? (
           <Link to={btnDetails.linkTo}>
-            <SNETButton children={btnDetails.text} color={btnDetails.color} variant={btnDetails.variant} />
+            <SNETButton children={btnDetails.text} variant={btnDetails.variant} />
           </Link>
         ) : null}
       </Grid>

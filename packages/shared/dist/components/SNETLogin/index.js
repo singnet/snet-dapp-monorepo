@@ -86,8 +86,7 @@ var SNETLogin = function SNETLogin(props) {
   };
 
   return /*#__PURE__*/_react.default.createElement(_Grid.default, {
-    container: true,
-    spacing: 12
+    container: true
   }, /*#__PURE__*/_react.default.createElement(_Grid.default, {
     item: true,
     xs: 12,

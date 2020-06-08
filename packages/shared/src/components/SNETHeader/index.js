@@ -64,8 +64,8 @@ SNETHeader.propTypes = {
   isLoggedIn: PropTypes.bool,
   color: PropTypes.string,
 
-  LoggedInActions: PropTypes.object,
-  LoggedOutActions: PropTypes.object,
+  LoggedInActions: PropTypes.elementType,
+  LoggedOutActions: PropTypes.elementType,
   onLogoClick: PropTypes.func,
 };
 

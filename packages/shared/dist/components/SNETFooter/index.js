@@ -24,7 +24,6 @@ var Footer = function Footer(_ref) {
     className: classes.footer
   }, /*#__PURE__*/_react.default.createElement(_Grid.default, {
     container: true,
-    spacing: 24,
     className: classes.footerWrapper
   }, /*#__PURE__*/_react.default.createElement(_PrimaryFooter.default, {
     leftData: data.PrimaryFooterLeft,

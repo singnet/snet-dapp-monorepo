@@ -35,7 +35,9 @@ const Enroll = ({ classes, history }) => {
     <Grid container className={classes.enrollMainContainer}>
       <Grid item xs={12} sm={12} md={12} lg={12} className={classes.topSectionContainer}>
         <Typography variant="h3">What You Need To Register</Typography>
-        <Typography variant="span">Please keep these documents handy for seamless registration</Typography>
+        <Typography className={classes.subHeading}>
+          Please keep these documents handy for seamless registration
+        </Typography>
       </Grid>
 
       <Grid item xs={12} sm={12} md={12} lg={12}>
@@ -137,7 +139,7 @@ const Enroll = ({ classes, history }) => {
       </Grid>
 
       <Grid item xs={12} sm={12} md={12} lg={12} className={classes.btnContainer}>
-        <StyledButton btnText="continue" type="blue" onClick={handleContinue} />
+        <StyledButton btnText="continue" onClick={handleContinue} />
       </Grid>
     </Grid>
   );

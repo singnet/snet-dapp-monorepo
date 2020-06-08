@@ -12,7 +12,6 @@ export const overViewArticles = [
     media: Overview,
     btnDetails: {
       text: "get started",
-      color: "blue",
       variant: "outlined",
       linkTo: `${GlobalRoutes.ENROLL.path}`,
     },

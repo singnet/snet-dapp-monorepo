@@ -31,15 +31,15 @@ export const useStyles = MUITheme => ({
   topSectionContainer: {
     textAlign: "center",
     "& h3": { lineHeight: "48px" },
-    "& span": {
-      paddingTop: 8,
-      display: "inline-block",
-      color: MUITheme.palette.text.primary,
-      fontFamily: MUITheme.typography.fontFamily,
-      fontSize: 20,
-      fontWeight: 300,
-      lineHeight: "28px",
-    },
+  },
+  subHeading: {
+    paddingTop: 8,
+    display: "inline-block",
+    color: MUITheme.palette.text.primary,
+    fontFamily: MUITheme.typography.fontFamily,
+    fontSize: 20,
+    fontWeight: 300,
+    lineHeight: "28px",
   },
   btnContainer: {
     paddingBottom: "0 !important",

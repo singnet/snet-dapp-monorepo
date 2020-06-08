@@ -77,8 +77,8 @@ var SNETHeader = function SNETHeader(_ref) {
 SNETHeader.propTypes = {
   isLoggedIn: _propTypes.default.bool,
   color: _propTypes.default.string,
-  LoggedInActions: _propTypes.default.object,
-  LoggedOutActions: _propTypes.default.object,
+  LoggedInActions: _propTypes.default.elementType,
+  LoggedOutActions: _propTypes.default.elementType,
   onLogoClick: _propTypes.default.func
 };
 SNETHeader.defaultProps = {

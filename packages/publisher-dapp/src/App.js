@@ -19,12 +19,15 @@ Amplify.configure(aws_config);
 
 initQuantcast();
 
-ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_ID);
 const history = createBrowserHistory();
-history.listen(location => {
-  ReactGA.set({ page: location.pathname });
-  ReactGA.pageview(location.pathname);
-});
+
+if (process.env.REACT_APP_GA_TRACKING_ID) {
+  ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_ID);
+  history.listen(location => {
+    ReactGA.set({ page: location.pathname });
+    ReactGA.pageview(location.pathname);
+  });
+}
 
 if (process.env.REACT_APP_HOTJAR_ID && process.env.REACT_APP_HOTJAR_SV) {
   initHotjar(process.env.REACT_APP_HOTJAR_ID, process.env.REACT_APP_HOTJAR_SV);
