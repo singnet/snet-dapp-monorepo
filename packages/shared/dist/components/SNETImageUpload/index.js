@@ -1462,7 +1462,7 @@ SNETImageUpload.propTypes = {
   // If true disables image reset button
   returnByteArray: _propTypes.default.bool,
   // whether to return base64 or byteArray image data
-  outputFormat: _propTypes.default.oneOf(["image/png", "image/jpg", "image/jpeg"]),
+  outputFormat: _propTypes.default.oneOf(["image/png", "image/jpg", "image/jpeg", "image/*"]),
   allowedInputTypes: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.array]),
   maxImageSize: _propTypes.default.number,
   // 10 mb

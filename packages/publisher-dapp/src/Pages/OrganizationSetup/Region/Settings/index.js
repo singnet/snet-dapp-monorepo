@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, Fragment } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -126,7 +126,7 @@ const Settings = ({ classes, groups, group, groupIndex, foundInBlockchain, inval
               onChange={handlePaymentAddressChange}
               label="Payment Address"
               description={
-                <p>
+                <Fragment>
                   The ethereum address to which all payments will be processed for this group. See Payment Address
                   section &nbsp;
                   <a
@@ -144,7 +144,7 @@ const Settings = ({ classes, groups, group, groupIndex, foundInBlockchain, inval
                   >
                     page
                   </a>
-                </p>
+                </Fragment>
               }
               disabled={foundInBlockchain}
               error={!!invalidFields ? "paymentAddress" in invalidFields : false}
@@ -156,7 +156,7 @@ const Settings = ({ classes, groups, group, groupIndex, foundInBlockchain, inval
               name="id"
               label="ETCD Endpoint"
               description={
-                <p>
+                <Fragment>
                   Enter all the ETCD endpoints that will be used. Details &nbsp;
                   <a
                     href="http://dev.singularitynet.io/docs/ai-developers/etcd/"
@@ -165,7 +165,7 @@ const Settings = ({ classes, groups, group, groupIndex, foundInBlockchain, inval
                   >
                     here
                   </a>
-                </p>
+                </Fragment>
               }
               onKeyUp={handleAddEndpoints}
               inputRef={etcdEndpointsRef}

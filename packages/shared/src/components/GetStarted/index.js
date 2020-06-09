@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 const GetStarted = ({ classes, CTAType, pageBtnRoute, GetStartedDetails, GetStartedCategories }) => {
   return (
-    <Grid container spacing={24} className={classes.GetStartedMainContaienr}>
+    <Grid container className={classes.GetStartedMainContaienr}>
       <Grid item xs={12} sm={12} md={12} lg={12} className={classes.TopSection}>
         <GetStartedDescription title={GetStartedDetails.title} description={GetStartedDetails.description} />
       </Grid>

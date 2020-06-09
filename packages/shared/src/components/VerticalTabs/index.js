@@ -60,8 +60,8 @@ const VerticalTabs = ({ upperTabs, lowerTabs }) => {
 };
 
 VerticalTabs.propTypes = {
-  upperTabs: PropTypes.object,
-  lowerTabs: PropTypes.object,
+  upperTabs: PropTypes.array,
+  lowerTabs: PropTypes.array,
 };
 
 export default VerticalTabs;

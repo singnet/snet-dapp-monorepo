@@ -47,7 +47,10 @@ export const useStyles = makeStyles(MUITheme => ({
     padding: "40px 20px 30px",
     margin: "39px auto 0",
     boxShadow: "0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.2)",
-    "& button": { width: "100%" },
+    "& button": {
+      width: "100%",
+      marginTop: 25,
+    },
     "& p": { marginBottom: 10 },
     "& label": {
       padding: "0 5px",

@@ -6,7 +6,7 @@ const initialState = {
   isInitialized: false,
   isLoggedIn: false,
   publisherTnC: { ver: "", accepted: "" },
-  email: undefined,
+  email: "",
   nickname: undefined,
   isEmailVerified: false,
   individualVerificationStatus: individualVerificationStatusList.NOT_STARTED,

@@ -21,7 +21,7 @@ const NoServicesFound = () => {
         <List>
           {serviceCreationArticlesLink.map(article => (
             <ListItem key={article.label}>
-              <AnchorLink label={article.label} href={article.href} newTab={article.href} />
+              <AnchorLink label={article.label} href={article.href} newTab={article.newTab} />
             </ListItem>
           ))}
         </List>

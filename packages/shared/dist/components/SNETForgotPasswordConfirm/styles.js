@@ -60,7 +60,8 @@ var useStyles = (0, _styles.makeStyles)(function (MUITheme) {
       margin: "39px auto 0",
       boxShadow: "0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.2)",
       "& button": {
-        width: "100%"
+        width: "100%",
+        marginTop: 25
       },
       "& p": {
         marginBottom: 10

@@ -34,7 +34,7 @@ const SNETForgotPasswordConfirm = ({ email, forgotPasswordConfirmError, onSubmit
   };
 
   return (
-    <Grid container spacing={24}>
+    <Grid container>
       <Grid item xs={12} sm={12} md={12} lg={12} className={classes.forgotPwdContent}>
         <Typography variant="h3">Reset your password</Typography>
         <Typography>

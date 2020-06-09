@@ -88,7 +88,10 @@ class AiServices extends Component {
           </Grid>
           <CreateNewServicePopup open={showPopUp} handleClose={this.handleClosePopup} />
         </div>
-        <ServicePublishedPopup open={recentlyPublishedService} handleClose={this.handleServicePublishedPopupClose} />
+        <ServicePublishedPopup
+          open={Boolean(recentlyPublishedService)}
+          handleClose={this.handleServicePublishedPopupClose}
+        />
       </Fragment>
     );
   }

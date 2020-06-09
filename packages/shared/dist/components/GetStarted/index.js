@@ -31,7 +31,6 @@ var GetStarted = function GetStarted(_ref) {
       GetStartedCategories = _ref.GetStartedCategories;
   return /*#__PURE__*/_react.default.createElement(_Grid.default, {
     container: true,
-    spacing: 24,
     className: classes.GetStartedMainContaienr
   }, /*#__PURE__*/_react.default.createElement(_Grid.default, {
     item: true,

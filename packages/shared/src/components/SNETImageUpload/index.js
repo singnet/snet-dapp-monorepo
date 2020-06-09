@@ -1416,7 +1416,7 @@ SNETImageUpload.propTypes = {
   disableUrlTab: PropTypes.bool, // If true disables url tab
   disableResetButton: PropTypes.bool, // If true disables image reset button
   returnByteArray: PropTypes.bool, // whether to return base64 or byteArray image data
-  outputFormat: PropTypes.oneOf(["image/png", "image/jpg", "image/jpeg"]),
+  outputFormat: PropTypes.oneOf(["image/png", "image/jpg", "image/jpeg", "image/*"]),
   allowedInputTypes: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   maxImageSize: PropTypes.number, // 10 mb
   maxImageWidth: PropTypes.number,

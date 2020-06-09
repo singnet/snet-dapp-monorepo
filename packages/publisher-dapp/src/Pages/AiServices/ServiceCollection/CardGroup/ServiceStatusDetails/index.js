@@ -31,7 +31,7 @@ const ServiceStatusDetails = props => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { classes, status, groups, serviceUuid, orgUuid, orgId, serviceId } = props;
-  const [activeTab] = useState(2);
+  const [activeTab] = useState(0);
   const { serviceDetails } = useSelector(selectState);
   const [alert, setAlert] = useState({});
   const [verifyDaemonAlert, setVerifyDaemonAlert] = useState({
@@ -62,7 +62,7 @@ const ServiceStatusDetails = props => {
     { name: "Changelog", activeIndex: 3, component: <Changelog /> },
   ];
 */
-  const tabs = [{ name: "Pricing", activeIndex: 2, component: <Pricing groups={groups} /> }];
+  const tabs = [{ name: "Pricing", activeIndex: 0, component: <Pricing groups={groups} /> }];
   const activeComponent = tabs.find(el => el.activeIndex === activeTab);
 
   const validateDaemonConfig = async () => {

@@ -51,7 +51,6 @@ var SNETPagination = function SNETPagination(_ref) {
   var to = parseFloat(offset) + parseFloat(limit);
   return /*#__PURE__*/_react.default.createElement(_Grid.default, {
     container: true,
-    spacing: 24,
     className: classes.paginationContainer
   }, /*#__PURE__*/_react.default.createElement(_Grid.default, {
     item: true,

@@ -52,7 +52,7 @@ var SNETSignupConfirm = function SNETSignupConfirm(props) {
       signupAlert = props.signupAlert;
   var classes = (0, _styles.useStyles)();
 
-  var _useState = (0, _react.useState)(),
+  var _useState = (0, _react.useState)(""),
       _useState2 = _slicedToArray(_useState, 2),
       otp = _useState2[0],
       setOtp = _useState2[1];

@@ -14,8 +14,8 @@ const EditHeader = ({ classes, onBack, allowSubmit, onSubmit }) => {
         <Typography className={classes.editHeaderTitle}>Edit Service</Typography>
       </div>
       <div className={classes.editHeaderBtns}>
-        <SNETButton color="white" variant="outlined" children="back to dashboard" onClick={onBack} />
-        <SNETButton color="white" variant="contained" children="submit" onClick={onSubmit} disabled={!allowSubmit} />
+        <SNETButton children="back to dashboard" onClick={onBack} />
+        <SNETButton children="submit" onClick={onSubmit} disabled={!allowSubmit} />
       </div>
     </div>
   );

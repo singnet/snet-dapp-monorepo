@@ -27,7 +27,6 @@ var Category = function Category(_ref) {
       media = _ref.media;
   return /*#__PURE__*/_react.default.createElement(_Grid.default, {
     container: true,
-    spacing: 24,
     className: "".concat(classes.CategoryWrapper, " ").concat(rightAlign ? classes.reverseDirection : null)
   }, /*#__PURE__*/_react.default.createElement(_Grid.default, {
     item: true,
@@ -47,7 +46,7 @@ var Category = function Category(_ref) {
     md: 6,
     lg: 6,
     className: classes.CategoryContent
-  }, /*#__PURE__*/_react.default.createElement("h3", null, title), content.map(function (item, index) {
+  }, /*#__PURE__*/_react.default.createElement("h3", null, title), content.map(function (item) {
     return /*#__PURE__*/_react.default.createElement(_CategoryDetails.default, {
       type: item.type,
       value: item.value,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Typography from "@material-ui/core/Typography";
 import MPENetworks from "singularitynet-platform-contracts/networks/MultiPartyEscrow";
 
@@ -19,12 +19,12 @@ const AdvancedFields = ({ freeCallSignerAddress }) => {
         value={MPENetworks[process.env.REACT_APP_ETH_NETWORK].address}
         label="MPE Address"
         description={
-          <p>
+          <Fragment>
             The ethereum address of the MultiParty Escrow contract on the Ethereum mainnet. Details &nbsp;
             <a href="https://dev.singularitynet.io/docs/ai-developers/mpe/" rel="noopener noreferrer" target="_blank">
               here
             </a>
-          </p>
+          </Fragment>
         }
         disabled
       />

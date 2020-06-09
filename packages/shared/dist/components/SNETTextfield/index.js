@@ -93,7 +93,7 @@ SNETTextfield.propTypes = {
   label: _propTypes.default.string,
   value: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number]),
   helperText: _propTypes.default.string,
-  description: _propTypes.default.string,
+  description: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.object]),
   onChange: _propTypes.default.func
 };
 

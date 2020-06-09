@@ -41,7 +41,6 @@ var SNETStatusBanner = function SNETStatusBanner(_ref) {
       anchorDetails = _ref.anchorDetails;
   return /*#__PURE__*/_react.default.createElement(_Grid.default, {
     container: true,
-    spacing: 24,
     className: classes.statusBannerContainer
   }, /*#__PURE__*/_react.default.createElement(_Grid.default, {
     item: true,

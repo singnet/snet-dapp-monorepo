@@ -35,7 +35,7 @@ const SNETPagination = ({
   const to = parseFloat(offset) + parseFloat(limit);
 
   return (
-    <Grid container spacing={24} className={classes.paginationContainer}>
+    <Grid container className={classes.paginationContainer}>
       <Grid item xs={6} sm={6} md={6} lg={6} className={classes.pagination}>
         <Pagination
           limit={limit}

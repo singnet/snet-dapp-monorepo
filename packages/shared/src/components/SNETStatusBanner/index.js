@@ -15,7 +15,7 @@ export const statusTitleType = {
 
 const SNETStatusBanner = ({ classes, title, img, description, actions, type, anchorDetails }) => {
   return (
-    <Grid container spacing={24} className={classes.statusBannerContainer}>
+    <Grid container className={classes.statusBannerContainer}>
       <Grid item xs={12} sm={4} md={4} lg={4} className={classes.statusBannerMedia}>
         <img src={img} alt="Status-Media" />
       </Grid>

@@ -13,7 +13,7 @@ import { signupConfirmConstraints } from "./validationConstraints";
 const SNETSignupConfirm = props => {
   const { info, onResendOtp, onSubmit, signupAlert } = props;
   const classes = useStyles();
-  const [otp, setOtp] = useState();
+  const [otp, setOtp] = useState("");
   const [validationErr, setValidationErr] = useState();
 
   const handleSubmit = event => {

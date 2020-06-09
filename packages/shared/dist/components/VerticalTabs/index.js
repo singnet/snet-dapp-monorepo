@@ -110,8 +110,8 @@ var VerticalTabs = function VerticalTabs(_ref) {
 };
 
 VerticalTabs.propTypes = {
-  upperTabs: _propTypes.default.object,
-  lowerTabs: _propTypes.default.object
+  upperTabs: _propTypes.default.array,
+  lowerTabs: _propTypes.default.array
 };
 var _default = VerticalTabs;
 exports.default = _default;

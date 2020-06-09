@@ -68,10 +68,10 @@ const BasicDetails = ({ classes, invalidFields }) => {
 
       <SNETTextarea
         label="Short Description"
-        rowCount="4"
-        colCount="102"
+        rowCount={4}
+        colCount={102}
         minCount={shortDescription.length}
-        maxCount="160"
+        maxCount={160}
         name="shortDescription"
         value={shortDescription}
         onChange={handleFormInputsChange}
@@ -81,10 +81,10 @@ const BasicDetails = ({ classes, invalidFields }) => {
       />
       <SNETTextarea
         label="Long Description"
-        rowCount="8"
-        colCount="102"
+        rowCount={8}
+        colCount={102}
         minCount={longDescription.length}
-        maxCount="5000"
+        maxCount={5000}
         name="longDescription"
         value={longDescription}
         onChange={handleFormInputsChange}

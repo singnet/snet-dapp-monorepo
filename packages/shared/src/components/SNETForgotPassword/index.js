@@ -32,7 +32,7 @@ const SNETForgotPassword = ({ title, email, forgotPasswordError, onSubmit }) => 
   };
 
   return (
-    <Grid container spacing={24} className={classes.forgotPwdMainContainer}>
+    <Grid container className={classes.forgotPwdMainContainer}>
       <Grid item xs={12} sm={12} md={12} lg={12} className={classes.forgotPwdContent}>
         <Typography variant="h3">{title}</Typography>
         <p>We'll email you instructions on how to reset it.</p>
