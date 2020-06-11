@@ -29,7 +29,7 @@ const SNETHeader = ({
         <SNETAppBar
           position="fixed"
           color={color}
-          className={`${classes.appBar} ${color === "purple" ? classes.purple : null}`}
+          className={`${classes.appBar} ${color === "secondary" ? classes.purple : null}`}
         >
           <div className={classes.logoContainer} onClick={onLogoClick}>
             <MobileHeader
@@ -40,7 +40,11 @@ const SNETHeader = ({
               LoggedOutActions={LoggedOutActions}
               color={color}
             />
-            <CardMedia component="img" image={color === "purple" ? WhiteSnetLogo : SnetSvgLogo} alt="SingularityNET" />
+            <CardMedia
+              component="img"
+              image={color === "secondary" ? WhiteSnetLogo : SnetSvgLogo}
+              alt="SingularityNET"
+            />
             <Typography variant="h5">{portalName}</Typography>
           </div>
           <div className={classes.navContainer}>

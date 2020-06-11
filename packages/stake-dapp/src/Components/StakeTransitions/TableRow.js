@@ -130,7 +130,7 @@ const TableRow = ({ handleExpandeTable, expandTable, stakeWindow }) => {
   };
 
   return (
-    <Grid containerer className={classes.tableRow} onClick={_e => handleExpandeTable(stakeWindow.stakeMapIndex)}>
+    <Grid container className={classes.tableRow} onClick={_e => handleExpandeTable(stakeWindow.stakeMapIndex)}>
       <Grid item xs={12} sm={12} md={2} lg={2} className={classes.tableData}>
         <Typography className={classes.dateId}>{startPeriod}</Typography>
         <Typography className={classes.dateId}>ID-{stakeWindow.stakeMapIndex}</Typography>

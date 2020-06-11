@@ -20,7 +20,6 @@ var SecondaryFooter = function SecondaryFooter(_ref) {
   var classes = (0, _styles.useStyles)();
   return /*#__PURE__*/_react.default.createElement(_Grid.default, {
     container: true,
-    spacing: 24,
     className: classes.secondaryFooter
   }, /*#__PURE__*/_react.default.createElement(_Grid.default, {
     item: true,

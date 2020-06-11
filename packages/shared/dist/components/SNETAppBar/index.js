@@ -23,7 +23,7 @@ var SNETAppBar = (0, _styles.withStyles)(function (MuiTheme) {
         return rootStyles;
       }
 
-      if (props.color === "purple") {
+      if (props.color === "secondary") {
         rootStyles.backgroundColor = MuiTheme.palette.purple.main;
         return rootStyles;
       }
@@ -33,7 +33,7 @@ var SNETAppBar = (0, _styles.withStyles)(function (MuiTheme) {
   };
 })(_AppBar.default);
 SNETAppBar.propTypes = {
-  color: _propTypes.default.oneOf(["white", "purple"])
+  color: _propTypes.default.oneOf(["white", "secondary"])
 };
 var _default = SNETAppBar;
 exports.default = _default;

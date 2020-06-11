@@ -20,7 +20,7 @@ const LoggedInActions = ({ classes }) => {
     <div className={classes.loggedInActionsContainer}>
       {/*<NotificationsIcon fontSize="large" className={classes.NotificationsIcon} /> */}
       <div className={classes.faqLink}>
-        <a href={GlobalRoutes.FAQ.path} alt="FAQ Help" target="_blank">
+        <a href={GlobalRoutes.FAQ.path} alt="FAQ Help" target="_blank" rel="noopener noreferrer">
           FAQ Help <HelpOutlineIcon />
         </a>
       </div>

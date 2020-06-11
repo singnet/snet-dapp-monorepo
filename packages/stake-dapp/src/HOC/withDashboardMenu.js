@@ -11,7 +11,7 @@ const withDashboardMenu = Component => {
   return props => (
     <div>
       <Header />
-      <Grid container spacing={24}>
+      <Grid container>
         <Grid item xs={12} sm={2} md={2} lg={2}>
           <VerticalTabs upperTabs={upperTabs} lowerTabs={lowerTabs} />
         </Grid>

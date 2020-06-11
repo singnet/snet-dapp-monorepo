@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { withStyles } from "@material-ui/styles";
 import Typography from "@material-ui/core/Typography";
 
+import { GlobalRoutes } from "../../GlobalRouter/Routes";
 import { useStyles } from "./styles";
 import MetaMaskAccountBalance from "./MetaMaskAccountBalance";
 
@@ -24,8 +25,8 @@ const AccountBalance = ({ classes }) => {
           <div className={classes.warningBox}>
             <span>You need Metamask wallet to create stake.</span>
             <Typography>
-              Please <a href="#">Login</a> or <a href="#">Install </a> to your Metamask wallet account and connect to
-              SingularityNet.{" "}
+              Please <a href={GlobalRoutes.LOGIN.path}>Login</a> or <a href="https://metamask.io/">Install </a> to your
+              Metamask wallet account and connect to SingularityNet.{" "}
             </Typography>
             <Typography>
               <a href="https://metamask.io/" target="_new">

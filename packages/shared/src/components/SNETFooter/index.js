@@ -9,7 +9,7 @@ const Footer = ({ data }) => {
   const classes = useStyles();
   return (
     <footer className={classes.footer}>
-      <Grid container spacing={24} className={classes.footerWrapper}>
+      <Grid container className={classes.footerWrapper}>
         <PrimaryFooter leftData={data.PrimaryFooterLeft} mainData={data.PrimaryFooterMain} />
         <SecondaryFooter data={data.SecondaryFooter} />
       </Grid>

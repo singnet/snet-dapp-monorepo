@@ -43,7 +43,7 @@ var SNETHeader = function SNETHeader(_ref) {
   return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("header", null, /*#__PURE__*/_react.default.createElement(_SNETAppBar.default, {
     position: "fixed",
     color: color,
-    className: "".concat(classes.appBar, " ").concat(color === "purple" ? classes.purple : null)
+    className: "".concat(classes.appBar, " ").concat(color === "secondary" ? classes.purple : null)
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: classes.logoContainer,
     onClick: onLogoClick
@@ -56,7 +56,7 @@ var SNETHeader = function SNETHeader(_ref) {
     color: color
   }), /*#__PURE__*/_react.default.createElement(_CardMedia.default, {
     component: "img",
-    image: color === "purple" ? _WhiteLogo.default : _BlackLogo.default,
+    image: color === "secondary" ? _WhiteLogo.default : _BlackLogo.default,
     alt: "SingularityNET"
   }), /*#__PURE__*/_react.default.createElement(_Typography.default, {
     variant: "h5"

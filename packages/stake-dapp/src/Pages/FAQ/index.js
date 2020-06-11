@@ -93,7 +93,7 @@ const FAQ = ({ classes }) => {
         <ul>
           {communityDetails.map(item => (
             <li key={item.title}>
-              <a href={item.to} title={item.title} target="_blank">
+              <a href={item.to} title={item.title} target="_blank" rel="noopener noreferrer">
                 <img src={item.image} alt={item.title} />
                 <Typography variant="h6">{item.title}</Typography>
                 <Typography>{item.description}</Typography>

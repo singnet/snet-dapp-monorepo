@@ -9,7 +9,7 @@ const SNETAppBar = withStyles(MuiTheme => ({
       rootStyles.backgroundColor = MuiTheme.palette.background.white;
       return rootStyles;
     }
-    if (props.color === "purple") {
+    if (props.color === "secondary") {
       rootStyles.backgroundColor = MuiTheme.palette.purple.main;
       return rootStyles;
     }
@@ -18,7 +18,7 @@ const SNETAppBar = withStyles(MuiTheme => ({
 }))(AppBar);
 
 SNETAppBar.propTypes = {
-  color: PropTypes.oneOf(["white", "purple"]),
+  color: PropTypes.oneOf(["white", "secondary"]),
 };
 
 export default SNETAppBar;

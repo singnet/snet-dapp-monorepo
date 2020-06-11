@@ -19,7 +19,7 @@ const TncHeader = ({ classes, headerTitle, headerLinkText, headerLinkTo }) => {
 
   return (
     <div className={classes.tncHeaderContainer}>
-      <Grid container spacing={24} className={classes.tncHeaderWrapper}>
+      <Grid container className={classes.tncHeaderWrapper}>
         <Grid item xs={12} sm={6} md={6} lg={6} className={classes.logoContainer}>
           <h1>
             <SnetSvgLogo />
