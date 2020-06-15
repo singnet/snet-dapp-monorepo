@@ -33,7 +33,7 @@ const NotificationBar = ({ classes, showNotification, icon: Icon, message, type 
 
 NotificationBar.propTypes = {
   type: PropTypes.oneOf(["WARNING", "INFORMATION"]),
-  message: PropTypes.string,
+  message: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   showNotification: PropTypes.bool,
   icon: PropTypes.object,
 };

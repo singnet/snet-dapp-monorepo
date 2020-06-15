@@ -72,7 +72,7 @@ const SNETTextfield = ({
 SNETTextfield.propTypes = {
   name: PropTypes.string,
   label: PropTypes.string,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]),
   helperText: PropTypes.string,
   description: PropTypes.string,
   onChange: PropTypes.func,

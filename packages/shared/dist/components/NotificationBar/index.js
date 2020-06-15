@@ -49,7 +49,7 @@ var NotificationBar = function NotificationBar(_ref) {
 
 NotificationBar.propTypes = {
   type: _propTypes.default.oneOf(["WARNING", "INFORMATION"]),
-  message: _propTypes.default.string,
+  message: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.object]),
   showNotification: _propTypes.default.bool,
   icon: _propTypes.default.object
 };
@@ -57,4 +57,3 @@ NotificationBar.propTypes = {
 var _default = (0, _styles.withStyles)(_styles2.useStyles)(NotificationBar);
 
 exports.default = _default;
-zz;

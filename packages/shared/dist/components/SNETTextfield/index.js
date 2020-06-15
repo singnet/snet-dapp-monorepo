@@ -91,7 +91,7 @@ var SNETTextfield = function SNETTextfield(_ref) {
 SNETTextfield.propTypes = {
   name: _propTypes.default.string,
   label: _propTypes.default.string,
-  value: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number]),
+  value: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number, _propTypes.default.object]),
   helperText: _propTypes.default.string,
   description: _propTypes.default.string,
   onChange: _propTypes.default.func

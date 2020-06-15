@@ -84,7 +84,6 @@ var SNETForgotPassword = function SNETForgotPassword(_ref) {
 
   return /*#__PURE__*/_react.default.createElement(_Grid.default, {
     container: true,
-    spacing: 24,
     className: classes.forgotPwdMainContainer
   }, /*#__PURE__*/_react.default.createElement(_Grid.default, {
     item: true,
