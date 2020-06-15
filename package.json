@@ -38,7 +38,7 @@
     "build:publisher": "cd packages/publisher-dapp && yarn build",
     "build:stake": "cd packages/stake-dapp && yarn build",
     "build:rfai": "cd packages/rfai-dapp && yarn build",
-    "build:shared": "lerna exec --scope shared -- babel src -d dist --copy-files --ignore '**/*.stories.js'  --delete-dir-on-start --no-copy-ignored",
+    "build:shared": "lerna exec --scope shared -- babel src -d dist --copy-files  --delete-dir-on-start --no-copy-ignored --ignore **/*.stories.js ",
     "storybook": "lerna exec --scope shared  -- yarn run storybook",
     "build:storybook": "lerna exec --scope shared  -- yarn run build-storybook",
     "lint": "eslint .",
