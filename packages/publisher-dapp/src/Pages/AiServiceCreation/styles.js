@@ -75,29 +75,8 @@ export const useStyles = MUITheme => ({
   },
   editHeaderBtns: {
     "& button": {
-      "&:first-of-type": {
-        color: MUITheme.palette.text.white,
-        backgroundColor: "transparent",
-        border: "2px solid #fff",
-        "&:hover": {
-          backgroundColor: MUITheme.palette.text.white,
-          color: "#211D24",
-        },
-      },
       "&:last-of-type": {
         marginLeft: 40,
-        border: "2px solid transparent",
-        color: "#211D24",
-        backgroundColor: MUITheme.palette.text.white,
-        "&:disabled": {
-          backgroundColor: MUITheme.palette.text.disabled,
-          color: MUITheme.palette.text.lightGrey,
-        },
-        "&:hover": {
-          border: "2px solid #fff",
-          backgroundColor: "transparent",
-          color: MUITheme.palette.text.white,
-        },
       },
     },
     [MUITheme.breakpoints.down(720)]: { marginTop: 25 },

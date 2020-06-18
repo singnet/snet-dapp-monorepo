@@ -9,6 +9,8 @@ var _Button = _interopRequireDefault(require("@material-ui/core/Button"));
 
 var _styles = require("@material-ui/core/styles");
 
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var SNETButton = (0, _styles.withStyles)(function (MUITheme) {
@@ -35,6 +37,36 @@ var SNETButton = (0, _styles.withStyles)(function (MUITheme) {
         };
       }
 
+      if (props.color === "white") {
+        rootStyles.backgroundColor = MUITheme.palette.background.white;
+        rootStyles.boxShadow = "0 0 1px 0 rgba(0,0,0,0.12), 0 1px 1px 0 rgba(0,0,0,0.24)";
+      }
+
+      if (props.color === "white" && props.variant === "outlined") {
+        rootStyles.color = MUITheme.palette.text.white;
+        rootStyles.backgroundColor = "transparent";
+        rootStyles.border = "2px solid #fff";
+        rootStyles["&:hover"] = {
+          backgroundColor: MUITheme.palette.text.white,
+          color: "#211D24"
+        };
+      }
+
+      if (props.color === "white" && props.variant === "contained") {
+        rootStyles.border = "2px solid transparent";
+        rootStyles.color = "#211D24";
+        rootStyles.backgroundColor = MUITheme.palette.text.white;
+        rootStyles["&:disabled"] = {
+          backgroundColor: MUITheme.palette.text.disabled,
+          color: MUITheme.palette.text.lightGrey
+        };
+        rootStyles["&:hover"] = {
+          border: "2px solid #fff",
+          backgroundColor: "transparent",
+          color: MUITheme.palette.text.white
+        };
+      }
+
       if (props.color === "red") {
         rootStyles.color = MUITheme.palette.text.red;
       }
@@ -46,5 +78,8 @@ var SNETButton = (0, _styles.withStyles)(function (MUITheme) {
     }
   };
 })(_Button.default);
+SNETButton.propTypes = {
+  color: _propTypes.default.oneOf(["white", "purple", "primary", "secondary"])
+};
 var _default = SNETButton;
 exports.default = _default;
