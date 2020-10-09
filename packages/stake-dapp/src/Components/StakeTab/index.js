@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import isEmpty from "lodash/isEmpty";
 
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/styles";
@@ -55,6 +54,7 @@ class StakeTab extends Component {
       fetchActiveStakes,
       fetchClaimStakes,
       walletList,
+      isWalletListLoaded,
       registerWallet,
     } = this.props;
     if (prevProps.metamaskDetails.account !== metamaskDetails.account) {
@@ -62,16 +62,14 @@ class StakeTab extends Component {
       await fetchActiveStakes(metamaskDetails);
       await fetchClaimStakes(metamaskDetails);
 
-      if (metamaskDetails.isTxnsAllowed) {
-        if (!isEmpty(walletList) && metamaskDetails.account !== "0x0") {
+      // Register the Wallet
+      if (isWalletListLoaded) {
+        if (metamaskDetails.isTxnsAllowed && metamaskDetails.account !== "0x0") {
           const wallets = walletList.filter(w => w.address.toLowerCase() === metamaskDetails.account.toLowerCase());
+
           if (wallets.length === 0) {
-            // Call the Register API to associate the Wallet to User
             await registerWallet(metamaskDetails.account);
           }
-        } else if (metamaskDetails.account !== "0x0") {
-          // Call the Register API to associate the Wallet to User
-          await registerWallet(metamaskDetails.account);
         }
       }
     }
@@ -153,6 +151,7 @@ const mapStateToProps = state => ({
   metamaskDetails: state.metamaskReducer.metamaskDetails,
   stakeSummary: state.stakeReducer.stakeSummary,
   walletList: state.user.walletList,
+  isWalletListLoaded: state.user.isWalletListLoaded,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -6,6 +6,7 @@ import { ProviderControlService } from "./stubs/control_service_pb_service";
 import { GrpcError } from "shared/dist/utils/error";
 import { hexToB64, solidityTypes, toBNString, uint8ArrayToBN, uint8ArrayToHex } from "../../Grpc";
 import { MetamaskError } from "shared/dist/utils/error";
+import { ethereumMethods } from "shared/dist/utils/snetSdk";
 
 const methods = {
   GetListUnclaimed: "GetListUnclaimed",
@@ -32,10 +33,10 @@ export class ControlServiceRequest {
     if (!web3Provider) {
       throw new MetamaskError("Metamask not available");
     }
-    const accounts = await web3Provider.enable();
+    const accounts = await web3Provider.request({ method: ethereumMethods.REQUEST_ACCOUNTS });
     // eslint-disable-next-line require-atomic-updates
-    window.web3.eth.defaultAccount = accounts[0];
     this._web3 = new Web3(web3Provider, null, {});
+    this._web3.eth.defaultAccount = accounts[0];
   };
 
   _getServiceHost = () => this._serviceHost;

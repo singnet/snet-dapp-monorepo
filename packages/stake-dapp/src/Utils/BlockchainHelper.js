@@ -14,13 +14,16 @@ export const blockChainEvents = {
   ERROR: "error",
 };
 
-// TODO - Come up with a different approach here....
+// Not recommeneded to use
+// Instead refer other methods on how we can check the status of txn
 export const waitForTransaction = async hash => {
   let receipt;
 
   const ethereum = window.ethereum;
-  window.web3 = new window.Web3(ethereum);
-  const web3 = new Web3(window.web3.currentProvider);
+  //window.web3 = new window.Web3(ethereum);
+  //const web3 = new Web3(window.web3.currentProvider);
+
+  const web3 = new Web3(ethereum);
 
   while (!receipt) {
     // eslint-disable-next-line no-await-in-loop
@@ -44,26 +47,6 @@ export const waitForTransaction = async hash => {
 };
 
 // Approve AGI Token for the Staking Contract Address
-export const approveToken = (metamaskDetails, amountBN) => {
-  const tokenContractAddress = getTokenContractAddress();
-  const stakingContractAddress = getStakingContractAddress();
-  const accountAddress = metamaskDetails.account;
-
-  const ethereum = window.ethereum;
-  window.web3 = new window.Web3(ethereum);
-
-  const tokenInstance = window.web3.eth.contract(tokenABI).at(tokenContractAddress);
-
-  return new Promise((resolve, reject) => {
-    tokenInstance.approve(stakingContractAddress, amountBN.toString(), { from: accountAddress }, (err, hash) => {
-      if (err) {
-        reject(hash);
-      }
-      resolve(hash);
-    });
-  });
-};
-
 export const approveTokenV2 = (metamaskDetails, amountBN) => {
   const tokenContractAddress = getTokenContractAddress();
   const stakingContractAddress = getStakingContractAddress();
@@ -71,9 +54,8 @@ export const approveTokenV2 = (metamaskDetails, amountBN) => {
 
   try {
     const ethereum = window.ethereum;
-    window.web3 = new window.Web3(ethereum);
+    const web3 = new Web3(ethereum);
 
-    const web3 = new Web3(window.web3.currentProvider);
     const tokenInstance = new web3.eth.Contract(tokenABI, tokenContractAddress);
 
     return new Promise((resolve, reject) => {
@@ -106,56 +88,40 @@ export const createStakePeriod = (
   maxStake,
   openForExternal
 ) => {
-  const stakingContractAddress = getStakingContractAddress();
   const accountAddress = metamaskDetails.account;
 
-  const ethereum = window.ethereum;
-  window.web3 = new window.Web3(ethereum);
+  try {
+    const stakingInstance = getStakingInstance();
 
-  const stakingInstance = window.web3.eth.contract(stakingABI).at(stakingContractAddress);
-
-  return new Promise((resolve, reject) => {
-    stakingInstance.openForStake(
-      startPeriod,
-      endSubmission,
-      endApproval,
-      requestWithdrawStartPeriod,
-      endPeriod,
-      rewardAmount,
-      maxCap,
-      minStake,
-      maxStake,
-      openForExternal,
-      { from: accountAddress },
-      (err, hash) => {
-        if (err) {
-          reject(hash);
-        }
-        resolve(hash);
-      }
-    );
-  });
+    return new Promise((resolve, reject) => {
+      const method = stakingInstance.methods
+        .openForStake(
+          startPeriod,
+          endSubmission,
+          endApproval,
+          requestWithdrawStartPeriod,
+          endPeriod,
+          rewardAmount,
+          maxCap,
+          minStake,
+          maxStake,
+          openForExternal
+        )
+        .send({ from: accountAddress })
+        .once(blockChainEvents.CONFIRMATION, async () => {
+          resolve();
+          await method.off();
+        })
+        .on(blockChainEvents.ERROR, error => {
+          reject(error);
+        });
+    });
+  } catch (error) {
+    throw error;
+  }
 };
 
 // Function to create a new stake in the Current Stake Window
-export const submitStake = (metamaskDetails, stakeAmount, autoRenewal) => {
-  const stakingContractAddress = getStakingContractAddress();
-  const accountAddress = metamaskDetails.account;
-
-  const ethereum = window.ethereum;
-  window.web3 = new window.Web3(ethereum);
-  const stakingInstance = window.web3.eth.contract(stakingABI).at(stakingContractAddress);
-
-  return new Promise((resolve, reject) => {
-    stakingInstance.submitStake(stakeAmount.toString(), autoRenewal, { from: accountAddress }, (err, hash) => {
-      if (err) {
-        reject(hash);
-      }
-      resolve(hash);
-    });
-  });
-};
-
 export const submitStakeV2 = (metamaskDetails, stakeAmount, autoRenewal) => {
   const accountAddress = metamaskDetails.account;
 
@@ -180,60 +146,49 @@ export const submitStakeV2 = (metamaskDetails, stakeAmount, autoRenewal) => {
 };
 
 export const approveStake = (metamaskDetails, staker, approvedAmount) => {
-  const stakingContractAddress = getStakingContractAddress();
   const accountAddress = metamaskDetails.account;
 
-  const ethereum = window.ethereum;
-  window.web3 = new window.Web3(ethereum);
+  try {
+    const stakingInstance = getStakingInstance();
 
-  const stakingInstance = window.web3.eth.contract(stakingABI).at(stakingContractAddress);
-
-  return new Promise((resolve, reject) => {
-    stakingInstance.approveStake(staker, approvedAmount.toString(), { from: accountAddress }, (err, hash) => {
-      if (err) {
-        reject(hash);
-      }
-      resolve(hash);
+    return new Promise((resolve, reject) => {
+      const method = stakingInstance.methods
+        .approveStake(staker, approvedAmount.toString())
+        .send({ from: accountAddress })
+        .once(blockChainEvents.CONFIRMATION, async () => {
+          resolve();
+          await method.off();
+        })
+        .on(blockChainEvents.ERROR, error => {
+          reject(error);
+        });
     });
-  });
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const rejectStake = (metamaskDetails, stakeMapIndex, staker) => {
-  const stakingContractAddress = getStakingContractAddress();
   const accountAddress = metamaskDetails.account;
 
-  const ethereum = window.ethereum;
-  window.web3 = new window.Web3(ethereum);
+  try {
+    const stakingInstance = getStakingInstance();
 
-  const stakingInstance = window.web3.eth.contract(stakingABI).at(stakingContractAddress);
-
-  return new Promise((resolve, reject) => {
-    stakingInstance.rejectStake(stakeMapIndex, staker, { from: accountAddress }, (err, hash) => {
-      if (err) {
-        reject(hash);
-      }
-      resolve(hash);
+    return new Promise((resolve, reject) => {
+      const method = stakingInstance.methods
+        .rejectStake(stakeMapIndex, staker)
+        .send({ from: accountAddress })
+        .once(blockChainEvents.CONFIRMATION, async () => {
+          resolve();
+          await method.off();
+        })
+        .on(blockChainEvents.ERROR, error => {
+          reject(error);
+        });
     });
-  });
-};
-
-export const updateAutoRenewal = (metamaskDetails, stakeMapIndex, autoRenew) => {
-  const stakingContractAddress = getStakingContractAddress();
-  const accountAddress = metamaskDetails.account;
-
-  const ethereum = window.ethereum;
-  window.web3 = new window.Web3(ethereum);
-
-  const stakingInstance = window.web3.eth.contract(stakingABI).at(stakingContractAddress);
-
-  return new Promise((resolve, reject) => {
-    stakingInstance.updateAutoRenewal(stakeMapIndex, autoRenew, { from: accountAddress }, (err, hash) => {
-      if (err) {
-        reject(hash);
-      }
-      resolve(hash);
-    });
-  });
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const updateAutoRenewalV2 = (metamaskDetails, stakeMapIndex, autoRenew) => {
@@ -257,25 +212,6 @@ export const updateAutoRenewalV2 = (metamaskDetails, stakeMapIndex, autoRenew) =
   } catch (error) {
     throw error;
   }
-};
-
-export const claimStake = (metamaskDetails, stakeMapIndex) => {
-  const stakingContractAddress = getStakingContractAddress();
-  const accountAddress = metamaskDetails.account;
-
-  const ethereum = window.ethereum;
-  window.web3 = new window.Web3(ethereum);
-
-  const stakingInstance = window.web3.eth.contract(stakingABI).at(stakingContractAddress);
-
-  return new Promise((resolve, reject) => {
-    stakingInstance.claimStake(stakeMapIndex, { from: accountAddress }, (err, hash) => {
-      if (err) {
-        reject(hash);
-      }
-      resolve(hash);
-    });
-  });
 };
 
 export const claimStakeV2 = (metamaskDetails, stakeMapIndex) => {
@@ -303,117 +239,97 @@ export const claimStakeV2 = (metamaskDetails, stakeMapIndex) => {
 
 // Only for Token Operator to withdraw Tokens from liquid pool
 export const withdrawToken = (metamaskDetails, amountBN) => {
-  const stakingContractAddress = getStakingContractAddress();
   const accountAddress = metamaskDetails.account;
 
-  const ethereum = window.ethereum;
-  window.web3 = new window.Web3(ethereum);
+  try {
+    const stakingInstance = getStakingInstance();
 
-  const stakingInstance = window.web3.eth.contract(stakingABI).at(stakingContractAddress);
-
-  return new Promise((resolve, reject) => {
-    stakingInstance.withdrawToken(amountBN.toString(), { from: accountAddress }, (err, hash) => {
-      if (err) {
-        reject(hash);
-      }
-      resolve(hash);
+    return new Promise((resolve, reject) => {
+      const method = stakingInstance.methods
+        .withdrawToken(amountBN.toString())
+        .send({ from: accountAddress })
+        .once(blockChainEvents.CONFIRMATION, async () => {
+          resolve();
+          await method.off();
+        })
+        .on(blockChainEvents.ERROR, error => {
+          reject(error);
+        });
     });
-  });
+  } catch (error) {
+    throw error;
+  }
 };
 
 // Only for Token Operator to Deposit Tokens to liquid Pool
 export const depositToken = (metamaskDetails, amountBN) => {
-  const stakingContractAddress = getStakingContractAddress();
   const accountAddress = metamaskDetails.account;
 
-  const ethereum = window.ethereum;
-  window.web3 = new window.Web3(ethereum);
+  try {
+    const stakingInstance = getStakingInstance();
 
-  const stakingInstance = window.web3.eth.contract(stakingABI).at(stakingContractAddress);
-
-  return new Promise((resolve, reject) => {
-    stakingInstance.depositToken(amountBN.toString(), { from: accountAddress }, (err, hash) => {
-      if (err) {
-        reject(hash);
-      }
-      resolve(hash);
+    return new Promise((resolve, reject) => {
+      const method = stakingInstance.methods
+        .depositToken(amountBN.toString())
+        .send({ from: accountAddress })
+        .once(blockChainEvents.CONFIRMATION, async () => {
+          resolve();
+          await method.off();
+        })
+        .on(blockChainEvents.ERROR, error => {
+          reject(error);
+        });
     });
-  });
+  } catch (error) {
+    throw error;
+  }
 };
 
 // Only for the token Operator
 export const autoRenewStake = (metamaskDetails, existingStakeMapIndex, staker, approvedAmountBN) => {
-  const stakingContractAddress = getStakingContractAddress();
   const accountAddress = metamaskDetails.account;
 
-  const ethereum = window.ethereum;
-  window.web3 = new window.Web3(ethereum);
+  try {
+    const stakingInstance = getStakingInstance();
 
-  const stakingInstance = window.web3.eth.contract(stakingABI).at(stakingContractAddress);
-
-  return new Promise((resolve, reject) => {
-    stakingInstance.autoRenewStake(
-      existingStakeMapIndex,
-      staker,
-      approvedAmountBN.toString(),
-      { from: accountAddress },
-      (err, hash) => {
-        if (err) {
-          reject(hash);
-        }
-        resolve(hash);
-      }
-    );
-  });
+    return new Promise((resolve, reject) => {
+      const method = stakingInstance.methods
+        .autoRenewStake(existingStakeMapIndex, staker, approvedAmountBN.toString())
+        .send({ from: accountAddress })
+        .once(blockChainEvents.CONFIRMATION, async () => {
+          resolve();
+          await method.off();
+        })
+        .on(blockChainEvents.ERROR, error => {
+          reject(error);
+        });
+    });
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const renewStake = (metamaskDetails, existingStakeMapIndex, stakeAmountBN, autoRenewal) => {
-  const stakingContractAddress = getStakingContractAddress();
   const accountAddress = metamaskDetails.account;
 
-  const ethereum = window.ethereum;
-  window.web3 = new window.Web3(ethereum);
+  try {
+    const stakingInstance = getStakingInstance();
 
-  const stakingInstance = window.web3.eth.contract(stakingABI).at(stakingContractAddress);
-
-  return new Promise((resolve, reject) => {
-    stakingInstance.renewStake(
-      existingStakeMapIndex,
-      stakeAmountBN.toString(),
-      autoRenewal,
-      { from: accountAddress },
-      (err, hash) => {
-        if (err) {
-          reject(hash);
-        }
-        resolve(hash);
-      }
-    );
-  });
-};
-
-export const withdrawStake = (metamaskDetails, existingStakeMapIndex, stakeAmountBN) => {
-  const stakingContractAddress = getStakingContractAddress();
-  const accountAddress = metamaskDetails.account;
-
-  const ethereum = window.ethereum;
-  window.web3 = new window.Web3(ethereum);
-
-  const stakingInstance = window.web3.eth.contract(stakingABI).at(stakingContractAddress);
-
-  return new Promise((resolve, reject) => {
-    stakingInstance.withdrawStake(
-      existingStakeMapIndex,
-      stakeAmountBN.toString(),
-      { from: accountAddress },
-      (err, hash) => {
-        if (err) {
-          reject(hash);
-        }
-        resolve(hash);
-      }
-    );
-  });
+    return new Promise((resolve, reject) => {
+      const method = stakingInstance.methods
+        .renewStake(existingStakeMapIndex, stakeAmountBN.toString(), autoRenewal)
+        .send({ from: accountAddress })
+        .once(blockChainEvents.CONFIRMATION, async () => {
+          resolve();
+          await method.off();
+        })
+        .on(blockChainEvents.ERROR, error => {
+          reject(error);
+        });
+    });
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const withdrawStakeV2 = (metamaskDetails, existingStakeMapIndex, stakeAmountBN) => {
@@ -441,41 +357,49 @@ export const withdrawStakeV2 = (metamaskDetails, existingStakeMapIndex, stakeAmo
 
 // Can be done only by owner
 export const updateOwner = (metamaskDetails, newOwner) => {
-  const stakingContractAddress = getStakingContractAddress();
   const accountAddress = metamaskDetails.account;
 
-  const ethereum = window.ethereum;
-  window.web3 = new window.Web3(ethereum);
+  try {
+    const stakingInstance = getStakingInstance();
 
-  const stakingInstance = window.web3.eth.contract(stakingABI).at(stakingContractAddress);
-
-  return new Promise((resolve, reject) => {
-    stakingInstance.updateOwner(newOwner, { from: accountAddress }, (err, hash) => {
-      if (err) {
-        reject(hash);
-      }
-      resolve(hash);
+    return new Promise((resolve, reject) => {
+      const method = stakingInstance.methods
+        .updateOwner(newOwner)
+        .send({ from: accountAddress })
+        .once(blockChainEvents.CONFIRMATION, async () => {
+          resolve();
+          await method.off();
+        })
+        .on(blockChainEvents.ERROR, error => {
+          reject(error);
+        });
     });
-  });
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const updateOperator = (metamaskDetails, tokenOperator) => {
-  const stakingContractAddress = getStakingContractAddress();
   const accountAddress = metamaskDetails.account;
 
-  const ethereum = window.ethereum;
-  window.web3 = new window.Web3(ethereum);
+  try {
+    const stakingInstance = getStakingInstance();
 
-  const stakingInstance = window.web3.eth.contract(stakingABI).at(stakingContractAddress);
-
-  return new Promise((resolve, reject) => {
-    stakingInstance.updateOperator(tokenOperator, { from: accountAddress }, (err, hash) => {
-      if (err) {
-        reject(hash);
-      }
-      resolve(hash);
+    return new Promise((resolve, reject) => {
+      const method = stakingInstance.methods
+        .updateOperator(tokenOperator)
+        .send({ from: accountAddress })
+        .once(blockChainEvents.CONFIRMATION, async () => {
+          resolve();
+          await method.off();
+        })
+        .on(blockChainEvents.ERROR, error => {
+          reject(error);
+        });
     });
-  });
+  } catch (error) {
+    throw error;
+  }
 };
 
 // Read Operation for this method is performed using the Infura Call as Metamask web3 has a bug
@@ -510,33 +434,31 @@ export const getRecentStakeWindow = async () => {
   return { ...result, totalPendingApprovalStake };
 };
 
-export const getUserStakeBalance = metamaskDetails => {
-  const stakingContractAddress = getStakingContractAddress();
+export const getUserStakeBalance = async metamaskDetails => {
   const accountAddress = metamaskDetails.account;
+  let usetStakeBalance = 0;
 
-  const ethereum = window.ethereum;
-  window.web3 = new window.Web3(ethereum);
-
-  const stakingInstance = window.web3.eth.contract(stakingABI).at(stakingContractAddress);
-
-  return new Promise((resolve, reject) => {
-    stakingInstance.balances(accountAddress, { from: accountAddress }, (err, result) => {
-      if (err) {
-        reject(result);
-      }
-      resolve(result);
-    });
-  });
+  try {
+    if (metamaskDetails.isTxnsAllowed) {
+      const stakingInstance = getStakingInstance();
+      usetStakeBalance = await stakingInstance.methods.balances(accountAddress).call();
+    }
+    return usetStakeBalance.toString();
+  } catch (_error) {
+    return usetStakeBalance.toString();
+  }
 };
 
 export const getBlockNumber = () => {
   // Check for Metamask
   if (window.ethereum) {
     const ethereum = window.ethereum;
-    window.web3 = new window.Web3(ethereum);
+    const web3 = new Web3(ethereum);
+    //window.web3 = new window.Web3(ethereum);
     // Return the Block Number
     return new Promise((_reject, resolve) => {
-      window.web3.eth.getBlockNumber((err, blockNumber) => {
+      //window.web3.eth.getBlockNumber((err, blockNumber) => {
+      web3.eth.getBlockNumber((err, blockNumber) => {
         if (err) {
           resolve(err);
         }
@@ -570,13 +492,60 @@ const getStakingInstance = () => {
 
   try {
     const ethereum = window.ethereum;
-    window.web3 = new window.Web3(ethereum);
 
-    const web3 = new Web3(window.web3.currentProvider);
+    const web3 = new Web3(ethereum);
     const stakingInstance = new web3.eth.Contract(stakingABI, stakingContractAddress);
 
     return stakingInstance;
   } catch (error) {
     throw error;
+  }
+};
+
+const getTokenInstance = () => {
+  const tokenContractAddress = getTokenContractAddress();
+
+  try {
+    const ethereum = window.ethereum;
+
+    const web3 = new Web3(ethereum);
+    const tokenInstance = new web3.eth.Contract(tokenABI, tokenContractAddress);
+
+    return tokenInstance;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// ******************* User Token Balance Functions ***********************
+export const getTokenBalance = async metamaskDetails => {
+  let tokenBalance = 0;
+  const accountAddress = metamaskDetails.account;
+
+  try {
+    if (metamaskDetails.isTxnsAllowed) {
+      const tokenInstance = getTokenInstance();
+      tokenBalance = await tokenInstance.methods.balanceOf(accountAddress).call();
+    }
+    return tokenBalance.toString();
+  } catch (_error) {
+    return tokenBalance.toString();
+  }
+};
+
+// ********************* Fetching The the Token Allowance *******************
+export const getTokenAllowance = async metamaskDetails => {
+  let tokenAllowance = 0;
+  const stakingContractAddress = getStakingContractAddress();
+  const accountAddress = metamaskDetails.account;
+
+  try {
+    if (metamaskDetails.isTxnsAllowed) {
+      const tokenInstance = getTokenInstance();
+      tokenAllowance = await tokenInstance.methods.allowance(accountAddress, stakingContractAddress).call();
+    }
+    return tokenAllowance.toString();
+  } catch (_error) {
+    return tokenAllowance.toString();
   }
 };

@@ -20,7 +20,8 @@ const MMAddress = ({ classes }) => {
 
   const handleConnetMM = async () => {
     const sdk = await initSDK();
-    dispatch(organizationActions.setOneBasicDetail("ownerAddress", sdk.account.address));
+    const address = await sdk.account.getAddress();
+    dispatch(organizationActions.setOneBasicDetail("ownerAddress", address));
   };
 
   if (email !== ownerEmail) {

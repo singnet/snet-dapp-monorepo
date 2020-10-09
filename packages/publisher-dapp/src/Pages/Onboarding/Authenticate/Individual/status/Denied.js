@@ -6,10 +6,9 @@ import orgSetupApprovedImg from "shared/dist/assets/images/VerificationFailed.pn
 const Denied = ({ handleVerify, rejectReason }) => {
   return (
     <SNETStatusBanner
-      title="Your Jumio Id verification was unsuccessfull."
+      title="Your ID verification was unsuccessfull."
       img={orgSetupApprovedImg}
-      description={`Reason for rejection: ${rejectReason} .Please prepare the required documents and redo the Jumio ID verification. 
-      If you believe there was error by Jumio or by SingularityNet, please contact our support staff to assist you. `}
+      description={`Reason for rejection: ${rejectReason}. If you believe there was error in the approval process, please contact our support staff to assist you. `}
       actions={[
         { children: "retry", variant: "contained", color: "primary", onClick: handleVerify },
         { children: "contact support", variant: "outlined", color: "primary" },

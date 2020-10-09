@@ -13,11 +13,16 @@ import { OnboardingRoutes } from "../OnboardingRouter/Routes";
 import { userEntities, userPreferenceTypes } from "../../../Utils/user";
 import { useDispatch, useSelector } from "react-redux";
 import { organizationActions } from "../../../Services/Redux/actionCreators";
-import { onboardingActions, preferenceActions } from "../../../Services/Redux/actionCreators/userActions";
+import {
+  onboardingActions,
+  preferenceActions,
+  individualVerificationActions,
+} from "../../../Services/Redux/actionCreators/userActions";
 import LoginBanner from "./LoginBanner";
 import VerifyInvitation from "./VerifyInvitation";
 import InformationBox from "./InformationBox";
 import { organizationTypes } from "../../../Utils/organizationSetup";
+import { individualVerificationStatusList } from "../constant";
 
 const selectState = state => ({
   userEntity: state.user.entity,
@@ -40,6 +45,7 @@ const SingularityAccount = ({ classes, history }) => {
     dispatch(preferenceActions.updateEmailPreferences(emailPreferences));
     if (userEntity === userEntities.INDIVIDUAL) {
       await dispatch(organizationActions.createOrganization({ ...organization, type: organizationTypes.INDIVIDUAL }));
+      dispatch(individualVerificationActions.setIndividualVerificationStatus(individualVerificationStatusList.PENDING));
       dispatch(organizationActions.setOrgOwner(email));
     }
     history.push(OnboardingRoutes.AUTHENTICATE_ID.path);

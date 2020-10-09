@@ -51,4 +51,8 @@ export const LoaderContent = {
     title: "Updating Auto Renewal Option",
     loaderText: "Updating auto renewal option, please wait for transaction to confirm",
   },
+  AUTHORIZE_TOKENS: {
+    title: "Authorizing Tokens",
+    loaderText: "Authorizing tokens for Staking Contract",
+  },
 };

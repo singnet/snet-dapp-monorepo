@@ -52,7 +52,7 @@ const getVerificationStatusAPI = () => async dispatch => {
   const { token } = await dispatch(fetchAuthenticatedUser());
   const apiName = APIEndpoints.VERIFICATION.name;
   const apiPath = APIPaths.USER_VERIFICATION_STATUS;
-  const queryParams = { type: verificationTypes.JUMIO };
+  const queryParams = { type: verificationTypes.INDIVIDUAL };
   const apiOptions = initializeAPIOptions(token, null, queryParams);
   return await API.get(apiName, apiPath, apiOptions);
 };

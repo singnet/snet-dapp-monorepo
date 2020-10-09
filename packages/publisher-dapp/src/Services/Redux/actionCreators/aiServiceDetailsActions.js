@@ -474,13 +474,15 @@ const registerInBlockchain = (organization, serviceDetails, serviceMetadataURI, 
   const orgId = organization.id;
   const serviceId = serviceDetails.id;
   const sdk = await initSDK();
+  const address = await sdk.account.getAddress();
+
   dispatch(loaderActions.startAppLoader(LoaderContent.METAMASK_TRANSACTION));
   return new Promise((resolve, reject) => {
     const method = sdk._registryContract
       .createServiceRegistration(orgId, serviceId, serviceMetadataURI, tags)
       .send()
       .on(blockChainEvents.TRANSACTION_HASH, async hash => {
-        await dispatch(saveTransaction(organization.uuid, serviceDetails.uuid, hash, sdk.account.address));
+        await dispatch(saveTransaction(organization.uuid, serviceDetails.uuid, hash, address));
         dispatch(loaderActions.startAppLoader(LoaderContent.PUBLISH_SERVICE_TO_BLOCKCHAIN));
       })
       .once(blockChainEvents.CONFIRMATION, async () => {
@@ -522,12 +524,13 @@ export const uploadFile = (assetType, fileBlob, orgUuid, serviceUuid) => async d
 
 const updateInBlockchain = (organization, serviceDetails, serviceMetadataURI, history) => async dispatch => {
   const sdk = await initSDK();
+  const address = await sdk.account.getAddress();
   return new Promise((resolve, reject) => {
     const method = sdk._registryContract
       .updateServiceRegistration(organization.id, serviceDetails.id, serviceMetadataURI)
       .send()
       .on(blockChainEvents.TRANSACTION_HASH, async hash => {
-        await dispatch(saveTransaction(organization.uuid, serviceDetails.uuid, hash, sdk.account.address));
+        await dispatch(saveTransaction(organization.uuid, serviceDetails.uuid, hash, address));
         dispatch(loaderActions.startAppLoader(LoaderContent.PUBLISH_SERVICE_TO_BLOCKCHAIN));
       })
       .once(blockChainEvents.CONFIRMATION, async hash => {

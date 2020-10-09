@@ -1,4 +1,4 @@
 export const verificationTypes = {
-  JUMIO: "JUMIO",
+  INDIVIDUAL: "INDIVIDUAL",
   DUNS: "DUNS",
 };

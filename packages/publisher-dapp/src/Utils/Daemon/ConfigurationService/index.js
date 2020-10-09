@@ -5,6 +5,7 @@ import Web3 from "web3";
 
 import { GrpcError } from "shared/dist/utils/error";
 import { hexToB64, solidityTypes } from "../../Grpc";
+import { ethereumMethods } from "shared/dist/utils/snetSdk";
 
 const methods = {
   GetConfiguration: "GetConfiguration",
@@ -22,10 +23,10 @@ export class ConfigurationServiceRequest {
       return;
     }
     const web3Provider = window.ethereum;
-    const accounts = await web3Provider.enable();
+    const accounts = await web3Provider.request({ method: ethereumMethods.REQUEST_ACCOUNTS });
     // eslint-disable-next-line require-atomic-updates
-    window.web3.eth.defaultAccount = accounts[0];
     this._web3 = new Web3(web3Provider, null, {});
+    this._web3.eth.defaultAccount = accounts[0];
   };
 
   _getServiceHost = () => this.serviceHost;

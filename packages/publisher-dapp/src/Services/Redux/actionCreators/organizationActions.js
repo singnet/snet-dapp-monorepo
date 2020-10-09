@@ -7,12 +7,7 @@ import { fetchAuthenticatedUser } from "./userActions/loginActions";
 import { errorActions, loaderActions } from "./";
 import { LoaderContent } from "../../../Utils/Loader";
 import { APIError, responseStatus } from "shared/dist/utils/API";
-import {
-  addressTypes,
-  organizationSetupStatuses,
-  organizationTypes,
-  orgSubmitActions,
-} from "../../../Utils/organizationSetup";
+import { addressTypes, organizationSetupStatuses, orgSubmitActions } from "../../../Utils/organizationSetup";
 import { initSDK } from "shared/dist/utils/snetSdk";
 import { blockChainEvents } from "../../../Utils/Blockchain";
 import { clientTypes } from "shared/dist/utils/clientTypes";
@@ -370,10 +365,8 @@ export const submitForApproval = organization => async dispatch => {
 
 const createOrganizationAPI = payload => async dispatch => {
   const { token } = await dispatch(fetchAuthenticatedUser());
-  const apiName =
-    payload.org_type === organizationTypes.ORGANIZATION ? APIEndpoints.ORCHESTRATOR.name : APIEndpoints.REGISTRY.name;
-  const apiPath =
-    payload.org_type === organizationTypes.ORGANIZATION ? APIPaths.CREATE_ORG_ORG : APIPaths.CREATE_ORG_INDIVIDUAL;
+  const apiName = APIEndpoints.ORCHESTRATOR.name;
+  const apiPath = APIPaths.CREATE_ORG_ORG;
   const apiOptions = initializeAPIOptions(token, payload);
   return await API.post(apiName, apiPath, apiOptions);
 };
@@ -450,25 +443,29 @@ const registerOrganizationInBlockChain = (organization, metadataIpfsUri, history
   const orgMetadataURI = metadataIpfsUri;
   const members = [organization.ownerAddress];
   return new Promise((resolve, reject) => {
-    const method = sdk._registryContract
-      .createOrganization(orgId, orgMetadataURI, members)
-      .send()
-      .on(blockChainEvents.TRANSACTION_HASH, async hash => {
-        await dispatch(saveTransaction(organization.uuid, hash, organization.ownerAddress));
-        dispatch(loaderActions.startAppLoader(LoaderContent.BLOCKHAIN_SUBMISSION));
-        resolve(hash);
-      })
-      .once(blockChainEvents.CONFIRMATION, async () => {
-        dispatch(setOrgStateState(organizationSetupStatuses.PUBLISH_IN_PROGRESS));
-        await history.push(GlobalRoutes.SERVICES.path.replace(":orgUuid", organization.uuid));
-        await dispatch(setOrgFoundInBlockchain(true));
-        dispatch(loaderActions.stopAppLoader());
-        await method.off();
-      })
-      .on(blockChainEvents.ERROR, error => {
-        dispatch(loaderActions.stopAppLoader());
-        reject(new MetamaskError(error.message));
-      });
+    try {
+      const method = sdk._registryContract
+        .createOrganization(orgId, orgMetadataURI, members)
+        .send()
+        .on(blockChainEvents.TRANSACTION_HASH, async hash => {
+          await dispatch(saveTransaction(organization.uuid, hash, organization.ownerAddress));
+          dispatch(loaderActions.startAppLoader(LoaderContent.BLOCKHAIN_SUBMISSION));
+          resolve(hash);
+        })
+        .once(blockChainEvents.CONFIRMATION, async () => {
+          dispatch(setOrgStateState(organizationSetupStatuses.PUBLISH_IN_PROGRESS));
+          await history.push(GlobalRoutes.SERVICES.path.replace(":orgUuid", organization.uuid));
+          await dispatch(setOrgFoundInBlockchain(true));
+          dispatch(loaderActions.stopAppLoader());
+          await method.off();
+        })
+        .on(blockChainEvents.ERROR, error => {
+          dispatch(loaderActions.stopAppLoader());
+          reject(new MetamaskError(error.message));
+        });
+    } catch (error) {
+      reject(error);
+    }
   });
 };
 const updateOrganizationInBlockChain = (organization, metadataIpfsUri, history) => async dispatch => {

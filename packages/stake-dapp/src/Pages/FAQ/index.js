@@ -8,11 +8,11 @@ import Tab from "@material-ui/core/Tab";
 
 import General from "shared/dist/assets/images/General.png";
 import Metamask from "shared/dist/assets/images/Metamask.png";
-// import Troubleshooting from "shared/dist/assets/images/Troubleshooting.png";
+import Troubleshooting from "shared/dist/assets/images/Troubleshooting.png";
 // import AutoRenewal from "shared/dist/assets/images/AutoRenewal.png";
 
 import Accordion from "../Accordion";
-import { communityDetails, generalFAQ, metamaskFAQ } from "./content";
+import { communityDetails, generalFAQ, metamaskFAQ, stakingFAQ } from "./content";
 import { useStyles } from "./styles";
 
 const FAQ = ({ classes }) => {
@@ -56,7 +56,7 @@ const FAQ = ({ classes }) => {
             icon={<img src={Metamask} alt="Metamask FAQ" />}
             value={1}
           />
-          {/*<Tab
+          <Tab
             className={classes.tab}
             label={
               <p>
@@ -66,7 +66,7 @@ const FAQ = ({ classes }) => {
             icon={<img src={Troubleshooting} alt="Troubleshooting FAQ" />}
             value={2}
           />
-          <Tab
+          {/*<Tab
             className={classes.tab}
             label={
               <p>
@@ -86,6 +86,11 @@ const FAQ = ({ classes }) => {
       {selectedTab === 1 && (
         <div className={classes.accordionContainer}>
           <Accordion data={metamaskFAQ} />
+        </div>
+      )}
+      {selectedTab === 2 && (
+        <div className={classes.accordionContainer}>
+          <Accordion data={stakingFAQ} />
         </div>
       )}
       <div className={classes.learnAndShareContainer}>

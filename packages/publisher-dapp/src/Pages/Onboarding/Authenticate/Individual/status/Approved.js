@@ -26,7 +26,7 @@ const Approved = () => {
 
   return (
     <SNETStatusBanner
-      title="Your Jumio ID verification is approved!"
+      title="Your ID verification is approved!"
       img={verificationApprovedImg}
       description="Setup your company details and publish your organization entity to the blockchain. After that you will be ready to create and publish your new services to the AI Marketplace. You can also invite team members to help setup and manage your AI services more efficiently."
       actions={[

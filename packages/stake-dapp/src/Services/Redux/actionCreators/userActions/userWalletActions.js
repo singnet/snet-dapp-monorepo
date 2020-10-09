@@ -5,6 +5,17 @@ import { initializeAPIOptions } from "../../../../Utils/API";
 import { fetchAuthenticatedUser } from "./loginActions";
 
 export const SET_WALLET_LIST = "SET_WALLET_LIST";
+export const ADD_WALLET_TO_WALLET_LIST = "ADD_WALLET_TO_WALLET_LIST";
+
+export const addWalletToWalletList = address => dispatch => {
+  const _wallet = {
+    address,
+    is_default: 0,
+    type: "METAMASK",
+    status: 1,
+  };
+  dispatch({ type: ADD_WALLET_TO_WALLET_LIST, payload: { ..._wallet } });
+};
 
 // Fetch User Wallet Association Details
 const fetchWalletAPI = token => {
@@ -15,10 +26,14 @@ const fetchWalletAPI = token => {
 };
 
 export const fetchWallet = () => async dispatch => {
-  const { token } = await dispatch(fetchAuthenticatedUser());
-  const response = await fetchWalletAPI(token);
+  try {
+    const { token } = await dispatch(fetchAuthenticatedUser());
+    const response = await fetchWalletAPI(token);
 
-  return dispatch(fetchWalletSuccess(response));
+    return dispatch(fetchWalletSuccess(response));
+  } catch (_error) {
+    // In case of error leave it to default
+  }
 };
 
 const fetchWalletSuccess = response => dispatch => {
@@ -28,7 +43,7 @@ const fetchWalletSuccess = response => dispatch => {
 };
 
 const updateWalletList = data => dispatch => {
-  dispatch({ type: SET_WALLET_LIST, payload: data });
+  dispatch({ type: SET_WALLET_LIST, payload: { walletList: data, isWalletListLoaded: true } });
 };
 
 // Associate the wallet to User - Set Wallet List in the backend
@@ -45,15 +60,17 @@ export const registerWallet = address => async dispatch => {
   try {
     const { token } = await dispatch(fetchAuthenticatedUser());
     await registerWalletAPI(token, address);
-    dispatch(registerWalletSuccess());
+    dispatch(registerWalletSuccess(address));
   } catch (exp) {
     // This request is fire and forget as it works in the backgroud for now
     // Update the list in case if User address is added from other portal at the same time
-    dispatch(fetchWallet());
+    //dispatch(fetchWallet());
+    dispatch(addWalletToWalletList(address));
   }
 };
 
-const registerWalletSuccess = () => dispatch => {
+const registerWalletSuccess = address => dispatch => {
   // On Success Update the Wallet List
-  dispatch(fetchWallet());
+  //dispatch(fetchWallet());
+  dispatch(addWalletToWalletList(address));
 };

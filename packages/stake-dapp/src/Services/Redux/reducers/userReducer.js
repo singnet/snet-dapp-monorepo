@@ -13,6 +13,7 @@ const initialState = {
   inviteeStatus: "",
   inviteCode: "",
   walletList: [],
+  isWalletListLoaded: false,
   userPreferences: {
     preferenceType: "TOKEN_STAKE_NOTIFICATION",
     communicationType: "EMAIL",
@@ -44,8 +45,12 @@ const userReducer = (state = initialState, action) => {
     case userActions.loginActions.SET_JWT_EXP: {
       return { ...state, jwt: { ...state.jwt, exp: action.payload } };
     }
-    case userActions.userWalletActions.SET_WALLET_LIST:
-      return { ...state, walletList: action.payload };
+    case userActions.userWalletActions.SET_WALLET_LIST: {
+      return { ...state, walletList: action.payload.walletList, isWalletListLoaded: action.payload.isWalletListLoaded };
+    }
+    case userActions.userWalletActions.ADD_WALLET_TO_WALLET_LIST: {
+      return { ...state, walletList: [...state.walletList, action.payload] };
+    }
     case userActions.preferenceActions.SET_USER_PREFERENCE: {
       return { ...state, userPreferences: action.payload };
     }

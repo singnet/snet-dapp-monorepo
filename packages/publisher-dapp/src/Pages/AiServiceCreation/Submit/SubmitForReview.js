@@ -108,7 +108,7 @@ class SubmitForReview extends React.Component {
           return this.setState({
             validateDaemonAlert: {
               type: alertTypes.ERROR,
-              message: `The Ropsten endpoint ${testEndPoint}  is either down or Invalid `,
+              message: `The Ropsten endpoint ${testEndPoint}  is either down or Invalid. \nDetails: ${error.message} `,
             },
           });
         }
