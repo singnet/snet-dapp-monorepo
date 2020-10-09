@@ -136,8 +136,8 @@ class MetaMaskAccountBalance extends Component {
               <div className={classes.iconTooltipContainer}>
                 <InfoIcon />
                 <p>
-                  Are the tokens user authorizes escrow to transfer from user wallet to escrow based on user
-                  deposit/transfer action. User cannot transfer more than the authorized amount.
+                  Number of tokens authorized for deposit or transfer.You cannot transfer more than the authorized
+                  amount.
                 </p>
               </div>
               <span>Authorized Tokens</span>
@@ -149,7 +149,7 @@ class MetaMaskAccountBalance extends Component {
             <div className={classes.label}>
               <div className={classes.iconTooltipContainer}>
                 <InfoIcon />
-                <p>Account balance displaying the total number of AGI tokens currently available with the wallet.</p>
+                <p>Number of AGI tokens currently available in your wallet.</p>
               </div>
               <span>Total Tokens</span>
             </div>
@@ -161,8 +161,8 @@ class MetaMaskAccountBalance extends Component {
               <div className={classes.iconTooltipContainer}>
                 <InfoIcon />
                 <p>
-                  The total amount of AGI tokens that you have involved across all stake sessions. This includes pending
-                  and active staking amounts.
+                  Number of AGI tokens that you have staked across all sessions. This includes pending and active
+                  staking amounts.
                 </p>
               </div>
               <span>Total Staked</span>

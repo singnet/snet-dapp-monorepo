@@ -56,7 +56,7 @@ export const yourStakeDetails = stakeDetails => [
     title: "Reward Amount",
     value: fromWei(computeReward(stakeDetails)),
     unit: "AGI",
-    toolTip: "The final amout of AGI tokens you gain a reward at the end of the stake incubation period",
+    toolTip: "The amount of AGI tokens you’ll earn as reward for your stake during this incubation period",
   },
   {
     title: "Refunded Amount",
@@ -78,13 +78,13 @@ export const stakeSessionDetails = stakeDetails => [
     title: "Current Pool Size",
     value: fromWei(stakeDetails.windowTotalStake),
     unit: "AGI",
-    toolTip: "Current total amount of AGI tokens that have been contributed by all stakers",
+    toolTip: "Total amount of AGI tokens staked in the pool currently",
   },
   {
     title: "Reward Pool",
     value: fromWei(stakeDetails.rewardAmount),
     unit: "AGI",
-    toolTip: "The total reward amount of AGI tokens that will be divided and distributed to stakers",
+    toolTip: "Number of AGI tokens that will be divided amongst all stakers as the reward for the current window",
   },
 ];
 

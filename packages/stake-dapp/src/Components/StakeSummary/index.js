@@ -129,7 +129,7 @@ const StakeSummary = ({ classes }) => {
                   <div className={classes.toolTipContainer}>
                     <InfoIcon />
                     <Typography>
-                      The total reward amount of AGI tokens that will be divided and distrubuted to stakers
+                      Number of AGI tokens that will be divided amongst all stakers as the reward for the current window
                     </Typography>
                   </div>
                   <Typography className={classes.title}>Reward Pool</Typography>

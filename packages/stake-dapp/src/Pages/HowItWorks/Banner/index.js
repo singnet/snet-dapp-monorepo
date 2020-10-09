@@ -249,7 +249,7 @@ const Banner = ({ classes, recentStakeWindow, stakeOverallSummary }) => {
                 <div className={classes.label}>
                   <div className={classes.iconTooltipContainer}>
                     <InfoIcon />
-                    <p>Current total amount of AGI tokens that have been contributed by all stakers</p>
+                    <p>Total amount of AGI tokens staked in the pool currently</p>
                   </div>
                   <span>Current Pool Size</span>
                 </div>
@@ -270,7 +270,9 @@ const Banner = ({ classes, recentStakeWindow, stakeOverallSummary }) => {
                 <div className={classes.label}>
                   <div className={classes.iconTooltipContainer}>
                     <InfoIcon />
-                    <p>The total reward amount of AGI tokens that will be divided and distributed to stakers</p>
+                    <p>
+                      Number of AGI tokens that will be divided amongst all stakers as the reward for the current window
+                    </p>
                   </div>
                   <span>Reward Pool</span>
                 </div>

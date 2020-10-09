@@ -67,7 +67,7 @@ export const yourStakeDetails = activeStake => [
     title: "Max Reward",
     value: fromWei(computeReward(activeStake)),
     unit: "AGI",
-    toolTip: "Max amount of AGI tokens you could gain as reward at the end of the stake incubation.",
+    toolTip: "Maximum number of AGI tokens you can gain as a reward at the end of the stake period.",
   },
 ];
 
@@ -84,19 +84,19 @@ export const sessionDetails = activeStake => [
       BigNumber.sum(activeStake.totalStakedAmount, activeStake.windowTotalStake, activeStake.totalAutoRenewAmount)
     ),
     unit: "AGI",
-    toolTip: "Current total amount of AGI tokens that have been contributed by all stakers",
+    toolTip: "Total amount of AGI tokens staked in the pool currently",
   },
   {
     title: "Reward Pool",
     value: fromWei(activeStake.rewardAmount),
     unit: "AGI",
-    toolTip: "The total reward amount of AGI tokens that will be divided and distributed to stakers",
+    toolTip: "Number of AGI tokens that will be divided amongst all stakers as the reward for the current window",
   },
   {
     title: "Incubation Time",
     value: Math.ceil((activeStake.endPeriod - activeStake.submissionEndPeriod) / (60 * 60 * 24)),
     unit: "days",
-    toolTip: "Amount of the time that AGI tokens in the stake will be vested and locked in",
+    toolTip: "Number of days that the AGI tokens in the stake will be locked",
   },
 ];
 
@@ -132,7 +132,7 @@ export const withdrawStakeAmountDetails = activeStake => [
     title: "Total Max Reward",
     amount: fromWei(computeReward(activeStake)),
     unit: "AGI",
-    toolTip: "Max amount of AGI tokens you could gain as reward at the end of the stake incubation.",
+    toolTip: "Maximum number of AGI tokens you can gain as a reward at the end of the stake period.",
   },
   // {
   //   title: "Current Pool Size",
@@ -158,7 +158,7 @@ export const addStakeAmountDetails = activeStake => [
     title: "Total Max Reward",
     amount: fromWei(computeReward(activeStake)),
     unit: "AGI",
-    toolTip: "Max amount of AGI tokens you could gain as reward at the end of the stake incubation.",
+    toolTip: "Maximum number of AGI tokens you can gain as a reward at the end of the stake period.",
   },
   // {
   //   title: "Current Pool Size",
