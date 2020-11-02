@@ -27,7 +27,7 @@ export const communityDetails = [
 
 export const stakingFAQ = [
   {
-    question: "How long is a Staking window to reflect the 180 days?",
+    question: "Staking window",
     answer: `
     <ul>
       <li>Every 30 days a stake window opens for 7 days</li>
