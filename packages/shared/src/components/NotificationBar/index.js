@@ -10,7 +10,6 @@ import { useStyles } from "./styles";
 export const notificationBarTypes = {
   WARNING: "WARNING",
   INFORMATION: "INFORMATION",
-  REMINDER: "REMINDER",
 };
 
 const NotificationBar = ({ classes, showNotification, icon: Icon, message, type }) => {
@@ -33,7 +32,7 @@ const NotificationBar = ({ classes, showNotification, icon: Icon, message, type 
 };
 
 NotificationBar.propTypes = {
-  type: PropTypes.oneOf(["WARNING", "INFORMATION", "REMINDER"]),
+  type: PropTypes.oneOf(["WARNING", "INFORMATION"]),
   message: PropTypes.string,
   showNotification: PropTypes.bool,
   icon: PropTypes.object,
