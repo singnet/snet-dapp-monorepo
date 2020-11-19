@@ -38,4 +38,25 @@ export const useStyles = MUITheme => ({
     color: MUITheme.palette.text.white,
     "& svg": { marginRight: 21 },
   },
+  REMINDER: {
+    backgroundColor: "#EBE2EB",
+    border: "1px solid #6F106A",
+    color: "#666",
+    borderRadius: 4,
+    justifyContent: "flex-start",
+    padding: 12,
+    "& > span": {
+      "& p": { margin: 0 },
+      "& > span": { fontWeight: "bold" },
+      "& a": {
+        color: MUITheme.palette.primary.main,
+        textDecoration: "none",
+        fontWeight: 600,
+      },
+    },
+    "& svg": {
+      color: "#6F106A",
+      paddingRight: 10,
+    },
+  },
 });

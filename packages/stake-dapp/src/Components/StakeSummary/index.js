@@ -10,7 +10,7 @@ import { withStyles } from "@material-ui/styles";
 import InfoIcon from "@material-ui/icons/Info";
 
 import TokenStakedImg from "shared/dist/assets/images/tokenStaked.png";
-// import StakersImg from "shared/dist/assets/images/Stakers.png";
+import StakersImg from "shared/dist/assets/images/Stakers.png";
 import TokenRewardDistributedImg from "shared/dist/assets/images/rewardDistributed.png";
 
 import { useStyles } from "./styles";
@@ -66,7 +66,9 @@ const StakeSummary = ({ classes }) => {
           </div>
         </Grid>
         <Grid item xs={12} sm={4} md={4} lg={4}>
-          <div className={classes.stakeSummaryIcon}>{/* <img src={StakersImg} alt="Stakers" /> */}</div>
+          <div className={classes.stakeSummaryIcon}>
+            <img src={StakersImg} alt="Stakers" />
+          </div>
           <div className={classes.stakeSummaryValues}>
             <Typography>
               {stakeOverallSummary.totalUniqueStakers}
