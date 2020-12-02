@@ -40,7 +40,7 @@ export const useStyles = makeStyles(MUITheme => ({
     display: "flex",
     alignItems: "flex-start",
     "& > div": {
-      width: 302,
+      width: "302px",
       "& > div": {
         maxWidth: "100%",
         flexBasis: "100%",

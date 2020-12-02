@@ -15,7 +15,7 @@ const selectState = state => ({
 });
 const AcceptServiceAgreement = ({ history }) => {
   const classes = useStyles();
-  const { isInitialized, isLoggedIn } = useSelector(selectState);
+  const { isInitialized, isLoggedIn, publisherTnC } = useSelector(selectState);
 
   const [agreed, setAgreed] = useState(false);
   const dispatch = useDispatch();
@@ -25,6 +25,12 @@ const AcceptServiceAgreement = ({ history }) => {
       history.push(GlobalRoutes.LOGIN.path);
     }
   }, [history, isInitialized, isLoggedIn]);
+
+  useEffect(() => {
+    if (publisherTnC.accepted) {
+      history.push(OnboardingRoutes.SINGULARITY_ACCOUNT.path);
+    }
+  }, [history, isInitialized, isLoggedIn, publisherTnC.accepted]);
 
   const handleAccept = () => {
     dispatch(loginActions.updateUserTnCAttribute(tncAgreementVesrion));

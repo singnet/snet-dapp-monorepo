@@ -12,7 +12,7 @@ import Troubleshooting from "shared/dist/assets/images/Troubleshooting.png";
 // import AutoRenewal from "shared/dist/assets/images/AutoRenewal.png";
 
 import Accordion from "../Accordion";
-import { communityDetails, generalFAQ, metamaskFAQ, stakingFAQ } from "./content";
+import { communityDetails, generalFAQ, metamaskFAQ, stakingFAQ, troubleShootingFAQ } from "./content";
 import { useStyles } from "./styles";
 
 const FAQ = ({ classes }) => {
@@ -40,7 +40,7 @@ const FAQ = ({ classes }) => {
             className={classes.tab}
             label={
               <p>
-                General <span>FAQ</span>
+                Staking <span>FAQ</span>
               </p>
             }
             icon={<img src={General} alt="General FAQ" />}
@@ -50,11 +50,21 @@ const FAQ = ({ classes }) => {
             className={classes.tab}
             label={
               <p>
+                General <span>FAQ</span>
+              </p>
+            }
+            icon={<img src={General} alt="General FAQ" />}
+            value={1}
+          />
+          <Tab
+            className={classes.tab}
+            label={
+              <p>
                 Metamask <span>FAQ</span>
               </p>
             }
             icon={<img src={Metamask} alt="Metamask FAQ" />}
-            value={1}
+            value={2}
           />
           <Tab
             className={classes.tab}
@@ -64,7 +74,7 @@ const FAQ = ({ classes }) => {
               </p>
             }
             icon={<img src={Troubleshooting} alt="Troubleshooting FAQ" />}
-            value={2}
+            value={3}
           />
           {/*<Tab
             className={classes.tab}
@@ -80,17 +90,22 @@ const FAQ = ({ classes }) => {
       </AppBar>
       {selectedTab === 0 && (
         <div className={classes.accordionContainer}>
-          <Accordion data={generalFAQ} />
+          <Accordion data={stakingFAQ} />
         </div>
       )}
       {selectedTab === 1 && (
         <div className={classes.accordionContainer}>
-          <Accordion data={metamaskFAQ} />
+          <Accordion data={generalFAQ} />
         </div>
       )}
       {selectedTab === 2 && (
         <div className={classes.accordionContainer}>
-          <Accordion data={stakingFAQ} />
+          <Accordion data={metamaskFAQ} />
+        </div>
+      )}
+      {selectedTab === 3 && (
+        <div className={classes.accordionContainer}>
+          <Accordion data={troubleShootingFAQ} />
         </div>
       )}
       <div className={classes.learnAndShareContainer}>

@@ -16,6 +16,7 @@ import { getEmailDomain } from "../../../../Utils/validation";
 import { GlobalRoutes } from "../../../../GlobalRouter/Routes";
 import { AuthenticateRoutes } from "../AuthenitcateRouter/Routes";
 import Organization from "../Organization";
+import OrgSetupStatus from "../../../OrgSetupStatus";
 
 const domainsToBeAutoApproved = ["singularitynet.io"];
 
@@ -28,14 +29,13 @@ class Individual extends Component {
     const { status, getVerificationStatus } = this.props;
     const newStatusData = await getVerificationStatus(status);
     if (
+      !newStatusData.status ||
       newStatusData.status === individualVerificationStatusList.NOT_STARTED ||
       newStatusData.status === individualVerificationStatusList.CHANGE_REQUESTED
     ) {
       return;
-      // return this.props.history.push(GlobalRoutes.ONBOARDING.path);
-    } else {
-      this.props.history.push(AuthenticateRoutes.INDIVIDUAL_STATUS.path);
     }
+    this.props.history.push(AuthenticateRoutes.INDIVIDUAL_STATUS.path);
   };
 
   componentDidUpdate(prevProps) {
@@ -43,6 +43,7 @@ class Individual extends Component {
 
     if (prevProps.status !== status) {
       if (
+        !status ||
         status === individualVerificationStatusList.NOT_STARTED ||
         status === individualVerificationStatusList.CHANGE_REQUESTED
       ) {
@@ -76,7 +77,12 @@ class Individual extends Component {
     const { classes, orgStatus, status } = this.props;
     const { alert } = this.state;
 
-    if (!orgStatus || !status || status === individualVerificationStatusList.CHANGE_REQUESTED) {
+    if (
+      !orgStatus ||
+      !status ||
+      status === individualVerificationStatusList.CHANGE_REQUESTED ||
+      orgStatus === OrgSetupStatus.CHANGE_REQUESTED
+    ) {
       return <Organization />;
     }
 

@@ -13,7 +13,11 @@ import { OnboardingRoutes } from "../OnboardingRouter/Routes";
 import { userEntities, userPreferenceTypes } from "../../../Utils/user";
 import { useDispatch, useSelector } from "react-redux";
 import { organizationActions } from "../../../Services/Redux/actionCreators";
-import { onboardingActions, preferenceActions } from "../../../Services/Redux/actionCreators/userActions";
+import {
+  onboardingActions,
+  preferenceActions,
+  individualVerificationActions,
+} from "../../../Services/Redux/actionCreators/userActions";
 import LoginBanner from "./LoginBanner";
 import VerifyInvitation from "./VerifyInvitation";
 import InformationBox from "./InformationBox";

@@ -65,5 +65,11 @@ export const useStyles = MUITheme => ({
     color: MUITheme.palette.text.primary,
     fontSize: 16,
     lineHeight: "24px",
+    "& h3": { color: MUITheme.palette.text.primary },
+    "& img": {
+      width: 600,
+      margin: "0 auto",
+      display: "block",
+    },
   },
 });

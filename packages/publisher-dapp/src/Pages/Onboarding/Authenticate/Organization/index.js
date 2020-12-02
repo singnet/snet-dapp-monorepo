@@ -154,7 +154,15 @@ const Organization = props => {
       <div className={classes.box}>
         <Typography variant="h6">Organization Verification Required</Typography>
         <div className={classes.wrapper}>
-          <Typography>Please provide your company organization details for the verification process.</Typography>
+          {userEntity === userEntities.INDIVIDUAL || organization.type === organizationTypes.INDIVIDUAL ? (
+            <Typography>
+              Please provide your company organization details and individual identity for the verification process.
+            </Typography>
+          ) : (
+            <Typography>
+              Please provide your company organization details and your DUNS number for the verification process.
+            </Typography>
+          )}
           <BasicDetails
             allowDuns={allowDuns}
             setAllowDuns={setAllowDuns}
