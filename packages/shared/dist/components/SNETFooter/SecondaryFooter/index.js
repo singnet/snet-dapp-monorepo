@@ -30,7 +30,7 @@ var SecondaryFooter = function SecondaryFooter(_ref) {
     lg: 6
   }, /*#__PURE__*/_react.default.createElement("p", {
     className: classes.copyrightText
-  }, "Copyright \xA9 2020 SingularityNET All rights reserved."), /*#__PURE__*/_react.default.createElement("p", {
+  }, "Copyright \xA9 ", new Date().getFullYear(), " SingularityNET All rights reserved."), /*#__PURE__*/_react.default.createElement("p", {
     className: classes.copyrightText
   }, "Stichting SingularityNET Barbara Strozzilaan 362 1083 HN Amsterdam The Netherlands")), /*#__PURE__*/_react.default.createElement(_Grid.default, {
     item: true,
