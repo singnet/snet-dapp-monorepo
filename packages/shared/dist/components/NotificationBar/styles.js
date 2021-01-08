@@ -49,7 +49,7 @@ var useStyles = function useStyles(MUITheme) {
       }
     },
     REMINDER: {
-      maxWidth: 'fit-content',
+      maxWidth: "fit-content",
       backgroundColor: "#EBE2EB",
       border: "1px solid #6F106A",
       color: "#666",
