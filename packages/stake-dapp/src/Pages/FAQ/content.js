@@ -27,11 +27,11 @@ export const communityDetails = [
 
 export const stakingFAQ = [
   {
-    question: "How long is a Staking window to reflect the 180 days?",
+    question: "Staking window",
     answer: `
     <ul>
       <li>Every 30 days a stake window opens for 7 days</li>
-      <li>You can refer the dates at the portal</li>
+      <li>You can refer the dates at the <a href="https://staking.singularitynet.io/howitworks" target="_blank" rel="noopener noreferrer">portal</a></li>
       <li>You will see the details once you login to the portal</li>
       <li>You would see the timer telling you till when the next staking window will   open.</li>
     </ul>

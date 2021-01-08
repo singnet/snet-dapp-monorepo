@@ -23,7 +23,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var notificationBarTypes = {
   WARNING: "WARNING",
-  INFORMATION: "INFORMATION"
+  INFORMATION: "INFORMATION",
+  REMINDER: "REMINDER"
 };
 exports.notificationBarTypes = notificationBarTypes;
 
@@ -48,7 +49,7 @@ var NotificationBar = function NotificationBar(_ref) {
 };
 
 NotificationBar.propTypes = {
-  type: _propTypes.default.oneOf(["WARNING", "INFORMATION"]),
+  type: _propTypes.default.oneOf(["WARNING", "INFORMATION", "REMINDER"]),
   message: _propTypes.default.string,
   showNotification: _propTypes.default.bool,
   icon: _propTypes.default.object
