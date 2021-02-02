@@ -18,8 +18,7 @@
     "redux-thunk": "^2.3.0",
     "shared": "*",
     "singularitynet-stake-contracts": "^0.1.1",
-    "singularitynet-token-contracts": "^2.0.1",
-    "web3": "1.2.2"
+    "singularitynet-token-contracts": "^2.0.1"
   },
   "peerDependencies": {
     "react-helmet": "^5.2.1",

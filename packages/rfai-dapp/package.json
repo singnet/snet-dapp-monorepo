@@ -27,7 +27,6 @@
     "singularitynet-rfai-contracts": "^0.2.5",
     "singularitynet-token-contracts": "^2.0.1",
     "validate.js": "^0.13.1",
-    "web3": "^1.2.2",
     "shared": "*"
   },
   "scripts": {

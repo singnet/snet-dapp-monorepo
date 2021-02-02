@@ -4,6 +4,10 @@
   "workspaces": [
     "packages/*"
   ],
+  "dependencies": {
+    "@sentry/browser": "^5.11.2",
+    "web3": "1.2.2"
+  },
   "devDependencies": {
     "@material-ui/core": "^4.4.0",
     "@material-ui/icons": "^4.1.0",
@@ -57,8 +61,5 @@
   "peerDependencies": {
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^2.3.0"
-  },
-  "dependencies": {
-    "@sentry/browser": "^5.11.2"
   }
 }
