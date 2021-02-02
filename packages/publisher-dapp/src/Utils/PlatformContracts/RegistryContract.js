@@ -5,7 +5,10 @@ import RegistryNetworks from "singularitynet-platform-contracts/networks/Registr
 export default class RegistryContract {
   constructor() {
     this._web3 = new Web3(process.env.REACT_APP_WEB3_PROVIDER, null, {});
-    this._contract = this._web3.eth.Contract(RegistryAbi, RegistryNetworks[process.env.REACT_APP_ETH_NETWORK].address);
+    this._contract = new this._web3.eth.Contract(
+      RegistryAbi,
+      RegistryNetworks[process.env.REACT_APP_ETH_NETWORK].address
+    );
   }
 
   /**
