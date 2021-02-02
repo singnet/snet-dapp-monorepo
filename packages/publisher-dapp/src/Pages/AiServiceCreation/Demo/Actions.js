@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
@@ -7,14 +7,11 @@ import { ServiceCreationRoutes } from "../ServiceCreationRouter/Routes";
 import { aiServiceDetailsActions } from "../../../Services/Redux/actionCreators";
 import { GlobalRoutes } from "../../../GlobalRouter/Routes";
 
-import AlertBox, { alertTypes } from "shared/dist/components/AlertBox";
-
-const Actions = ({ classes, serviceDetails, setServiceDetailsInRedux }) => {
+const Actions = ({ classes, serviceDetails, setServiceDetailsInRedux, setInvalidFieldsFlag }) => {
   const history = useHistory();
 
   const { orgUuid, serviceUuid } = useParams();
   const dispatch = useDispatch();
-  const [alert, setAlert] = useState({});
 
   const handleBack = () => {
     history.push(ServiceCreationRoutes.PROFILE.path.replace(":orgUuid", orgUuid).replace(":serviceUuid", serviceUuid));
@@ -33,9 +30,9 @@ const Actions = ({ classes, serviceDetails, setServiceDetailsInRedux }) => {
           .replace(":orgUuid", orgUuid)
           .replace(":serviceUuid", serviceUuid)
       );
-      setAlert({ type: alertTypes.ERROR, message: "" });
+      setInvalidFieldsFlag(false);
     } else {
-      return setAlert({ type: alertTypes.ERROR, message: "Please upload Demo Files" });
+      setInvalidFieldsFlag(true);
     }
   };
 
@@ -46,8 +43,6 @@ const Actions = ({ classes, serviceDetails, setServiceDetailsInRedux }) => {
 
   return (
     <div>
-      <AlertBox type={alert.type} message={alert.message} />
-
       <div className={classes.buttonsContainer}>
         <SNETButton color="primary" children="finish later" onClick={handleFinishLater} />
         <SNETButton color="primary" children="previous step" onClick={handleBack} />

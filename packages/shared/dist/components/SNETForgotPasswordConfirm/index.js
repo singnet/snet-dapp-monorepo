@@ -27,6 +27,8 @@ var _validator = _interopRequireDefault(require("../../utils/validator"));
 
 var _validationConstraints = require("./validationConstraints");
 
+var _SNETForgotPassword = _interopRequireDefault(require("../SNETForgotPassword"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
@@ -37,7 +39,7 @@ function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArra
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
@@ -47,6 +49,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var SNETForgotPasswordConfirm = function SNETForgotPasswordConfirm(_ref) {
   var email = _ref.email,
+      title = _ref.title,
+      description = _ref.description,
       forgotPasswordConfirmError = _ref.forgotPasswordConfirmError,
       onSubmit = _ref.onSubmit;
   var classes = (0, _styles.useStyles)();
@@ -77,7 +81,9 @@ var SNETForgotPasswordConfirm = function SNETForgotPasswordConfirm(_ref) {
       setValidationErr = _useState10[1];
 
   (0, _react.useEffect)(function () {
-    setLocalEmail(email);
+    if (email) {
+      setLocalEmail(email.toLowerCase());
+    }
   }, [email]);
 
   var handleSubmit = function handleSubmit(event) {
@@ -111,7 +117,7 @@ var SNETForgotPasswordConfirm = function SNETForgotPasswordConfirm(_ref) {
     className: classes.forgotPwdContent
   }, /*#__PURE__*/_react.default.createElement(_Typography.default, {
     variant: "h3"
-  }, "Reset your password"), /*#__PURE__*/_react.default.createElement(_Typography.default, null, "Thanks for confirming your email.", /*#__PURE__*/_react.default.createElement("span", null, "Input your new password")), /*#__PURE__*/_react.default.createElement("form", {
+  }, title), /*#__PURE__*/_react.default.createElement(_Typography.default, null, description), /*#__PURE__*/_react.default.createElement("form", {
     className: classes.forgotPwdForm,
     noValidate: ""
   }, /*#__PURE__*/_react.default.createElement(_TextField.default, {
@@ -126,7 +132,7 @@ var SNETForgotPasswordConfirm = function SNETForgotPasswordConfirm(_ref) {
     value: localEmail,
     required: true,
     onChange: function onChange(e) {
-      return setLocalEmail(e.target.value);
+      return setLocalEmail(e.target.value.toLowerCase());
     }
   }), /*#__PURE__*/_react.default.createElement(_TextField.default, {
     id: "outlined-code-input",
@@ -181,8 +187,13 @@ var SNETForgotPasswordConfirm = function SNETForgotPasswordConfirm(_ref) {
 
 SNETForgotPasswordConfirm.propTypes = {
   title: _propTypes.default.string,
+  description: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.object]),
   forgotPasswordConfirmError: _propTypes.default.string,
   onSubmit: _propTypes.default.func
+};
+_SNETForgotPassword.default.defaultProps = {
+  title: "Reset your password",
+  description: /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, "Thanks for confirming your email.", /*#__PURE__*/_react.default.createElement("span", null, "Input your new password"))
 };
 var _default = SNETForgotPasswordConfirm;
 exports.default = _default;

@@ -28,6 +28,7 @@ export const APIEndpoints = {
 export const APIPaths = {
   USER_PREFERENCES: "/user/preference",
   ORG_SETUP: "/org",
+  UPDATE_ORG: uuid => `/org/${uuid}/update`,
   CREATE_ORG_INDIVIDUAL: "/org/create",
   CREATE_ORG_ORG: "/org",
   GET_MEMBERS: orgUuid => `/org/${orgUuid}/member`,

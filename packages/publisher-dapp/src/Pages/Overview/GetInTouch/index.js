@@ -1,8 +1,10 @@
 import React from "react";
+import ReactGA from "react-ga";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
+import { GAEventsContent } from "../../../Utils/GAEvents";
 import { getInTouch } from "../content";
 import { useStyles } from "./styles";
 
@@ -10,6 +12,10 @@ import SNETTextfield from "shared/dist/components/SNETTextfield";
 import SNETButton from "shared/dist/components/SNETButton";
 
 const GetInTouch = ({ classes }) => {
+  const handleGetInTouch = () => {
+    ReactGA.event(GAEventsContent.GET_IN_TOUCH);
+  };
+
   return (
     <Grid container className={classes.getInTouchContainer}>
       <Grid item xs={12} sm={12} md={12} lg={12} className={classes.getInTouch}>
@@ -30,6 +36,7 @@ const GetInTouch = ({ classes }) => {
             type="submit"
             value="Subscribe"
             name="subscribe"
+            onClick={handleGetInTouch}
           />
         </form>
       </Grid>

@@ -154,6 +154,7 @@ const AddStake = ({ handleClose, open, addStakeAmountDetails, stakeDetails, auto
 
     let totalStakedAmount = new BigNumber(stakeDetails.totalStakedAmount);
     const windowTotalStake = new BigNumber(stakeDetails.windowTotalStake);
+    const totalAutoRenewAmount = new BigNumber(stakeDetails.totalAutoRenewAmount);
 
     if (myStake.gt(myStakeProcessed)) {
       totalStakedAmount = totalStakedAmount.plus(myStake.minus(myStakeProcessed));
@@ -173,7 +174,7 @@ const AddStake = ({ handleClose, open, addStakeAmountDetails, stakeDetails, auto
     let _rewardAmount = new BigNumber(0);
 
     // Considering Auto Renewed Stake For calculation
-    totalStakedAmount = totalStakedAmount.plus(windowTotalStake);
+    totalStakedAmount = totalStakedAmount.plus(windowTotalStake).plus(totalAutoRenewAmount);
 
     if (totalStakedAmount.lt(windowMaxCap)) {
       _rewardAmount = stakeAmount.times(windowRewardAmount).div(totalStakedAmount);
@@ -227,6 +228,25 @@ const AddStake = ({ handleClose, open, addStakeAmountDetails, stakeDetails, auto
               />
             </div>
             <div className={classes.stakeAmtDetailsContainer}>
+              <div className={classes.renewedAmtContainer}>
+                <div className={classes.stakeAmtDetail}>
+                  <div className={classes.label}>
+                    <div className={classes.iconTooltipContainer}>
+                      <InfoIcon />
+                      <p>
+                        This is the amount of AGI tokens that were auto renewed from a previous stake session. You will
+                        not be able to withdraw these tokens until the incubation period complete and auto renewed is
+                        turned off. See Transactions for session details.
+                      </p>
+                    </div>
+                    <Typography className={classes.title}>Renewed Amount</Typography>
+                  </div>
+                  <div className={classes.value}>
+                    <Typography>{fromWei(stakeDetails.myStakeAutoRenewed)}</Typography>
+                    <Typography>AGI</Typography>
+                  </div>
+                </div>
+              </div>
               {addStakeAmountDetails.map(item => (
                 <div className={classes.stakeAmtDetail} key={item.title}>
                   <div className={classes.label}>

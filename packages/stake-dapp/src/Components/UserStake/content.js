@@ -42,7 +42,7 @@ const computeReward = stakeDetails => {
   return rewardAmount;
 };
 
-export const cardDetails = stakeDetails => [
+export const yourStakeDetails = stakeDetails => [
   {
     title: "Accepted Stake Amount",
     value: fromWei(
@@ -56,7 +56,7 @@ export const cardDetails = stakeDetails => [
     title: "Reward Amount",
     value: fromWei(computeReward(stakeDetails)),
     unit: "AGI",
-    toolTip: "The final amout of AGI tokens you gain a reward at the end of the stake incubation period",
+    toolTip: "The amount of AGI tokens you’ll earn as reward for your stake during this incubation period",
   },
   {
     title: "Refunded Amount",
@@ -65,23 +65,26 @@ export const cardDetails = stakeDetails => [
     toolTip:
       "When incubation period begins, SNET foundation will accept all or a partial amount of your stake amount. Unaccepted stake portions will be returned to your wallet account automatically (you will not be charged any transaction fee in this case).",
   },
+];
+
+export const stakeSessionDetails = stakeDetails => [
   {
     title: "Stakers",
     value: stakeDetails.numOfStakers,
     unit: "people",
-    toolTip: "The number of people who have contributed AGI tokens to this stake session",
+    toolTip: "Current number of participants who have contributed AGI tokens to the stake",
   },
   {
     title: "Current Pool Size",
     value: fromWei(stakeDetails.windowTotalStake),
     unit: "AGI",
-    toolTip: "Current total amount of AGI tokens that have been contributed by all stakers",
+    toolTip: "Total amount of AGI tokens staked in the pool currently",
   },
   {
     title: "Reward Pool",
     value: fromWei(stakeDetails.rewardAmount),
     unit: "AGI",
-    toolTip: "The total reward amount of AGI tokens that will be divided and distributed to stakers",
+    toolTip: "Number of AGI tokens that will be divided amongst all stakers as the reward for the current window",
   },
 ];
 

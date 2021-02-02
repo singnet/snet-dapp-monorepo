@@ -11,7 +11,8 @@ import SNETTextfield from "shared/dist/components/SNETTextfield";
 const MMAddress = ({ address, setAddress, classes }) => {
   const handleConnetMM = async () => {
     const sdk = await initSDK();
-    setAddress(sdk.account.address);
+    const address = await sdk.account.getAddress();
+    setAddress(address);
   };
 
   if (!!address) {

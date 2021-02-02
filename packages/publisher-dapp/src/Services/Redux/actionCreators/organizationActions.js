@@ -7,12 +7,7 @@ import { fetchAuthenticatedUser } from "./userActions/loginActions";
 import { errorActions, loaderActions } from "./";
 import { LoaderContent } from "../../../Utils/Loader";
 import { APIError, responseStatus } from "shared/dist/utils/API";
-import {
-  addressTypes,
-  organizationSetupStatuses,
-  organizationTypes,
-  orgSubmitActions,
-} from "../../../Utils/organizationSetup";
+import { addressTypes, organizationSetupStatuses, orgSubmitActions } from "../../../Utils/organizationSetup";
 import { initSDK } from "shared/dist/utils/snetSdk";
 import { blockChainEvents } from "../../../Utils/Blockchain";
 import { clientTypes } from "shared/dist/utils/clientTypes";
@@ -20,6 +15,7 @@ import { GlobalRoutes } from "../../../GlobalRouter/Routes";
 import { defaultContacts } from "../reducers/organizationReducer";
 import RegistryContract from "../../../Utils/PlatformContracts/RegistryContract";
 import { MetamaskError } from "shared/dist/utils/error";
+import { userRoles } from "../../../Utils/user";
 
 export const SET_ALL_ORG_ATTRIBUTES = "SET_ALL_ORG_ATTRIBUTES";
 export const SET_ONE_BASIC_DETAIL = "SET_ONE_BASIC_DETAIL";
@@ -43,6 +39,7 @@ export const SET_ORG_FOUND_IN_BLOCKCHAIN = "SET_ORG_FOUND_IN_BLOCKCHAIN";
 export const SET_ORGANIZATION_TOUCHED_FLAG = "SET_ORGANIZATION_TOUCHED_FLAG";
 export const SET_ORGANIZATION_AVAILABILITY = "SET_ORGANIZATION_AVAILABILITY";
 export const SET_ORG_ALLOW_CHANGE_REQUEST_EDIT = "SET_ALLOW_CHANGE_REQUEST_EDIT";
+export const SET_ORG_MEMBERSHIP_DETAILS = "SET_ORG_MEMBERSHIP_DETAILS";
 
 export const setAllAttributes = value => ({ type: SET_ALL_ORG_ATTRIBUTES, payload: value });
 
@@ -88,6 +85,8 @@ export const setOrgAvailability = orgAvailability => ({
 });
 
 export const setOrgAllowChangeRequestEdit = allow => ({ type: SET_ORG_ALLOW_CHANGE_REQUEST_EDIT, payload: allow });
+
+export const setOrgMembershipDetails = details => ({ type: SET_ORG_MEMBERSHIP_DETAILS, payload: details });
 
 const validateOrgIdAPI = orgUuid => async dispatch => {
   const { token } = await dispatch(fetchAuthenticatedUser());
@@ -136,7 +135,7 @@ export const uploadFile = (assetType, fileBlob, orgUuid) => async dispatch => {
 const payloadForSubmit = organization => {
   // prettier-ignore
   const { id, uuid, duns, name, type, website, shortDescription, longDescription, metadataIpfsUri,
-    contacts, assets, orgAddress } = organization;
+    contacts, assets, orgAddress, registrationId, registrationType } = organization;
   const { hqAddress, mailingAddress, sameMailingAddress } = orgAddress;
 
   const payload = {
@@ -146,6 +145,8 @@ const payloadForSubmit = organization => {
     org_name: name,
     duns_no: duns,
     org_type: type,
+    registration_id: registrationId || "",
+    registration_type: registrationType || "",
     metadata_ipfs_uri: metadataIpfsUri,
     description: longDescription,
     short_description: shortDescription,
@@ -175,7 +176,7 @@ const payloadForSubmit = organization => {
     assets: {
       hero_image: {
         url: organization.assets.heroImage.url,
-        ipfs_uri: organization.assets.heroImage.ipfsUri || "",
+        ipfs_hash: organization.assets.heroImage.ipfsHash || "",
       },
     },
     ownerAddress: organization.ownerAddress,
@@ -199,9 +200,13 @@ const payloadForSubmit = organization => {
   payload.groups = groupsToBeSubmitted;
 
   if (assets.heroImage.url) {
-    payload.assets.hero_image = { url: assets.heroImage.url };
+    payload.assets.hero_image = { ...payload.assets.hero_image, url: assets.heroImage.url };
   } else {
-    payload.assets.hero_image = { raw: assets.heroImage.raw, file_type: assets.heroImage.fileType };
+    payload.assets.hero_image = {
+      ...payload.assets.hero_image,
+      raw: assets.heroImage.raw,
+      file_type: assets.heroImage.fileType,
+    };
   }
 
   return payload;
@@ -252,6 +257,8 @@ const parseOrgData = selectedOrg => {
     uuid: selectedOrg.org_uuid,
     name: selectedOrg.org_name,
     type: selectedOrg.org_type,
+    registrationId: selectedOrg.registration_id,
+    registrationType: selectedOrg.registration_type,
     longDescription: selectedOrg.description,
     shortDescription: selectedOrg.short_description,
     website: selectedOrg.url,
@@ -267,7 +274,7 @@ const parseOrgData = selectedOrg => {
     assets: {
       heroImage: {
         url: selectedOrg.assets.hero_image.url,
-        ipfsUri: selectedOrg.assets.hero_image.ipfs_uri,
+        ipfsHash: selectedOrg.assets.hero_image.ipfs_hash,
       },
     },
   };
@@ -314,7 +321,7 @@ export const getStatus = async dispatch => {
 const finishLaterAPI = payload => async dispatch => {
   const { token } = await dispatch(fetchAuthenticatedUser());
   const apiName = APIEndpoints.REGISTRY.name;
-  const apiPath = APIPaths.ORG_SETUP;
+  const apiPath = APIPaths.UPDATE_ORG(payload.org_uuid);
   const queryStringParameters = { action: orgSubmitActions.DRAFT };
   const apiOptions = initializeAPIOptions(token, payload, queryStringParameters);
   return await API.post(apiName, apiPath, apiOptions);
@@ -339,7 +346,7 @@ export const finishLater = (organization, type = "") => async dispatch => {
 const submitForApprovalAPI = payload => async dispatch => {
   const { token } = await dispatch(fetchAuthenticatedUser());
   const apiName = APIEndpoints.REGISTRY.name;
-  const apiPath = APIPaths.ORG_SETUP;
+  const apiPath = APIPaths.UPDATE_ORG(payload.org_uuid);
   const queryStringParameters = { action: orgSubmitActions.SUBMIT };
   const apiOptions = initializeAPIOptions(token, payload, queryStringParameters);
   return await API.post(apiName, apiPath, apiOptions);
@@ -362,10 +369,8 @@ export const submitForApproval = organization => async dispatch => {
 
 const createOrganizationAPI = payload => async dispatch => {
   const { token } = await dispatch(fetchAuthenticatedUser());
-  const apiName =
-    payload.org_type === organizationTypes.ORGANIZATION ? APIEndpoints.ORCHESTRATOR.name : APIEndpoints.REGISTRY.name;
-  const apiPath =
-    payload.org_type === organizationTypes.ORGANIZATION ? APIPaths.CREATE_ORG_ORG : APIPaths.CREATE_ORG_INDIVIDUAL;
+  const apiName = APIEndpoints.ORCHESTRATOR.name;
+  const apiPath = APIPaths.CREATE_ORG_ORG;
   const apiOptions = initializeAPIOptions(token, payload);
   return await API.post(apiName, apiPath, apiOptions);
 };
@@ -442,25 +447,29 @@ const registerOrganizationInBlockChain = (organization, metadataIpfsUri, history
   const orgMetadataURI = metadataIpfsUri;
   const members = [organization.ownerAddress];
   return new Promise((resolve, reject) => {
-    const method = sdk._registryContract
-      .createOrganization(orgId, orgMetadataURI, members)
-      .send()
-      .on(blockChainEvents.TRANSACTION_HASH, async hash => {
-        await dispatch(saveTransaction(organization.uuid, hash, organization.ownerAddress));
-        dispatch(loaderActions.startAppLoader(LoaderContent.BLOCKHAIN_SUBMISSION));
-        resolve(hash);
-      })
-      .once(blockChainEvents.CONFIRMATION, async () => {
-        dispatch(setOrgStateState(organizationSetupStatuses.PUBLISH_IN_PROGRESS));
-        await history.push(GlobalRoutes.SERVICES.path.replace(":orgUuid", organization.uuid));
-        await dispatch(setOrgFoundInBlockchain(true));
-        dispatch(loaderActions.stopAppLoader());
-        await method.off();
-      })
-      .on(blockChainEvents.ERROR, error => {
-        dispatch(loaderActions.stopAppLoader());
-        reject(new MetamaskError(error.message));
-      });
+    try {
+      const method = sdk._registryContract
+        .createOrganization(orgId, orgMetadataURI, members)
+        .send()
+        .on(blockChainEvents.TRANSACTION_HASH, async hash => {
+          await dispatch(saveTransaction(organization.uuid, hash, organization.ownerAddress));
+          dispatch(loaderActions.startAppLoader(LoaderContent.BLOCKHAIN_SUBMISSION));
+          resolve(hash);
+        })
+        .once(blockChainEvents.CONFIRMATION, async () => {
+          dispatch(setOrgStateState(organizationSetupStatuses.PUBLISH_IN_PROGRESS));
+          await history.push(GlobalRoutes.SERVICES.path.replace(":orgUuid", organization.uuid));
+          await dispatch(setOrgFoundInBlockchain(true));
+          dispatch(loaderActions.stopAppLoader());
+          await method.off();
+        })
+        .on(blockChainEvents.ERROR, error => {
+          dispatch(loaderActions.stopAppLoader());
+          reject(new MetamaskError(error.message));
+        });
+    } catch (error) {
+      reject(error);
+    }
   });
 };
 const updateOrganizationInBlockChain = (organization, metadataIpfsUri, history) => async dispatch => {
@@ -510,26 +519,36 @@ export const publishOrganizationInBlockchain = (organization, metadataIpfsUri, h
   }
 };
 
-const getOwnerAPI = uuid => async dispatch => {
+const getMembersAPI = (uuid, role) => async dispatch => {
   const { token } = await dispatch(fetchAuthenticatedUser());
   const apiName = APIEndpoints.REGISTRY.name;
   const apiPath = APIPaths.GET_MEMBERS(uuid);
-  const queryStringParameters = { role: "owner" };
+  const queryStringParameters = { role };
   const apiOptions = initializeAPIOptions(token, null, queryStringParameters);
   return await API.get(apiName, apiPath, apiOptions);
 };
 
 export const getOwner = uuid => async dispatch => {
-  const { data } = await dispatch(getOwnerAPI(uuid));
+  const { data } = await dispatch(getMembersAPI(uuid, userRoles.OWNER));
   await dispatch(setOrgOwner(data[0].username));
   return data;
 };
 
-export const initializeOrg = async dispatch => {
+export const getMembershipDetails = (uuid, username) => async dispatch => {
+  const { data } = await dispatch(getMembersAPI(uuid, userRoles.MEMBER));
+  const membershipDetails = data.find(el => el.username === username);
+  if (membershipDetails) {
+    await dispatch(setOrgMembershipDetails(membershipDetails));
+  }
+  return membershipDetails;
+};
+
+export const initializeOrg = username => async dispatch => {
   try {
     const data = await dispatch(getStatus);
     if (data && data[0]) {
-      await dispatch(getOwner(data[0].org_uuid));
+      const orgUuid = data[0].org_uuid;
+      await Promise.all[(dispatch(getOwner(orgUuid)), dispatch(getMembershipDetails(orgUuid, username)))];
     }
   } catch (error) {
     Sentry.captureException(error);

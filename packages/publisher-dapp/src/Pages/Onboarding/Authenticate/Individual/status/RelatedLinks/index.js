@@ -8,18 +8,22 @@ import { relatedLinks } from "./content";
 import AnchorLink from "shared/dist/components/AnchorLink";
 import { useStyles } from "./styles";
 
-const RelatedLinks = ({ classes }) => {
-  return (
-    <Grid container spacing={24} className={classes.relatedLinksContainer}>
-      <div className={classes.iconTitleContainer}>
-        <LaunchIcon />
-        <Typography>Related Links</Typography>
-      </div>
-      {relatedLinks.map(item => (
-        <AnchorLink label={item.label} href={item.linkTo} key={item.label} newTab={item.newTab} />
-      ))}
-    </Grid>
-  );
+const RelatedLinks = ({ classes, show }) => {
+  if (show) {
+    return (
+      <Grid container spacing={24} className={classes.relatedLinksContainer}>
+        <div className={classes.iconTitleContainer}>
+          <LaunchIcon />
+          <Typography>Related Links</Typography>
+        </div>
+        {relatedLinks.map(item => (
+          <AnchorLink label={item.label} href={item.linkTo} key={item.label} newTab={item.newTab} />
+        ))}
+      </Grid>
+    );
+  }
+
+  return null;
 };
 
 export default withStyles(useStyles)(RelatedLinks);

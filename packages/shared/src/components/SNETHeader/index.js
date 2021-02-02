@@ -63,21 +63,14 @@ const SNETHeader = ({
 SNETHeader.propTypes = {
   isLoggedIn: PropTypes.bool,
   color: PropTypes.string,
-  navbar: PropTypes.shape({
-    navbarItems: PropTypes.arrayOf(
-      PropTypes.shape({
-        type: PropTypes.string,
-        activeLinks: PropTypes.arrayOf(PropTypes.string),
-        label: PropTypes.string,
-        openInNewTab: PropTypes.bool,
-        to: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-      })
-    ),
-  }),
 
-  LoggedInActions: PropTypes.elementType,
-  LoggedOutActions: PropTypes.elementType,
+  LoggedInActions: PropTypes.object,
+  LoggedOutActions: PropTypes.object,
   onLogoClick: PropTypes.func,
 };
 
+SNETHeader.defaultProps = {
+  isLoggedIn: PropTypes.bool,
+  onLogoClick: PropTypes.func,
+};
 export default SNETHeader;

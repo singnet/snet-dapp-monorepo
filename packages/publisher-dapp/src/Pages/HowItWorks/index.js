@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
+import ReactGA from "react-ga";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -11,6 +12,7 @@ import { relatedContentData, howItWorksContent } from "./content";
 import { GlobalRoutes } from "../../GlobalRouter/Routes";
 import Working from "./Working";
 import RelatedContent from "./RelatedContent";
+import { GAEventsContent } from "../../Utils/GAEvents";
 import { useStyles } from "./styles";
 
 const selectState = state => ({
@@ -29,6 +31,7 @@ const HowItWorks = ({ classes, history }) => {
   }, [history, isLoggedIn, orgUuid, publisherTnC]);
 
   const handleGetStarted = () => {
+    ReactGA.event(GAEventsContent.GET_STARTED_FROM_HOW_IT_WORKS);
     history.push(GlobalRoutes.ENROLL.path);
   };
 

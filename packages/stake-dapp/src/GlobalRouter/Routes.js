@@ -14,11 +14,13 @@ const AcceptAgreement = lazy(() => import("../Pages/AcceptServiceAgreement"));
 const UserProfile = lazy(() => import("../Pages/UserProfile"));
 
 const Landing = lazy(() => import("../Pages/Landing"));
+const FAQ = lazy(() => import("../Pages/FAQ"));
 
 const SIGNUP_PATH = "/signup";
 const LOGIN_PATH = "/login";
 const FORGOT_PASSWORD_PATH = "/forgotpassword";
 const FORGOT_PASSWORD_CONFIRM_PATH = "/forgotpasswordconfirm";
+const RESET_PASSWORD_PATH = "/resetpassword";
 
 const LoginComponent = withRegistrationHeader(Login, "New to SingularityNET?", "Sign up", SIGNUP_PATH);
 const SignupComponent = withRegistrationHeader(Signup, "Already have an account?", "Login", LOGIN_PATH);
@@ -40,6 +42,7 @@ const AcceptAgreementComponent = withTncHeader(AcceptAgreement, null, "Logout", 
 
 const LandingComponent = withLightHeaderAndFooter(Landing);
 const UserProfileComponent = withLightHeaderAndFooter(UserProfile);
+const FAQComponent = withLightHeaderAndFooter(FAQ);
 
 export const GlobalRoutes = {
   LOGIN: {
@@ -67,6 +70,11 @@ export const GlobalRoutes = {
     path: FORGOT_PASSWORD_CONFIRM_PATH,
     component: ForgotPasswordConfirmComponent,
   },
+  RESET_PASSWORD: {
+    name: "reset password",
+    path: RESET_PASSWORD_PATH,
+    component: ForgotPasswordComponent,
+  },
   HOW_IT_WORKS: {
     name: "how it works",
     path: "/howitworks",
@@ -86,6 +94,11 @@ export const GlobalRoutes = {
     name: "userprofile",
     path: "/userprofile",
     component: UserProfileComponent,
+  },
+  FAQ: {
+    name: "faq",
+    path: "/faq",
+    component: FAQComponent,
   },
 };
 

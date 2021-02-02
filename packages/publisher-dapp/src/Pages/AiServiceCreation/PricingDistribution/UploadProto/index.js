@@ -14,7 +14,7 @@ import { assetTypes } from "../../../../Utils/FileUpload";
 import ValidationError from "shared/dist/utils/validationError";
 import { checkIfKnownError } from "shared/dist/utils/error";
 
-const UploadProto = ({ changeProtoFiles, protoFilesUrl }) => {
+const UploadProto = ({ changeProtoFiles, protoFilesUrl, invalidFields }) => {
   const classes = useStyles();
   const [alert, setAlert] = useState({});
   const [selectedFile, setSelectedFile] = useState({ name: "", size: "", type: "" });
@@ -101,6 +101,7 @@ const UploadProto = ({ changeProtoFiles, protoFilesUrl }) => {
         fileSize={selectedFile.size}
         fileDownloadURL={protoFilesUrl}
         uploadSuccess={Boolean(protoFilesUrl)}
+        error={!!invalidFields && !Boolean(protoFilesUrl) ? "assets.protoFiles.url" in invalidFields : ""}
       />
       <div className={classes.errorContainer}>
         <AlertBox type={alert.type} message={alert.message} />

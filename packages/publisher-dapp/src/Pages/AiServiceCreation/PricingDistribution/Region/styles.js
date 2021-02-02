@@ -3,16 +3,20 @@ import { makeStyles } from "@material-ui/styles";
 export const useStyles = makeStyles(MUITheme => ({
   dropDownBtn: {
     margin: "17px 0 22px",
+    "& > div": {
+      paddingLeft: 0,
+      [MUITheme.breakpoints.down("xs")]: { width: "100%" },
+    },
     "& button": { margin: "5px 0 0 11px" },
   },
   grayBox: {
     width: "auto",
-    padding: "15px 35px 30px 30px",
+    padding: "15px 45px 30px 16px",
     borderWidth: 1,
     borderStyle: "solid",
     borderColor: "#F1F1F1",
     borderRadius: 4,
-    margin: "0 20px 67px",
+    margin: "0 0 67px",
     backgroundColor: "#F6F6F6",
   },
   regionNameIdContainer: {
@@ -45,6 +49,7 @@ export const useStyles = makeStyles(MUITheme => ({
         },
       },
     },
+    [MUITheme.breakpoints.down("sm")]: { flexDirection: "column" },
   },
   entityTypeDropDown: {
     "& > div": {
@@ -53,10 +58,16 @@ export const useStyles = makeStyles(MUITheme => ({
       "& > div": {
         background: MUITheme.palette.text.white,
       },
+      [MUITheme.breakpoints.down("sm")]: {
+        boxSizing: "border-box",
+        width: "100%",
+        paddingLeft: 29,
+        marginTop: 9,
+      },
     },
   },
   cardContainer: {
-    width: "90%",
+    width: "100%",
     position: "relative",
   },
   label: {
@@ -69,12 +80,15 @@ export const useStyles = makeStyles(MUITheme => ({
     fontSize: 12,
   },
   card: {
+    boxSizing: "border-box",
     width: "100%",
     minHeight: 100,
     boxShadow: "none",
     padding: 15,
     border: "1px solid rgba(25,25,25,.32)",
     borderRadius: 4,
+    flexWrap: "wrap",
+    "& > div:first-of-type": { marginLeft: 0 },
   },
   extraInfo: {
     padding: "10px 0 0 14px",
@@ -101,4 +115,16 @@ export const useStyles = makeStyles(MUITheme => ({
   },
   alertContainer: { marginTop: 49 },
   btnContainer: { textAlign: "right" },
+  chip: {
+    margin: "0 10px 10px 0",
+    [MUITheme.breakpoints.down("xs")]: {
+      height: "auto",
+      padding: "5px 0",
+      "& > span": {
+        wordBreak: "break-all",
+        whiteSpace: "normal",
+      },
+    },
+    "& svg": { color: MUITheme.palette.text.white },
+  },
 }));

@@ -31,6 +31,7 @@ export const individualVerificationStatusList = {
   REJECTED: "REJECTED",
   FAILED: "FAILED",
   ERROR: "ERROR",
+  CHANGE_REQUESTED: "CHANGE_REQUESTED",
 };
 export const organizationIdAvailability = {
   AVAILABLE: "AVAILABLE",

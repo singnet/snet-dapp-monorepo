@@ -1,6 +1,5 @@
 export const useStyles = MUITheme => ({
   invitedMembersContainer: {
-    width: 411,
     borderRadius: 4,
     marginRight: 20,
     background: MUITheme.palette.background.white,

@@ -42,7 +42,7 @@ const SNETLogin = props => {
             variant="outlined"
             value={email}
             autoFocus
-            onChange={e => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value.toLowerCase())}
           />
           <TextField
             id="outlined-password-input"

@@ -13,7 +13,7 @@ export const useStyles = MUITheme => ({
       paddingLeft: 22,
       lineHeight: "48px",
     },
-    "@media(max-width: 960px)": {
+    "@media(max-width:768px)": {
       flexDirection: "column",
       alignItems: "center",
     },

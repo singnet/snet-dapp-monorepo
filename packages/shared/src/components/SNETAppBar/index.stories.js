@@ -7,4 +7,4 @@ import SNETAppBar from "./";
 storiesOf("SNETAppBar", module)
   .addParameters({ props: { propTables: [SNETAppBar] } })
   .addDecorator(withLiveEditScope({ React, SNETAppBar }))
-  .addLiveSource("live source", `return <SNETAppBar color="white" position="fixed" />`);
+  .addLiveSource("live source", `return <SNETAppBar color="white" />`);

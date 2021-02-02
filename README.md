@@ -66,3 +66,16 @@ This will recreate the symlinks of all the packages in the monorepo.
 If lerna is not installed globally, then try <code>yarn run link:all</code>. 
 This will use the locally installed version of lerna
 </details>
+
+# Quick Links
+## Publisher Portal
+### Ropsten: development preview
+http://ropsten-publisher.singularitynet.io.s3-website-us-east-1.amazonaws.com/
+### Mainnet: production
+https://publisher.singularitynet.io/
+
+## Staking Portal
+### Ropsten: development preview
+http://ropsten-stake.singularitynet.io.s3-website-us-east-1.amazonaws.com/landing
+### Mainnet: production
+https://staking.singularitynet.io/

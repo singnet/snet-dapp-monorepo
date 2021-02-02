@@ -1,6 +1,3 @@
-export const useStyles = MUITheme => ({
-  serviceCollection: {
-    width: "100%",
-    marginTop: 33,
-  },
+export const useStyles = () => ({
+  serviceCollection: { marginTop: 33 },
 });

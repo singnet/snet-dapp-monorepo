@@ -322,9 +322,7 @@ export const useStyles = MUITheme => ({
   metaMaskContainer: {
     margin: "110px 0 145px",
     textAlign: "center",
-    transform: "translateX(-6%)",
     "& img": { width: 300 },
-    [MUITheme.breakpoints.down("md")]: { transform: "translateX(-4%)" },
   },
   walletAccHeading: {
     marginBottom: 45,
@@ -350,6 +348,7 @@ export const useStyles = MUITheme => ({
   },
   metamaskContent: {
     position: "relative",
+    transform: "translateX(-9%)",
     "& > div": {
       width: "100%",
       position: "absolute",
@@ -357,5 +356,6 @@ export const useStyles = MUITheme => ({
       left: "50%",
       transform: "translateX(-50%)",
     },
+    [MUITheme.breakpoints.down("md")]: { transform: "none" },
   },
 });

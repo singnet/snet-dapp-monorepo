@@ -53,4 +53,23 @@ export const useStyles = MUITheme => ({
     lineHeight: "16px",
     textTransform: "uppercase",
   },
+  faqLink: {
+    marginRight: 21,
+    "& a": {
+      color: MUITheme.palette.text.lightGrey,
+      fontSize: 14,
+      lineHeight: "18px",
+      textDecoration: "none",
+    },
+    "& svg": {
+      marginLeft: 8,
+      color: MUITheme.palette.text.lightGrey,
+      fontSize: 20,
+      verticalAlign: "middle",
+    },
+    "&:hover": {
+      "& a": { color: MUITheme.palette.text.white },
+      "& svg": { color: MUITheme.palette.text.white },
+    },
+  },
 });

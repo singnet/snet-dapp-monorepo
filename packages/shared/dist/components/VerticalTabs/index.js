@@ -9,6 +9,8 @@ var _react = _interopRequireDefault(require("react"));
 
 var _clsx2 = _interopRequireDefault(require("clsx"));
 
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
 var _Drawer = _interopRequireDefault(require("@material-ui/core/Drawer"));
 
 var _List = _interopRequireDefault(require("@material-ui/core/List"));
@@ -20,6 +22,8 @@ var _ListItem = _interopRequireDefault(require("@material-ui/core/ListItem"));
 var _ListItemIcon = _interopRequireDefault(require("@material-ui/core/ListItemIcon"));
 
 var _ListItemText = _interopRequireDefault(require("@material-ui/core/ListItemText"));
+
+var _Tooltip = _interopRequireDefault(require("@material-ui/core/Tooltip"));
 
 var _ToggleMenu = _interopRequireDefault(require("./ToggleMenu"));
 
@@ -33,7 +37,7 @@ function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArra
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
@@ -67,9 +71,11 @@ var VerticalTabs = function VerticalTabs(_ref) {
   }), /*#__PURE__*/_react.default.createElement(_List.default, {
     className: classes.list
   }, upperTabs.map(function (item) {
-    return /*#__PURE__*/_react.default.createElement(_ListItem.default, {
+    return /*#__PURE__*/_react.default.createElement(_Tooltip.default, {
+      title: !open ? item.title : "",
+      key: item.title
+    }, /*#__PURE__*/_react.default.createElement(_ListItem.default, {
       button: true,
-      key: item.title,
       className: classes.listItem,
       onClick: item.onRowClick
     }, /*#__PURE__*/_react.default.createElement("a", {
@@ -80,13 +86,15 @@ var VerticalTabs = function VerticalTabs(_ref) {
       className: classes.listItemIcon
     }, item.icon), /*#__PURE__*/_react.default.createElement(_ListItemText.default, {
       primary: item.title
-    })));
+    }))));
   })), /*#__PURE__*/_react.default.createElement(_Divider.default, null), /*#__PURE__*/_react.default.createElement(_List.default, {
     className: classes.list
   }, lowerTabs.map(function (item) {
-    return /*#__PURE__*/_react.default.createElement(_ListItem.default, {
+    return /*#__PURE__*/_react.default.createElement(_Tooltip.default, {
+      title: !open ? item.title : "",
+      key: item.title
+    }, /*#__PURE__*/_react.default.createElement(_ListItem.default, {
       button: true,
-      key: item.title,
       className: classes.listItem,
       onClick: item.onRowClick
     }, /*#__PURE__*/_react.default.createElement("a", {
@@ -97,9 +105,13 @@ var VerticalTabs = function VerticalTabs(_ref) {
       className: classes.listItemIcon
     }, item.icon), /*#__PURE__*/_react.default.createElement(_ListItemText.default, {
       primary: item.title
-    })));
+    }))));
   }))));
 };
 
+VerticalTabs.propTypes = {
+  upperTabs: _propTypes.default.object,
+  lowerTabs: _propTypes.default.object
+};
 var _default = VerticalTabs;
 exports.default = _default;

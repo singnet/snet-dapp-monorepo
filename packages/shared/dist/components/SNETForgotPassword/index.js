@@ -37,7 +37,7 @@ function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArra
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
@@ -47,6 +47,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var SNETForgotPassword = function SNETForgotPassword(_ref) {
   var title = _ref.title,
+      desription = _ref.desription,
       email = _ref.email,
       forgotPasswordError = _ref.forgotPasswordError,
       onSubmit = _ref.onSubmit;
@@ -63,7 +64,9 @@ var SNETForgotPassword = function SNETForgotPassword(_ref) {
       setValidationErr = _useState4[1];
 
   (0, _react.useEffect)(function () {
-    setEmail(email);
+    if (email) {
+      setEmail(email.toLowerCase());
+    }
   }, [email]);
 
   var handleSubmit = function handleSubmit(event) {
@@ -95,7 +98,7 @@ var SNETForgotPassword = function SNETForgotPassword(_ref) {
     className: classes.forgotPwdContent
   }, /*#__PURE__*/_react.default.createElement(_Typography.default, {
     variant: "h3"
-  }, title), /*#__PURE__*/_react.default.createElement("p", null, "We'll email you instructions on how to reset it."), /*#__PURE__*/_react.default.createElement("form", {
+  }, title), /*#__PURE__*/_react.default.createElement("p", null, desription), /*#__PURE__*/_react.default.createElement("form", {
     noValidate: true,
     autoComplete: "off",
     className: classes.forgotPwdForm
@@ -109,7 +112,7 @@ var SNETForgotPassword = function SNETForgotPassword(_ref) {
     variant: "outlined",
     value: localEmail,
     onChange: function onChange(e) {
-      return setEmail(e.target.value);
+      return setEmail(e.target.value.toLowerCase());
     }
   }), /*#__PURE__*/_react.default.createElement("div", {
     className: classes.alertBoxContainer
@@ -127,9 +130,13 @@ var SNETForgotPassword = function SNETForgotPassword(_ref) {
 
 SNETForgotPassword.propTypes = {
   title: _propTypes.default.string,
+  description: _propTypes.default.string,
   email: _propTypes.default.string,
   forgotPasswordError: _propTypes.default.string,
   onSubmit: _propTypes.default.func
+};
+SNETForgotPassword.defaultProps = {
+  desription: "We'll email you instructions on how to reset it."
 };
 var _default = SNETForgotPassword;
 exports.default = _default;

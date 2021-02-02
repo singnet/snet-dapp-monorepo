@@ -7,7 +7,12 @@ import SNETStatusBanner, { statusTitleType } from "shared/dist/components/SNETSt
 import { AuthenticateRoutes } from "../Onboarding/Authenticate/AuthenitcateRouter/Routes";
 import { organizationActions } from "../../Services/Redux/actionCreators";
 
-const selectState = state => ({ rejectReason: state.organization.rejectReason });
+const selectState = state => ({
+  rejectReason:
+    state.organization.state.comments &&
+    state.organization.state.comments[0] &&
+    state.organization.state.comments[0].comment,
+});
 
 const VerificationChangeRequested = () => {
   const { rejectReason } = useSelector(selectState);
@@ -29,7 +34,7 @@ const VerificationChangeRequested = () => {
           singularitynet team with detailed explanation for the changes to be made for your organization.
           <br />
           <br />
-          <strong>Comments:</strong> {rejectReason}.
+          <strong>Comments:</strong> {rejectReason || ""}.
           <br />
         </span>
       }

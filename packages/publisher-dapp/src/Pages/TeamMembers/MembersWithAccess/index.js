@@ -2,8 +2,6 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import ShowMoreIcon from "@material-ui/icons/MoreVert";
-import InfoIcon from "@material-ui/icons/Info";
 
 import SNETPagination from "shared/dist/components/SNETPagination";
 import UserCard from "shared/dist/components/UserCard";
@@ -39,16 +37,12 @@ const MembersWithAccess = ({ classes, publisedMembers, publishedInProgressMember
             <Grid item xs={12} sm={12} md={2} lg={2}>
               <span className={classes.mobileTableHeader}>role</span>
               <div className={classes.infoIconContainer}>
-                <InfoIcon className={classes.infoIcon} />
                 <span className={classes.tableBodyCell}>{item.role}</span>
               </div>
             </Grid>
-            <Grid item xs={12} sm={12} md={3} lg={3}>
+            <Grid item xs={12} sm={12} md={6} lg={6}>
               <span className={classes.mobileTableHeader}>joined since</span>
               <span className={classes.tableBodyCell}>{parseDateFromAPIResponse(item.updated_on)}</span>
-            </Grid>
-            <Grid item xs={12} sm={12} md={3} lg={3} className={classes.iconContainer}>
-              <ShowMoreIcon />
             </Grid>
           </Grid>
         ))

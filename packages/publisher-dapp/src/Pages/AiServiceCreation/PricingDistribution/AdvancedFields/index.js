@@ -31,7 +31,7 @@ const AdvancedFields = ({ freeCallSignerAddress }) => {
       <SNETTextfield
         icon
         name="signer address"
-        value={freeCallSignerAddress}
+        value={freeCallSignerAddress || ""}
         label="Free call signer address"
         description="This address is used to sign all calls made as part of the free trial"
         disabled

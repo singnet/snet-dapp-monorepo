@@ -38,6 +38,7 @@ const SNETTextarea = ({
           onChange={onChange}
           disabled={disabled}
           className={error ? classes.error : ""}
+          maxLength={maxCount}
         >
           {content}
         </textarea>

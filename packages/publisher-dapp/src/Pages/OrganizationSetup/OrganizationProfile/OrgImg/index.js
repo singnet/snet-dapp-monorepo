@@ -20,7 +20,7 @@ const selectState = state => ({
   foundInBlockchain: state.organization.foundInBlockchain,
 });
 
-const OrgImg = ({ classes }) => {
+const OrgImg = ({ classes, error }) => {
   const [imgUploadAlert, setImgUploadAlert] = useState({});
   const { url, foundInBlockchain } = useSelector(selectState);
   const imageRef = useRef(null);
@@ -63,6 +63,7 @@ const OrgImg = ({ classes }) => {
             disableComparisonTab
             disableInputTab={Boolean(url)}
             outputImageType="url"
+            error={error}
           />
           {url ? <Reset onReset={() => handleResetImage()} disabled={foundInBlockchain} /> : null}
           <AlertBox type={imgUploadAlert.type} message={imgUploadAlert.message} />

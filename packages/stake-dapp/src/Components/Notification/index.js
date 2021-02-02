@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import isEmpty from "lodash/isEmpty";
+//import isEmpty from "lodash/isEmpty";
 
 import { withStyles } from "@material-ui/styles";
 import NotificationIcon from "@material-ui/icons/ErrorOutline";
@@ -18,22 +18,17 @@ class Notification extends Component {
     if (window.ethereum) {
       try {
         const ethereum = window.ethereum;
-        window.web3 = new window.Web3(ethereum);
 
-        // Enable Metamask for this Web Site
-        //const accounts = await ethereum.enable();
-        await ethereum.enable();
+        const chainId = ethereum.chainId;
+        const netId = parseInt(chainId);
 
-        window.web3.version.getNetwork(async (_err, netId) => {
-          const isTxnsAllowed =
-            Boolean(window.web3.eth.defaultAccount) && netId.toString() === process.env.REACT_APP_ETH_NETWORK;
-          await this.storeMetamaskDetails(
-            Boolean(window.web3.eth.defaultAccount),
-            toChecksumAddress(window.web3.eth.defaultAccount),
-            netId,
-            isTxnsAllowed
-          );
-        });
+        //await ethereum.request({ method: 'eth_accounts' });
+        const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+
+        if (accounts.length > 0) {
+          const isTxnsAllowed = Boolean(accounts[0]) && netId.toString() === process.env.REACT_APP_ETH_NETWORK;
+          await this.storeMetamaskDetails(Boolean(accounts[0]), toChecksumAddress(accounts[0]), netId, isTxnsAllowed);
+        }
 
         // Subscribe to Metamask after connection
         this.subscribeToMetamask();
@@ -44,71 +39,63 @@ class Notification extends Component {
     }
   };
 
-  subscribeToMetamask = () => {
+  subscribeToMetamask = async () => {
     if (window.ethereum) {
       const ethereum = window.ethereum;
-      window.web3 = new window.Web3(ethereum);
 
       try {
-        window.web3.currentProvider.publicConfigStore.on("update", () => {
-          window.web3.version.getNetwork(async (_err, netId) => {
-            const isTxnsAllowed =
-              Boolean(window.web3.eth.defaultAccount) && netId.toString() === process.env.REACT_APP_ETH_NETWORK;
-            await this.storeMetamaskDetails(
-              Boolean(window.web3.eth.defaultAccount),
-              toChecksumAddress(window.web3.eth.defaultAccount),
-              netId,
-              isTxnsAllowed
-            );
-          });
+        // On Network Change
+        ethereum.on("chainChanged", _chainId => {
+          window.location.reload();
+        });
+
+        const chainId = ethereum.chainId;
+        const netId = parseInt(chainId);
+        // On Account Change
+        ethereum.on("accountsChanged", async accounts => {
+          if (accounts.length > 0) {
+            const isTxnsAllowed = Boolean(accounts[0]) && netId.toString() === process.env.REACT_APP_ETH_NETWORK;
+            await this.storeMetamaskDetails(Boolean(accounts[0]), toChecksumAddress(accounts[0]), netId, isTxnsAllowed);
+          } else {
+            await this.storeMetamaskDetails(false, "0x0", 0, false);
+          }
         });
       } catch (_error) {
         // User has denied account access...
-        this.storeMetamaskDetails(false, "0x0", 0, false);
+        await this.storeMetamaskDetails(false, "0x0", 0, false);
       }
     }
   };
 
   loadMetamaskDetails = async () => {
-    const {
-      metamaskDetails,
-      updateTokenBalance,
-      updateTokenAllowance,
-      isLoggedIn,
-      fetchWallet,
-      walletList,
-    } = this.props;
+    const { metamaskDetails, updateTokenBalance, updateTokenAllowance, isLoggedIn } = this.props;
 
     if (!isLoggedIn) {
       this.storeMetamaskDetails(false, "0x0", 0, false);
       return;
-    } else {
-      if (isEmpty(walletList)) {
-        await fetchWallet();
-      }
     }
 
     if (window.ethereum) {
       const ethereum = window.ethereum;
-      window.web3 = new window.Web3(ethereum);
 
       try {
-        window.web3.version.getNetwork(async (_err, netId) => {
-          const isTxnsAllowed =
-            Boolean(window.web3.eth.defaultAccount) && netId.toString() === process.env.REACT_APP_ETH_NETWORK;
-          await this.storeMetamaskDetails(
-            Boolean(window.web3.eth.defaultAccount),
-            toChecksumAddress(window.web3.eth.defaultAccount),
-            netId,
-            isTxnsAllowed
-          );
+        const chainId = ethereum.chainId;
+        const netId = parseInt(chainId);
+
+        const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+
+        if (accounts.length > 0) {
+          const isTxnsAllowed = Boolean(accounts[0]) && netId.toString() === process.env.REACT_APP_ETH_NETWORK;
+          await this.storeMetamaskDetails(Boolean(accounts[0]), toChecksumAddress(accounts[0]), netId, isTxnsAllowed);
 
           // Subscribe to Metamask for the connection already exists
           this.subscribeToMetamask();
 
           await updateTokenBalance(metamaskDetails);
           await updateTokenAllowance(metamaskDetails);
-        });
+        } else {
+          await this.storeMetamaskDetails(false, "0x0", 0, false);
+        }
       } catch (_error) {
         // User denied account access...
         this.storeMetamaskDetails(false, "0x0", 0, false);

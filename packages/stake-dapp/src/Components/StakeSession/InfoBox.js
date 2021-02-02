@@ -84,7 +84,7 @@ const InfoBox = ({ stakeDetails }) => {
 
   // Ready to Claim
   const gracePeriod = stakeDetails.endPeriod + (stakeDetails.endPeriod - stakeDetails.requestWithdrawStartPeriod);
-  if (currentTime > stakeDetails.endPeriod && currentTime < gracePeriod) {
+  if (currentTime > stakeDetails.endPeriod && currentTime < gracePeriod && stakeDetails.autoRenewal === true) {
     return (
       <AlertBox type={alertTypes.SUCCESS}>
         <InfoIcon />
@@ -97,7 +97,7 @@ const InfoBox = ({ stakeDetails }) => {
       </AlertBox>
     );
   }
-  if (currentTime > stakeDetails.endPeriod && currentTime > gracePeriod) {
+  if (currentTime > stakeDetails.endPeriod && currentTime > gracePeriod && stakeDetails.autoRenewal === true) {
     return (
       <AlertBox type={alertTypes.INFO}>
         <InfoIcon />

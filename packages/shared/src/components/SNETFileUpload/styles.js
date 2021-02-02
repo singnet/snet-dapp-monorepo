@@ -96,4 +96,16 @@ export const useStyles = makeStyles(MUITheme => ({
       "&:last-of-type": { marginLeft: 40 },
     },
   },
+  errorField: {
+    display: "flex",
+    alignItems: "center",
+    "& svg": {
+      color: MUITheme.palette.error.main,
+      fontSize: 41,
+    },
+    "& p": {
+      marginLeft: 10,
+      color: MUITheme.palette.error.main,
+    },
+  },
 }));

@@ -52,8 +52,8 @@ export const useStyles = makeStyles(MUITheme => ({
     display: "flex",
     flexWrap: "wrap",
     "& > div": {
-      "&:nth-child(2n)": {
-        paddingLeft: 31,
+      "&:nth-child(3n)": {
+        paddingLeft: 32,
         "@media(max-width:800px)": { paddingLeft: 0 },
       },
     },
@@ -166,6 +166,16 @@ export const useStyles = makeStyles(MUITheme => ({
     "&:hover": {
       "& svg": { color: MUITheme.palette.primary.main },
       "& p": { display: "block" },
+    },
+  },
+  renewedAmtContainer: {
+    display: "flex",
+    "& > p": {
+      width: 317,
+      paddingLeft: 32,
+      color: MUITheme.palette.text.lightGrey,
+      fontSize: 14,
+      lineHeight: "18px",
     },
   },
 }));

@@ -1,5 +1,6 @@
 import { Auth } from "aws-amplify";
 import { loaderActions } from "../";
+import { userWalletActions } from "./";
 import { LoaderContent } from "../../../../Utils/Loader";
 import { getCurrentUTCEpoch } from "shared/dist/utils/Date";
 
@@ -72,6 +73,7 @@ export const initializeApplication = async dispatch => {
   try {
     const userAttributes = await dispatch(fetchAuthenticatedUser());
     dispatch(setUserAttributes({ ...userAttributes, isLoggedIn: true }));
+    await dispatch(userWalletActions.fetchWallet());
     dispatch(setAppInitialized(true));
   } catch (error) {
     dispatch(setAppInitialized(true));
@@ -101,9 +103,14 @@ export const login = (email, password) => async dispatch => {
   try {
     dispatch(loaderActions.startAppLoader(LoaderContent.LOGIN));
     const loginResponse = await Auth.signIn(email, password);
+    await dispatch(userWalletActions.fetchWallet());
     return await dispatch(loginSucess(loginResponse));
   } catch (error) {
     dispatch(loaderActions.stopAppLoader());
+    if (error.code === "PasswordResetRequiredException") {
+      dispatch(setUserEmail(email));
+      throw error;
+    }
     if (error.code === "UserNotConfirmedException") {
       await dispatch(handleUserNotConfirmed(email));
     }

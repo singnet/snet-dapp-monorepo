@@ -29,4 +29,7 @@ export const APIPaths = {
   ACTIVE_USER_STAKE: staker => `/stake-holder/active?address=${staker}`,
   CLAIM_STAKE: staker => `/stake-holder/claim?address=${staker}`,
   STAKE_TRANSACTIONS: staker => `/transactions?address=${staker}`,
+  STAKE_OVERALL_SUMMARY: "/stake-summary",
+  STAKE_WINDOWS_SUMMARY: "/stake-windows",
+  STAKE_CALCULATOR: "/stake-calculator",
 };

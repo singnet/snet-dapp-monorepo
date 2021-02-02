@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -26,7 +26,10 @@ const LoggedInActions = ({ classes, headerType }) => {
     setShowProfilePopup(!showProfilePopup);
   };
 
-  const userRole = () => (orgOwnerEmail === userEmail ? userRoles.OWNER : userRoles.MEMBER);
+  const userRole = useCallback(() => (orgOwnerEmail === userEmail ? userRoles.OWNER : userRoles.MEMBER), [
+    orgOwnerEmail,
+    userEmail,
+  ]);
 
   if (location.pathname.includes(location.pathname.match(GlobalRoutes.AI_SERVICE_CREATION.match))) {
     return (
@@ -52,6 +55,7 @@ const LoggedInActions = ({ classes, headerType }) => {
         show={showProfilePopup}
         handleClose={() => setShowProfilePopup(false)}
         headerType={headerType}
+        userRole={userRole()}
       />
       <div className={classes.orgNameContainer}>
         <Typography className={classes.orgName}>{userNickname}</Typography>

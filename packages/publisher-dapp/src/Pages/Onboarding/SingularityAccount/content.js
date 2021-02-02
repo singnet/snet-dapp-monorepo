@@ -7,9 +7,9 @@ export const entityTypeDetails = {
 };
 
 export const loggedInDetails = {
-  subtitle: "This is your Singularlity account that will be associated with your AI Publisher account.",
+  subtitle: "This is your Singularity account that will be associated with your AI Publisher account.",
   description:
-    "If you would like to use a different account, you can choose from the options below. If you are an organization, consider registering a new SingularityNet account rather using a personal account.",
+    "If you are an organization, it is advisable to register a corresponding SingularityNET account rather using a personal account.",
 };
 
 export const loggedOutDetails = {
@@ -24,11 +24,11 @@ export const emailPreferencesList = [
   },
   {
     type: userPreferenceTypes.WEEKLY_SUMMARY,
-    description: "I’d like to get weekly summary reports of my AI services and account activity.",
+    description: " I’d like to receive weekly summary reports of my AI services.",
   },
   {
     type: userPreferenceTypes.COMMENTS_AND_MESSAGES,
-    description: "I’d like to get email notifications when users leave comments or send messages.",
+    description: "I’d like to receive email notifications when users leave comments.",
   },
 ];
 

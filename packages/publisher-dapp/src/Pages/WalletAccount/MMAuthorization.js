@@ -36,7 +36,7 @@ const MmAuthorization = ({ classes, handleAuthorizeMM, alert }) => {
         </div>
       </Grid>
       <Grid item xs={12} sm={12} md={12} lg={12} className={classes.alertBoxContainer}>
-        <AlertBox type={alert.type} message={alert.message} />
+        <AlertBox type={alert.type} message={alert.message} children={alert.children} />
       </Grid>
     </Grid>
   );

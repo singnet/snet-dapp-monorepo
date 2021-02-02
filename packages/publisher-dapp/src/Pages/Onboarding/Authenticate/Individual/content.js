@@ -1,5 +1,5 @@
 export const documentList = ["Passport", "National ID", "Driver's License"];
 
 export const verificationProviderType = {
-  JUMIO: "JUMIO",
+  INDIVIDUAL: "INDIVIDUAL",
 };

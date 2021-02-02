@@ -63,7 +63,7 @@ const withDashboardMenu = Component => {
       {
         icon: <SettingIcon />,
         title: "Settings",
-        href: GlobalRoutes.WALLET_ACCOUNT.path,
+        href: GlobalRoutes.USER_PROFILE.path,
         openInNewTab: false,
       },
     ];
@@ -72,10 +72,10 @@ const withDashboardMenu = Component => {
       <div>
         <Header />
         <Grid container spacing={24}>
-          <Grid item xs={12} sm={2} md={2} lg={2}>
+          <Grid item xs={2} sm={2} md={2} lg={2}>
             <VerticalTabs upperTabs={upperTabs} lowerTabs={lowerTabs} />
           </Grid>
-          <Grid item xs={12} sm={10} md={10} lg={10}>
+          <Grid item xs={2} sm={10} md={10} lg={10}>
             <Component {...props} />
           </Grid>
         </Grid>

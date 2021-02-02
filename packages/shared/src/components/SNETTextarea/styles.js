@@ -14,6 +14,7 @@ export const useStyles = MUITheme => ({
       width: "100%",
       padding: 10,
       borderRadius: 4,
+      borderColor: "rgba(25,25,25,.32)",
       color: MUITheme.palette.text.darkGrey,
       fontFamily: MUITheme.typography.fontFamily,
       fontSize: 16,
@@ -24,11 +25,19 @@ export const useStyles = MUITheme => ({
         borderColor: MUITheme.palette.border.secondary,
         color: "#999",
       },
+      "&:hover": {
+        borderColor: `${MUITheme.palette.text.primary} !important`,
+      },
+      "&:focus": {
+        borderWidth: 2,
+        borderColor: `${MUITheme.palette.primary.main} !important`,
+        outline: "none",
+      },
     },
   },
   error: {
     borderWidth: 2,
-    borderColor: MUITheme.palette.border.alertBox,
+    borderColor: `${MUITheme.palette.border.alertBox} !important`,
   },
   label: {
     position: "absolute",

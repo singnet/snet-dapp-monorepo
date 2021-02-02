@@ -9,6 +9,7 @@ export const dropdowns = [
     list: [
       { label: "AI Marketplace", link: "https://beta.singularitynet.io/", newTab: true },
       { label: "Dev Portal", link: "https://dev.singularitynet.io/", newTab: true },
+      { label: "AI Publisher", link: "https://publisher.singularitynet.io/", newTab: true },
       { label: "Request For AI", link: "https://rfai.singularitynet.io", newTab: true },
     ],
   },

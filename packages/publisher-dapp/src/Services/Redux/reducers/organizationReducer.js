@@ -66,6 +66,7 @@ const initialState = {
     [memberStatus.VERIFIED]: [],
     [memberStatus.EXPIRED]: [],
   },
+  membershipDetails: {},
   owner: "",
   rejectReason: "",
   allowChangeRequestEdit: false,
@@ -121,6 +122,8 @@ const OrganizationReducer = (state = initialState, action) => {
       return { ...state, rejectReason: action.payload };
     case organizationActions.SET_ORG_ALLOW_CHANGE_REQUEST_EDIT:
       return { ...state, allowChangeRequestEdit: action.payload };
+    case organizationActions.SET_ORG_MEMBERSHIP_DETAILS:
+      return { ...state, membershipDetails: action.payload };
     default:
       return state;
   }

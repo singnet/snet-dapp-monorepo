@@ -160,10 +160,13 @@ const ServiceStatusDetails = props => {
   };
 
   const handleEdit = () => {
-    const path =
-      status === serviceCreationStatus.APPROVED
-        ? ServiceCreationRoutes.SUBMIT.path
-        : ServiceCreationRoutes.PROFILE.path;
+    const path = ServiceCreationRoutes.PROFILE.path;
+    const redirectTo = path.replace(":orgUuid", orgUuid).replace(":serviceUuid", serviceUuid);
+    history.push(redirectTo);
+  };
+
+  const handleApproved = () => {
+    const path = ServiceCreationRoutes.SUBMIT.path;
     const redirectTo = path.replace(":orgUuid", orgUuid).replace(":serviceUuid", serviceUuid);
     history.push(redirectTo);
   };
@@ -206,12 +209,21 @@ const ServiceStatusDetails = props => {
 
         <div className={classes.serviceStatusActions}>
           <SNETButton
-            children={status === serviceCreationStatus.APPROVED ? "publish" : "edit"}
+            children="edit"
             color="primary"
             variant="contained"
             onClick={handleEdit}
             disabled={status === serviceCreationStatus.REJECTED}
           />
+          {status === serviceCreationStatus.APPROVED && (
+            <SNETButton
+              children="publish"
+              color="primary"
+              variant="contained"
+              onClick={handleApproved}
+              disabled={status === serviceCreationStatus.REJECTED}
+            />
+          )}
 
           {props.status === "PUBLISHED" ? (
             <div className={classes.configValidButton}>

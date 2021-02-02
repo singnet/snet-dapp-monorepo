@@ -72,7 +72,7 @@ const Invitee = ({ classes, history }) => {
       <div className={classes.buttonsContainer}>
         <SNETButton color="primary" children="cancel" onClick={handleCancel} />
         <SNETButton color="primary" children="back" onClick={handleNavigateBack} />
-        <SNETButton color="primary" variant="contained" children="finish" onClick={handleFinish} />
+        <SNETButton color="primary" variant="contained" children="finish" disabled={!address} onClick={handleFinish} />
       </div>
     </Fragment>
   );

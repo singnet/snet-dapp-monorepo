@@ -55,7 +55,7 @@ export const fetchAuthenticatedUser = () => async (dispatch, getState) => {
 export const initializeApplication = async dispatch => {
   try {
     const { nickname, email, email_verified, publisherTnC } = await dispatch(fetchAuthenticatedUser());
-    await dispatch(organizationActions.initializeOrg);
+    await dispatch(organizationActions.initializeOrg(email));
 
     const userAttributes = {
       isLoggedIn: true,
@@ -110,10 +110,14 @@ export const login = (email, password) => async dispatch => {
   try {
     dispatch(loaderActions.startAppLoader(LoaderContent.LOGIN));
     const loginResponse = await Auth.signIn(email, password);
-    await dispatch(organizationActions.initializeOrg);
+    await dispatch(organizationActions.initializeOrg(email));
     return await dispatch(loginSucess(loginResponse));
   } catch (error) {
     dispatch(loaderActions.stopAppLoader());
+    if (error.code === "PasswordResetRequiredException") {
+      dispatch(setUserEmail(email));
+      throw error;
+    }
     if (error.code === "UserNotConfirmedException") {
       await dispatch(handleUserNotConfirmed(email));
       throw error;

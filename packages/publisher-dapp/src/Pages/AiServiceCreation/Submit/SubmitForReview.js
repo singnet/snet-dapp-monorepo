@@ -108,7 +108,7 @@ class SubmitForReview extends React.Component {
           return this.setState({
             validateDaemonAlert: {
               type: alertTypes.ERROR,
-              message: `The Ropsten endpoint ${testEndPoint}  is either down or Invalid `,
+              message: `The Ropsten endpoint ${testEndPoint}  is either down or Invalid. \nDetails: ${error.message} `,
             },
           });
         }
@@ -139,9 +139,7 @@ class SubmitForReview extends React.Component {
       }
       if (orgStatus !== organizationSetupStatuses.PUBLISHED) {
         if (orgStatus === organizationSetupStatuses.PUBLISH_IN_PROGRESS) {
-          throw new ValidationError(
-            "Organization is being published in blockchain. Service cannot be submitted for review now"
-          );
+          throw new ValidationError("Service cannot be submitted for approval as organization is not yet submitted.");
         }
         throw new ValidationError("Organization must be published before submitting the service for review");
       }

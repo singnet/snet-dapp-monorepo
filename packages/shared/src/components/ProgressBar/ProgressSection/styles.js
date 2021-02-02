@@ -2,10 +2,11 @@ import { makeStyles } from "@material-ui/styles";
 
 export const useStyles = makeStyles(MUITheme => ({
   numberContaienr: {
+    width: 28,
     borderRadius: 25,
-    padding: "3px 10px",
     backgroundColor: MUITheme.palette.text.lightGrey,
     color: MUITheme.palette.text.white,
+    lineHeight: "28px",
     "& span": {
       "&::after": {
         content: '""',
@@ -23,10 +24,6 @@ export const useStyles = makeStyles(MUITheme => ({
         "@media (max-width:470px)": { display: "none" },
       },
     },
-    "@media(max-width:480px)": {
-      padding: "4px 9px",
-      fontSize: 12,
-    },
   },
   TabTitle: {
     paddingTop: 10,
@@ -38,9 +35,11 @@ export const useStyles = makeStyles(MUITheme => ({
   completedIcon: {
     "&::after": { marginLeft: "10px !important" },
     "& svg": {
-      color: MUITheme.palette.success.main,
-      fontSize: 28,
-      "@media(max-width:480px)": { fontSize: 25 },
+      padding: 3,
+      borderRadius: 25,
+      background: MUITheme.palette.success.main,
+      color: MUITheme.palette.text.white,
+      fontSize: 22,
     },
     "@media(max-width:480px)": { padding: "0 !important" },
   },

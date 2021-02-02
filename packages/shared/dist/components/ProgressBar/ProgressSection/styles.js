@@ -10,10 +10,11 @@ var _styles = require("@material-ui/styles");
 var useStyles = (0, _styles.makeStyles)(function (MUITheme) {
   return {
     numberContaienr: {
+      width: 28,
       borderRadius: 25,
-      padding: "3px 10px",
       backgroundColor: MUITheme.palette.text.lightGrey,
       color: MUITheme.palette.text.white,
+      lineHeight: "28px",
       "& span": {
         "&::after": {
           content: '""',
@@ -34,10 +35,6 @@ var useStyles = (0, _styles.makeStyles)(function (MUITheme) {
             display: "none"
           }
         }
-      },
-      "@media(max-width:480px)": {
-        padding: "4px 9px",
-        fontSize: 12
       }
     },
     TabTitle: {
@@ -52,11 +49,11 @@ var useStyles = (0, _styles.makeStyles)(function (MUITheme) {
         marginLeft: "10px !important"
       },
       "& svg": {
-        color: MUITheme.palette.success.main,
-        fontSize: 28,
-        "@media(max-width:480px)": {
-          fontSize: 25
-        }
+        padding: 3,
+        borderRadius: 25,
+        background: MUITheme.palette.success.main,
+        color: MUITheme.palette.text.white,
+        fontSize: 22
       },
       "@media(max-width:480px)": {
         padding: "0 !important"

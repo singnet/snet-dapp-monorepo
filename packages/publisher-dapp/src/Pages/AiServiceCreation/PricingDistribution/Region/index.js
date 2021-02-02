@@ -17,7 +17,7 @@ import { keyCodes } from "shared/dist/utils/keyCodes";
 import { aiServiceDetailsActions } from "../../../../Services/Redux/actionCreators";
 import AlertBox, { alertTypes } from "shared/dist/components/AlertBox";
 import validator from "shared/dist/utils/validator";
-import { servicePricingValidationConstraints } from "../validationConstraints";
+import { servicePricingValidationConstraints, daemonValidationConstraints } from "../validationConstraints";
 import { agiToCogs } from "shared/dist/utils/Pricing";
 import { cogsToAgi } from "shared/dist/utils/Pricing";
 
@@ -27,7 +27,7 @@ const selectState = state => ({
   orgGroups: state.organization.groups,
 });
 
-const Region = ({ changeGroups, serviceGroups }) => {
+const Region = ({ changeGroups, serviceGroups, invalidFields }) => {
   const classes = useStyles();
   const [showRegion] = useState(true);
   const { orgGroups } = useSelector(selectState);
@@ -37,6 +37,7 @@ const Region = ({ changeGroups, serviceGroups }) => {
   const [alert, setAlert] = useState({});
   const [freeCallsValidation, setfreeCallsValidation] = useState({});
   const [priceValidation, setPriceValidation] = useState({});
+  const [daemonAddressValidation, setDaemonAddressValidation] = useState({});
 
   const selectedServiceGroup = serviceGroups[0];
   const selectedServicePricing = selectedServiceGroup.pricing ? selectedServiceGroup.pricing[0] : {};
@@ -99,11 +100,29 @@ const Region = ({ changeGroups, serviceGroups }) => {
     changeGroups(updatedServiceGroups);
   };
 
+  const validateDaemonAddress = value => {
+    const isNotValid = validator.single(value, daemonValidationConstraints);
+    if (isNotValid) {
+      setDaemonAddressValidation({
+        type: alertTypes.ERROR,
+        message: `${value} is not a valid daemon address`,
+      });
+      return false;
+    }
+    setDaemonAddressValidation({
+      type: alertTypes.ERROR,
+      message: "",
+    });
+    return true;
+  };
   const handleNewDaemonAddressChangeOnKeyPress = event => {
+    const value = event.target.value;
     if (event.keyCode !== keyCodes.enter) {
       return;
     }
-    handleNewDaemonAddressChange();
+    if (validateDaemonAddress(value)) {
+      handleNewDaemonAddressChange();
+    }
   };
   const handleNewDaemonAddressChange = () => {
     dispatch(aiServiceDetailsActions.setServiceTouchedFlag(true));
@@ -170,7 +189,7 @@ const Region = ({ changeGroups, serviceGroups }) => {
     if (isNotValid) {
       return setPriceValidation({
         type: alertTypes.ERROR,
-        message: `Price of the service should be greater than or equal to ${cogsToAgi(1)}.`,
+        message: `Price of the service should be greater than or equal to ${cogsToAgi(1)} AGI.`,
       });
     }
     return setPriceValidation({ type: alertTypes.SUCCESS, message: "" });
@@ -191,7 +210,6 @@ const Region = ({ changeGroups, serviceGroups }) => {
     };
     changeGroups(updatedServiceGroups);
   };
-
   if (showRegion) {
     return (
       <div>
@@ -209,7 +227,6 @@ const Region = ({ changeGroups, serviceGroups }) => {
               <Typography className={classes.value}>North America</Typography>
             </Grid>
           </Grid>
-
           <Grid item xs={12} sm={12} md={12} lg={12} className={classes.servicePriceModelContainer}>
             <Grid item xs={12} sm={12} md={6} lg={6}>
               <SNETTextfield
@@ -218,6 +235,7 @@ const Region = ({ changeGroups, serviceGroups }) => {
                 defaultValue={selectedServicePricing && cogsToAgi(selectedServicePricing.priceInCogs)}
                 label="AI Service Price (in AGI)"
                 onChange={handlePriceChange}
+                error={!!invalidFields ? "pricing" in invalidFields : false}
               />
               <AlertText type={priceValidation.type} message={priceValidation.message} />
             </Grid>
@@ -255,6 +273,7 @@ const Region = ({ changeGroups, serviceGroups }) => {
                   </InputAdornment>
                 ),
               }}
+              error={!!invalidFields ? "endpoints" in invalidFields : false}
             />
           </Grid>
           <AlertBox type={alert.type} message={alert.message} />
@@ -280,7 +299,6 @@ const Region = ({ changeGroups, serviceGroups }) => {
               <span className={classes.extraInfo}>You can add up to 20 endpoints</span>
             </div>
           </Grid>
-
           <Grid item xs={12} sm={12} md={12} lg={12}>
             <SNETTextfield
               icon
@@ -299,9 +317,10 @@ const Region = ({ changeGroups, serviceGroups }) => {
                   </InputAdornment>
                 ),
               }}
+              error={!!invalidFields ? "daemonAddresses" in invalidFields : false}
             />
+            <AlertBox type={daemonAddressValidation.type} message={daemonAddressValidation.message} />
           </Grid>
-
           <Grid item xs={12} sm={12} md={12} lg={12} className={classes.addedEndpointsContainer}>
             <div className={classes.infoIconContainer}>
               <InfoIcon />

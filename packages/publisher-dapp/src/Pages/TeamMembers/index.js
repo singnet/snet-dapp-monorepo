@@ -138,7 +138,7 @@ class TeamMembers extends Component {
             <span>Back to Home </span>
           </div>
         </Grid>
-        <Grid item xs={12} sm={12} md={7} lg={7} className={classes.rightSideSection}>
+        <Grid item xs={12} sm={12} md={8} lg={8} className={classes.rightSideSection}>
           <div className={classes.topSection}>
             <div className={classes.topSectionContent}>
               <Typography variant="h3">{TopSectionContent.title}</Typography>
@@ -173,6 +173,7 @@ class TeamMembers extends Component {
             publishedInProgressMembers={members[memberStatus.PUBLISH_IN_PROGRESS]}
           />
         </Grid>
+        <Grid item xs={12} sm={12} md={2} lg={2} />
       </Grid>
     );
   }

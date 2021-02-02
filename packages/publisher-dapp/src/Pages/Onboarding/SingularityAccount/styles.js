@@ -131,5 +131,7 @@ export const useStyles = MUITheme => ({
       },
     },
   },
-  infoBoxContainer: { padding: "16px 22px 0" },
+  infoBoxContainer: {
+    padding: "16px 22px 0",
+  },
 });

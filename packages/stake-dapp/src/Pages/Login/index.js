@@ -34,6 +34,9 @@ const Login = ({ history }) => {
       await dispatch(loginActions.login(email, password));
       //history.push(GlobalRoutes.ACCEPT_AGREEMENT.path);
     } catch (error) {
+      if (error.code === "PasswordResetRequiredException") {
+        return history.push(GlobalRoutes.RESET_PASSWORD.path);
+      }
       if (error.code === "UserNotFoundException") {
         return setError(error.message);
       }

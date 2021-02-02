@@ -49,5 +49,5 @@ export const overViewArticles = [
 export const getInTouch = {
   title: "More Questions? Get in Touch.",
   description:
-    "We can help you tackle demanding challenges, whether you’re a developer, business manager, or marketer. Our tools work together so that you and your team can improve your AI service performances while gaining valuable user insights.  Connect with us so we can assist you with the most optimal solutions.",
+    "We can help you tackle demanding challenges, whether you’re a developer, business manager, or marketer. Our tools work together so that you and your team can improve your AI service performance while gaining valuable user insights.  Connect with us so we can assist you with the most optimal solutions.",
 };

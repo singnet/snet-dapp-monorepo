@@ -1,12 +1,11 @@
 import React, { Fragment, useState } from "react";
-
-import { GlobalRoutes } from "../../GlobalRouter/Routes";
-
 import SNETForgotPassword from "shared/dist/components/SNETForgotPassword";
 import { useDispatch, useSelector } from "react-redux";
+
+import { GlobalRoutes } from "../../GlobalRouter/Routes";
 import { loginActions } from "../../Services/Redux/actionCreators/userActions";
 
-const ForgotPassword = ({ history }) => {
+const ForgotPassword = ({ history, location }) => {
   const [error, setError] = useState(undefined);
   const email = useSelector(state => state.user.email);
   const dispatch = useDispatch();
@@ -20,10 +19,19 @@ const ForgotPassword = ({ history }) => {
     }
   };
 
+  const title =
+    location.pathname === GlobalRoutes.RESET_PASSWORD.path ? "Reset your password to login" : "Forgot your Password?";
+
+  const description =
+    location.pathname === GlobalRoutes.RESET_PASSWORD.path
+      ? "To ensure your account's safety we need you to reset your password. We will email instructions to your registered email."
+      : "We'll email you instructions on how to reset it.";
+
   return (
     <Fragment>
       <SNETForgotPassword
-        title="Forgot your Password?"
+        title={title}
+        description={description}
         forgotPasswordError={error}
         onSubmit={handleSubmit}
         email={email}

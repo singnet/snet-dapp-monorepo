@@ -126,7 +126,13 @@ class WalletAccount extends React.Component {
       return this.setState({
         getPaymentsListAlert: {
           type: alertTypes.ERROR,
-          message: "No valid daemon endpoint is found. Please validate a daemon to proceed",
+          children: (
+            <span>
+              Please make sure atleast one daemon endpoint is up and has been validated after your service is published
+              on blockchain, you can do this by clicking on the
+              <strong>Validate Daemon</strong> button on the service landing page.
+            </span>
+          ),
         },
       });
     }
@@ -319,7 +325,7 @@ class WalletAccount extends React.Component {
     } catch (e) {
       this.props.stopAppLoader();
       if (checkIfKnownError(e)) {
-        this.setState({ getPaymentsListAlert: { type: alertTypes.ERROR, message: e.message } });
+        this.setState({ getPaymentsListAlert: { type: alertTypes.ERROR, message: e.message, children: e.children } });
 
         // TODO set alert error
       }

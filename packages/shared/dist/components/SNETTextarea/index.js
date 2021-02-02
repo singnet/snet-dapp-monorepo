@@ -47,7 +47,8 @@ var SNETTextarea = function SNETTextarea(_ref) {
     value: value,
     onChange: onChange,
     disabled: disabled,
-    className: error ? classes.error : ""
+    className: error ? classes.error : "",
+    maxLength: maxCount
   }, content), maxCount ? /*#__PURE__*/_react.default.createElement("span", {
     className: classes.charLength
   }, minCount, "/", maxCount, " char") : null, extraInfo ? /*#__PURE__*/_react.default.createElement("span", {

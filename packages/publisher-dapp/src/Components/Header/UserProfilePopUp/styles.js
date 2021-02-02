@@ -57,6 +57,11 @@ export const useStyles = MUITheme => ({
     display: "flex",
     justifyContent: "space-between",
   },
+  orgNameAndRole: {
+    flexDirection: "column",
+    display: "flex",
+    marginTop: "-7px",
+  },
   signoutLink: {
     borderTopWidth: 1,
     borderTopStyle: "solid",

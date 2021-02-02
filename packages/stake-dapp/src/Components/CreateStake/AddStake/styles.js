@@ -40,7 +40,7 @@ export const useStyles = makeStyles(MUITheme => ({
     display: "flex",
     alignItems: "flex-start",
     "& > div": {
-      width: 302,
+      width: "302px",
       "& > div": {
         maxWidth: "100%",
         flexBasis: "100%",
@@ -69,8 +69,8 @@ export const useStyles = makeStyles(MUITheme => ({
     display: "flex",
     flexWrap: "wrap",
     "& > div": {
-      "&:nth-child(2n)": {
-        paddingLeft: 31,
+      "&:nth-child(3n)": {
+        paddingLeft: 32,
         "@media(max-width:800px)": { paddingLeft: 0 },
       },
     },
@@ -188,5 +188,8 @@ export const useStyles = makeStyles(MUITheme => ({
       "& svg": { color: MUITheme.palette.primary.main },
       "& p": { display: "block" },
     },
+  },
+  renewedAmtContainer: {
+    width: "100%",
   },
 }));

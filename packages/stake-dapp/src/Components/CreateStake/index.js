@@ -9,13 +9,14 @@ import { useStyles } from "./styles";
 import SessionTime from "./SessionTime";
 import AccountBalance from "../AccountBalance";
 import StakeSession from "../StakeSession";
-// import StakeSummary from "../StakeSummary";
+import StakeSummary from "../StakeSummary";
 import {
-  cardDetails,
   btnDetails,
   agreementDetails,
   withdrawStakeAmountDetails,
   addStakeAmountDetails,
+  yourStakeDetails,
+  sessionDetails,
 } from "./content";
 import WithdrawStake from "./WithdrawStake";
 import AddStake from "./AddStake";
@@ -56,7 +57,7 @@ const CreateStake = () => {
     return <InlineLoader />;
   }
 
-  // //No Data Found Scenario
+  // No Data Found Scenario
   if (!activeStake.stakeMapIndex) {
     return (
       <Grid container>
@@ -69,6 +70,7 @@ const CreateStake = () => {
             <Typography>There is no active stake window.</Typography>
             <Typography> Please wait for stake to open.</Typography>
           </div>
+          <StakeSummary />
         </Grid>
       </Grid>
     );
@@ -82,13 +84,14 @@ const CreateStake = () => {
       </Grid>
       <Grid item xs={12} sm={12} md={8} lg={8} className={classes.rightSideSection}>
         <StakeSession
-          cardDetails={cardDetails(activeStake)}
+          yourStakeDetails={yourStakeDetails(activeStake)}
+          sessionDetails={sessionDetails(activeStake)}
           btnDetails={btnDetails}
           agreementDetails={agreementDetails}
           handleClick={handleClick}
           stakeDetails={activeStake}
         />
-        {/* <StakeSummary /> */}
+        <StakeSummary />
       </Grid>
       <WithdrawStake
         open={showWithdrawPopup}

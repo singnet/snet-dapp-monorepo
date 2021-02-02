@@ -47,6 +47,7 @@ export const useStyles = MUITheme => ({
     padding: 15,
     border: "1px solid rgba(25,25,25,.32)",
     borderRadius: 4,
+    [MUITheme.breakpoints.down("xs")]: { width: "auto" },
   },
   cardContainer: {
     width: "90%",
@@ -68,7 +69,15 @@ export const useStyles = MUITheme => ({
       color: "#d6d6d6",
     },
   },
-  chip: { marginLeft: 10 },
+  chip: {
+    marginLeft: 10,
+    "& span": {
+      [MUITheme.breakpoints.down("xs")]: {
+        wordBreak: "break-all",
+        whiteSpace: "normal",
+      },
+    },
+  },
   btnContainer: {
     marginTop: 22,
     display: "flex",

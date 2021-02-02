@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import ReactGA from "react-ga";
 import Grid from "@material-ui/core/Grid";
 import { Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
@@ -8,10 +9,15 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import { withStyles } from "@material-ui/core/styles";
 import CheckIcon from "@material-ui/icons/CheckCircle";
 
+import { GAEventsContent } from "../../../Utils/GAEvents";
 import { useStyles } from "./styles";
 import SNETButton from "shared/dist/components/SNETButton";
 
 const OverviewArticle = ({ classes, title, description, list, media, btnDetails, rightAlign }) => {
+  const handleGetStarted = () => {
+    ReactGA.event(GAEventsContent.GET_STARTED);
+  };
+
   return (
     <Grid
       item
@@ -46,7 +52,12 @@ const OverviewArticle = ({ classes, title, description, list, media, btnDetails,
         ) : null}
         {btnDetails.linkTo ? (
           <Link to={btnDetails.linkTo}>
-            <SNETButton children={btnDetails.text} color={btnDetails.color} variant={btnDetails.variant} />
+            <SNETButton
+              children={btnDetails.text}
+              color={btnDetails.color}
+              variant={btnDetails.variant}
+              onClick={btnDetails.text === "get started" ? handleGetStarted : null}
+            />
           </Link>
         ) : null}
       </Grid>

@@ -21,7 +21,7 @@ const HQAddress = ({ classes }) => {
 
   return (
     <Grid item sx={12} sm={12} md={6} lg={6} className={classes.headquartersContainer}>
-      <Typography variant="subtitle1">Headquarters Address</Typography>
+      <Typography variant="subtitle1">Registered Address</Typography>
       <StyledTextField
         {...hqAddressFormData.STREET}
         variant="outlined"

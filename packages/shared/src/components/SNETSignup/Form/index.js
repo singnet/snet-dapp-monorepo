@@ -43,7 +43,7 @@ const Form = props => {
   };
 
   const handleEmailChange = e => {
-    setEmail(e.target.value);
+    setEmail(e.target.value.toLowerCase());
     setValidationErr(undefined);
     resetSignupError && resetSignupError();
   };

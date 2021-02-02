@@ -273,4 +273,36 @@ export const useStyles = MUITheme => ({
       "& p": { display: "block" },
     },
   },
+  metricsValue: {
+    color: MUITheme.palette.text.white,
+    fontSize: 50,
+    fontWeight: 200,
+    lineHeight: "38px",
+    "@media(max-width:480px)": { fontSize: 42 },
+  },
+  metricsUnit: {
+    paddingTop: 20,
+    color: MUITheme.palette.text.white,
+    fontSize: 14,
+    fontWeight: 200,
+    lineHeight: "14px",
+    textTransform: "uppercase",
+    "@media(max-width:480px)": { fontSize: 12 },
+  },
+  metrics: {
+    display: "flex",
+    "& > div": {
+      padding: "0 31px",
+      borderRightWidth: 0.5,
+      borderRightStyle: "solid",
+      borderRightColor: MUITheme.palette.text.white,
+      textAlign: "center",
+      "&:first-of-type": { paddingLeft: 0 },
+      "&:last-of-type": {
+        paddingRight: 0,
+        borderRight: "none",
+      },
+      "@media(max-width:480px)": { padding: "0 15px" },
+    },
+  },
 });

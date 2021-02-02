@@ -38,6 +38,8 @@ const Submit = props => {
         serviceDetails={serviceDetails}
         changeServiceProviderComments={changeServiceProviderComments}
         changeGroups={changeGroups}
+        orgId={orgId}
+        serviceId={serviceDetails.id}
       />
     ),
     [serviceCreationStatus.DRAFT]: (
@@ -54,6 +56,8 @@ const Submit = props => {
         serviceDetails={serviceDetails}
         changeServiceProviderComments={changeServiceProviderComments}
         changeGroups={changeGroups}
+        orgId={orgId}
+        serviceId={serviceDetails.id}
       />
     ),
     [serviceCreationStatus.PUBLISHED]: (
@@ -61,6 +65,8 @@ const Submit = props => {
         serviceDetails={serviceDetails}
         changeServiceProviderComments={changeServiceProviderComments}
         changeGroups={changeGroups}
+        orgId={orgId}
+        serviceId={serviceDetails.id}
       />
     ),
     [serviceCreationStatus.APPROVAL_PENDING]: <ReviewInProgress handleBackToDashboard={handleBackToDashboard} />,

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import Typography from "@material-ui/core/Typography";
 import SNETFileUpload from "shared/dist/components/SNETFileUpload";
 import isEmpty from "lodash/isEmpty";
@@ -9,10 +9,14 @@ import { useDispatch } from "react-redux";
 import JSZip from "jszip";
 import ValidationError from "shared/dist/utils/validationError";
 
-const UploadDemoFiles = ({ classes, orgUuid, serviceUuid, demoFilesUrl, changeDemoFiles }) => {
+const UploadDemoFiles = ({ classes, orgUuid, serviceUuid, demoFilesUrl, changeDemoFiles, error }) => {
   const [alert, setAlert] = useState({});
   const [selectedFile, setSelectedFile] = useState({ name: "", size: "", type: "" });
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (error) setAlert({ type: alertTypes.ERROR, message: "Please upload Demo Files" });
+  }, [error]);
 
   const handleFileDrop = useCallback(
     async (acceptedFiles, rejectedFiles) => {
@@ -73,6 +77,7 @@ const UploadDemoFiles = ({ classes, orgUuid, serviceUuid, demoFilesUrl, changeDe
         fileSize={selectedFile.size}
         fileDownloadURL={demoFilesUrl}
         uploadSuccess={Boolean(demoFilesUrl)}
+        error={error}
       />
       <AlertBox type={alert.type} message={alert.message} />
     </div>

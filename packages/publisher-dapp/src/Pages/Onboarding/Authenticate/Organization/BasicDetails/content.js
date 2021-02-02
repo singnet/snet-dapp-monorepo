@@ -31,6 +31,18 @@ export const basicDetailsFormData = {
     label: "Phone Number",
     description: `Please include your country code. For example +1-800-555-1234.`,
   },
+  REGISTRATION_ID_TYPE: {
+    id: "Identity Type - 15/50 char",
+    name: "registrationType",
+    label: "Identity ID Type",
+    description: `Please mention the type of the proof for identification`,
+  },
+  REGISTRATION_ID: {
+    id: "ID Number - 15/50 char",
+    name: "registrationId",
+    label: "Identity Number",
+    description: `Please provide the number of the Identity proof mentioned above.`,
+  },
 };
 export const orgIdAvailability = {
   AVAILABLE: "AVAILABLE",

@@ -130,8 +130,8 @@ export const useStyles = MUITheme => ({
       display: "flex",
     },
     "& svg": {
-      color: MUITheme.palette.text.disabled,
-      padding: "5px 10px 0 0",
+      color: MUITheme.palette.text.white,
+      padding: "0 10px 0 0",
       fontSize: 20,
     },
   },
@@ -165,7 +165,7 @@ export const useStyles = MUITheme => ({
     flexWrap: "wrap",
     "& > div:first-of-type": { marginLeft: 0 },
   },
-  chip: { margin: "0 0 10px 10px" },
+  chip: { margin: "0 10px 10px 0" },
   projUrlContainer: {
     padding: "0 29px",
     [MUITheme.breakpoints.down("sm")]: { paddingRight: 0 },

@@ -24,6 +24,7 @@ var useStyles = function useStyles(MUITheme) {
         width: "100%",
         padding: 10,
         borderRadius: 4,
+        borderColor: "rgba(25,25,25,.32)",
         color: MUITheme.palette.text.darkGrey,
         fontFamily: MUITheme.typography.fontFamily,
         fontSize: 16,
@@ -33,12 +34,20 @@ var useStyles = function useStyles(MUITheme) {
           background: MUITheme.palette.background.white,
           borderColor: MUITheme.palette.border.secondary,
           color: "#999"
+        },
+        "&:hover": {
+          borderColor: "".concat(MUITheme.palette.text.primary, " !important")
+        },
+        "&:focus": {
+          borderWidth: 2,
+          borderColor: "".concat(MUITheme.palette.primary.main, " !important"),
+          outline: "none"
         }
       }
     },
     error: {
       borderWidth: 2,
-      borderColor: MUITheme.palette.border.alertBox
+      borderColor: "".concat(MUITheme.palette.border.alertBox, " !important")
     },
     label: {
       position: "absolute",

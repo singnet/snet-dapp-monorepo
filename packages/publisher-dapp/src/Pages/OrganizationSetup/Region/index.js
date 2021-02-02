@@ -16,20 +16,36 @@ const Region = ({ history, classes, handleFinishLater }) => {
   const [alert, setAlert] = useState({});
   const organization = useSelector(state => state.organization);
   const { groups } = organization;
+  const [invalidFields, setInvalidFields] = useState();
+  const [invalidFieldsFlag, setInvalidFieldsFlag] = useState();
 
   const handleContinue = () => {
-    const isNotValid = validator(organization, orgSetupRegionValidationConstraints);
-    if (isNotValid) {
-      for (let i = 0; i < isNotValid.length; i++) {
-        if (isNotValid[i].includes(",")) {
-          let res = isNotValid[i].split(",");
-          isNotValid.splice(i, 1);
-          isNotValid.push(...res);
-        }
+    let invalidFields = validator(organization, orgSetupRegionValidationConstraints, { format: "grouped" });
+
+    for (const property in invalidFields) {
+      if (property === "groups") {
+        const invalidProperty = JSON.parse(invalidFields[property]);
+        Object.assign(invalidFields, invalidProperty[0]);
+        delete invalidFields.groups;
       }
-      const errorMessage = generateDetailedErrorMessageFromValidation(isNotValid);
-      return setAlert({ type: alertTypes.ERROR, children: errorMessage });
     }
+    if (invalidFields) {
+      const isNotValid = Object.values(invalidFields).map(key => key[0]);
+      if (isNotValid) {
+        for (let i = 0; i < isNotValid.length; i++) {
+          if (isNotValid[i].includes(",")) {
+            let res = isNotValid[i].split(",");
+            isNotValid.splice(i, 1);
+            isNotValid.push(...res);
+          }
+        }
+        setInvalidFieldsFlag(true);
+        setInvalidFields(invalidFields);
+        const errorMessage = generateDetailedErrorMessageFromValidation(isNotValid);
+        return setAlert({ type: alertTypes.ERROR, children: errorMessage });
+      }
+    }
+    setInvalidFieldsFlag(false);
     history.push(OrganizationSetupRoutes.PUBLISH_TO_BLOCKCHAIN.path.replace(":orgUuid", organization.uuid));
   };
 
@@ -60,6 +76,7 @@ const Region = ({ history, classes, handleFinishLater }) => {
             group={group}
             key={group.id}
             foundInBlockchain={organization.foundInBlockchain}
+            invalidFields={typeof invalidFieldsFlag !== "undefined" && !!invalidFields ? invalidFields : {}}
           />
         ))}
 

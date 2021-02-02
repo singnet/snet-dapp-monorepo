@@ -24,17 +24,17 @@ const Pricing = ({ classes, groups }) => {
   return (
     <Grid container className={classes.revenueContainer}>
       <Grid item xs={12} sm={12} md={12} lg={12} className={classes.pendingClaimsAndTotalContainer}>
-        <Grid item xs={12} sm={6} md={6} lg={6}>
+        <Grid item xs={12} sm={12} md={6} lg={6}>
           <span className={classes.title}>Regions:</span>
           <span className={classes.value}>{groups.length}</span>
         </Grid>
-        <Grid item xs={12} sm={6} md={6} lg={6}>
+        <Grid item xs={12} sm={12} md={6} lg={6}>
           <span className={classes.title}>Price:</span>
           <span className={classes.value}>{parsePrice()} AGI</span>
         </Grid>
       </Grid>
       <Grid item xs={12} sm={12} md={12} lg={12} className={classes.pendingClaimsAndTotalContainer}>
-        <Grid item xs={12} sm={6} md={6} lg={6}>
+        <Grid item xs={12} sm={12} md={6} lg={6}>
           <span className={classes.title}>Pricing Model</span>
           <span className={classes.value}>{parsePriceModel()}</span>
         </Grid>

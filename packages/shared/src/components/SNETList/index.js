@@ -1,5 +1,6 @@
 import MuiList from "@material-ui/core/List";
 import { withStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
 
 const SNETList = withStyles({
   root: props => {
@@ -13,4 +14,7 @@ const SNETList = withStyles({
   },
 })(MuiList);
 
+SNETList.propTypes = {
+  display: PropTypes.string,
+};
 export default SNETList;

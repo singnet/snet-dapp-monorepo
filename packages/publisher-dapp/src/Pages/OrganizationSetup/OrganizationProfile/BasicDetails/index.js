@@ -13,7 +13,7 @@ import validator from "shared/dist/utils/validator";
 import { alertTypes } from "shared/dist/components/AlertBox";
 import { orgProfileValidationConstraints } from "../validationConstraints";
 
-const BasicDetails = ({ classes }) => {
+const BasicDetails = ({ classes, invalidFields }) => {
   const { id, name, shortDescription, longDescription, website, foundInBlockchain } = useSelector(
     state => state.organization
   );
@@ -52,6 +52,7 @@ const BasicDetails = ({ classes }) => {
         description="The organziation id is the unique id for the organization."
         onChange={handleFormInputsChange}
         disabled
+        error={"id" in invalidFields}
       />
       <SNETTextfield
         name="name"
@@ -62,7 +63,9 @@ const BasicDetails = ({ classes }) => {
         minCount={name.length}
         maxCount="50"
         disabled={foundInBlockchain}
+        error={"name" in invalidFields}
       />
+
       <SNETTextarea
         label="Short Description"
         rowCount="4"
@@ -74,6 +77,7 @@ const BasicDetails = ({ classes }) => {
         onChange={handleFormInputsChange}
         showInfoIcon
         disabled={foundInBlockchain}
+        error={"shortDescription" in invalidFields}
       />
       <SNETTextarea
         label="Long Description"
@@ -86,6 +90,7 @@ const BasicDetails = ({ classes }) => {
         onChange={handleFormInputsChange}
         showInfoIcon
         disabled={foundInBlockchain}
+        error={"longDescription" in invalidFields}
       />
       <div className={classes.orgWebsiteUrl}>
         <SNETTextfield
@@ -94,6 +99,7 @@ const BasicDetails = ({ classes }) => {
           onChange={handleFormInputsChange}
           label="Organization Website URL"
           description="Your organization’s website must be publicly available and the domain name must be associated with your organization."
+          error={"website" in invalidFields}
         />
         <AlertText type={websiteValidation.type} message={websiteValidation.message} />
       </div>

@@ -14,7 +14,7 @@ import { generateDetailedErrorMessageFromValidation } from "../../../../Utils/va
 import { cogsToAgi } from "shared/dist/utils/Pricing";
 import AlertBox, { alertTypes } from "shared/dist/components/AlertBox";
 
-const Actions = ({ serviceDetails, setServiceDetailsInRedux }) => {
+const Actions = ({ serviceDetails, setServiceDetailsInRedux, setInvalidFields }) => {
   const classes = useStyles();
   const history = useHistory();
   const { orgUuid, serviceUuid } = useParams();
@@ -31,29 +31,40 @@ const Actions = ({ serviceDetails, setServiceDetailsInRedux }) => {
   };
 
   const handleContinue = async () => {
-    let isNotValid = [];
-    isNotValid = validator(serviceDetails, servicePricingValidationConstraints);
-
-    if (!serviceDetails.groups[0].pricing[0].priceInCogs >= cogsToAgi(1)) {
-      isNotValid
-        ? isNotValid.push(`Price of the service should be greater than or equal to ${cogsToAgi(1)}`)
-        : (isNotValid = [`Price of the service should be greater than or equal to ${cogsToAgi(1)}`]);
-    }
-    if (isNotValid) {
-      for (let i = 0; i < isNotValid.length; i++) {
-        if (isNotValid[i].includes(",")) {
-          let res = isNotValid[i].split(",");
-          delete isNotValid[i];
-          isNotValid.push(...res);
-        }
+    let invalidFields = validator(serviceDetails, servicePricingValidationConstraints, { format: "grouped" });
+    for (const property in invalidFields) {
+      if (property === "groups") {
+        const invalidProperty = JSON.parse(invalidFields[property]);
+        Object.assign(invalidFields, invalidProperty[0]);
+        delete invalidFields.groups;
       }
-      const errorMessage = generateDetailedErrorMessageFromValidation(isNotValid);
-      return setAlert({ type: alertTypes.ERROR, children: errorMessage });
     }
+    if (!serviceDetails.groups[0].pricing[0].priceInCogs >= cogsToAgi(1)) {
+      invalidFields = {
+        ...invalidFields,
+        pricing: `Price of the service should be greater than or equal to ${cogsToAgi(1)}`,
+      };
+    }
+    if (invalidFields) {
+      let isNotValid = [];
+      isNotValid = isNotValid = Object.values(invalidFields);
+      if (isNotValid) {
+        for (let i = 0; i < isNotValid.length; i++) {
+          if (isNotValid[i].includes(",")) {
+            let res = isNotValid[i].split(",");
+            isNotValid.splice(i, 1);
+            isNotValid.push(...res);
+          }
+        }
+        setInvalidFields(invalidFields);
+        const errorMessage = generateDetailedErrorMessageFromValidation(isNotValid);
+        return setAlert({ type: alertTypes.ERROR, children: errorMessage });
+      }
+    }
+    setInvalidFields("");
     await handleSave();
     history.push(ServiceCreationRoutes.SUBMIT.path.replace(":orgUuid", orgUuid).replace(":serviceUuid", serviceUuid));
   };
-
   const handleFinishLater = async () => {
     await handleSave();
     history.push(GlobalRoutes.SERVICES.path.replace(":orgUuid", orgUuid));

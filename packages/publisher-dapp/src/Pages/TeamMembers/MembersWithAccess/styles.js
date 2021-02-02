@@ -39,6 +39,7 @@ export const useStyles = MUITheme => ({
     borderBottomColor: MUITheme.palette.border.secondary,
     display: "flex",
     cursor: "pointer",
+    "&:last-of-type": { borderBottom: "none" },
     "& > div": {
       boxSizing: "content-box",
       padding: "0 22px",

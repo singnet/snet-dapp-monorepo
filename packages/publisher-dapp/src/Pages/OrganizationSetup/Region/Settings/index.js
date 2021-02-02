@@ -16,11 +16,10 @@ import StyledDropdown from "shared/dist/components/StyledDropdown";
 import { useDispatch } from "react-redux";
 import { organizationActions } from "../../../../Services/Redux/actionCreators";
 import { keyCodes } from "shared/dist/utils/keyCodes";
-import { orgSetupRegionValidationConstraints } from "../validationConstraints";
 import AlertBox, { alertTypes } from "shared/dist/components/AlertBox";
 import validator from "shared/dist/utils/validator";
 
-const Settings = ({ classes, groups, group, groupIndex, foundInBlockchain }) => {
+const Settings = ({ classes, groups, group, groupIndex, foundInBlockchain, invalidFields }) => {
   const [showAdvancedSettings, setShowAdvancedSettings] = useState(false);
   const [localEndpoints, setLocalEndpoints] = useState("");
   const dispatch = useDispatch();
@@ -50,10 +49,7 @@ const Settings = ({ classes, groups, group, groupIndex, foundInBlockchain }) => 
   };
 
   const handleEndPointValidation = value => {
-    const isNotValid = validator.single(
-      value,
-      orgSetupRegionValidationConstraints.groups.array["paymentConfig.paymentChannelStorageClient.endpoints"]
-    );
+    const isNotValid = validator.validators.validURL(value, { message: `${value} is not a valid endpoint` });
     if (isNotValid) {
       setAlert({ type: alertTypes.ERROR, message: `${value}  is not a valid endpoint` });
       return false;
@@ -151,6 +147,7 @@ const Settings = ({ classes, groups, group, groupIndex, foundInBlockchain }) => 
                 </p>
               }
               disabled={foundInBlockchain}
+              error={!!invalidFields ? "paymentAddress" in invalidFields : false}
             />
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={12}>
@@ -179,10 +176,10 @@ const Settings = ({ classes, groups, group, groupIndex, foundInBlockchain }) => 
                   </InputAdornment>
                 ),
               }}
+              error={!!invalidFields ? "paymentConfig.paymentChannelStorageClient.endpoints" in invalidFields : false}
             />
           </Grid>
           <AlertBox type={alert.type} message={alert.message} />
-
           <Grid item xs={12} sm={12} md={12} lg={12} className={classes.addedEndpointsContainer}>
             <div className={classes.infoIconContainer}>
               <InfoIcon />

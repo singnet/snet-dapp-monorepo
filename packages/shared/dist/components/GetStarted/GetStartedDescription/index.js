@@ -9,6 +9,8 @@ var _react = _interopRequireDefault(require("react"));
 
 var _styles = require("@material-ui/styles");
 
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
 var _StyledButton = _interopRequireDefault(require("../../StyledButton"));
 
 var _styles2 = require("./styles");
@@ -22,7 +24,6 @@ var GetStartedDescription = function GetStartedDescription(_ref) {
       button = _ref.button,
       btnText = _ref.btnText,
       btnType = _ref.btnType,
-      history = _ref.history,
       handleClick = _ref.handleClick;
   return /*#__PURE__*/_react.default.createElement("div", {
     className: classes.GetStartedDescription
@@ -31,6 +32,11 @@ var GetStartedDescription = function GetStartedDescription(_ref) {
     type: btnType,
     onClick: handleClick
   }) : null);
+};
+
+GetStartedDescription.propTypes = {
+  title: _propTypes.default.string,
+  description: _propTypes.default.string
 };
 
 var _default = (0, _styles.withStyles)(_styles2.useStyles)(GetStartedDescription);

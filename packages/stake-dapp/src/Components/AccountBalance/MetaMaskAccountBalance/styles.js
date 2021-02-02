@@ -1,5 +1,4 @@
 export const useStyles = MUITheme => ({
-  metamaskAccBalanceContainer: { padding: "0 19px 0" },
   accountDetails: {
     "& div": {
       display: "flex",
@@ -23,7 +22,7 @@ export const useStyles = MUITheme => ({
           "@media(max-width: 960px)": { fontSize: 16 },
         },
       },
-      "& span": {
+      "& > span": {
         width: "44%",
         display: "inline-block",
         color: MUITheme.palette.text.darkGrey,
@@ -33,6 +32,7 @@ export const useStyles = MUITheme => ({
       },
     },
     "& > div": {
+      padding: "0 19px",
       "@media(max-width:1280px)": {
         flexDirection: "column",
         justifyContent: "center",
@@ -155,6 +155,49 @@ export const useStyles = MUITheme => ({
     "&:hover": {
       "& svg": { color: MUITheme.palette.primary.main },
       "& p": { display: "block" },
+    },
+  },
+
+  switchToggleContainer: {
+    padding: "5px !important",
+    border: "1px solid #e2e2e2",
+    borderRadius: 4,
+    margin: "10px !important",
+    position: "relative",
+    backgroundColor: "#f8f8f8",
+    "& > span": {
+      width: "47px !important",
+      borderRadius: 4,
+      position: "absolute",
+      top: -10,
+      right: "47%",
+      backgroundColor: "#6F106A",
+      color: "#fff !important",
+      fontStyle: "italic",
+      fontWeight: "bold",
+      textAlign: "center",
+      textTransform: "uppercase",
+    },
+    "& > div": {
+      width: "auto !important",
+      margin: 0,
+      "& svg": { paddingRight: 0 },
+    },
+    "& > label": {
+      width: "100%",
+      margin: 0,
+      "& > span": {
+        "&:first-of-type": {
+          width: 55,
+          height: 38,
+        },
+        "&:last-of-type": {
+          width: "100%",
+          color: MUITheme.palette.text.darkGrey,
+          fontSize: 16,
+          lineHeight: "20px",
+        },
+      },
     },
   },
 });

@@ -8,6 +8,8 @@ yarn.lock
 .yarn/
 package-lock.json
 .github/workflows/repo-sync.yml
+files/*
+.gitignore
 
 # Runtime data
 pids

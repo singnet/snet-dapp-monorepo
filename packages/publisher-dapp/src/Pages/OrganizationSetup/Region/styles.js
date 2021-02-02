@@ -16,6 +16,10 @@ export const useStyles = MUITheme => ({
     "& .MuiTypography-subtitle2": {
       borderBottom: "none",
       marginBottom: 24,
+      "& a": {
+        color: MUITheme.palette.primary.main,
+        textDecoration: "none",
+      },
     },
     [MUITheme.breakpoints.down("sm")]: { width: "100%" },
   },

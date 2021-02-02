@@ -10,6 +10,10 @@ import ServiceStatusDetails from "./ServiceStatusDetails";
 import NoServicesFound from "./NoServicesFound";
 import LoadingAiServices from "./LoadingAiServices";
 
+const selectState = state => ({
+  orgName: state.organization.name,
+});
+
 const CardGroup = () => {
   const classes = useStyles();
   const { isLoading, serviceList, orgImg, orgId } = useSelector(state => ({
@@ -20,6 +24,7 @@ const CardGroup = () => {
   }));
   const { orgUuid } = useParams();
   const [isAvailable] = useState(true);
+  const { orgName } = useSelector(selectState);
 
   if (isLoading) {
     return <LoadingAiServices />;
@@ -35,7 +40,7 @@ const CardGroup = () => {
         <Grid item xs={12} sm={12} md={3} lg={3} className={classes.serviceDetailCard}>
           <GridViewItem
             cardTitle={service.displayName}
-            cardSubheader="sub header"
+            cardSubheader={orgName}
             ratingGiven={service.rating.rating}
             totalRating={service.rating.totalUsersRated}
             cardDescription={service.shortDescription}

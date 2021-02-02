@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/styles";
 import InfoIcon from "@material-ui/icons/Info";
 import TimerIcon from "@material-ui/icons/Timer";
+import TrendingUpIcon from "@material-ui/icons/TrendingUp";
 import InputAdornment from "@material-ui/core/InputAdornment";
 
 import SNETTextfield from "shared/dist/components/SNETTextfield";
@@ -31,7 +32,7 @@ const calculaterFields = {
   recentWindowLoaded: false,
 };
 
-const Banner = ({ classes, recentStakeWindow }) => {
+const Banner = ({ classes, recentStakeWindow, stakeOverallSummary }) => {
   const history = useHistory();
 
   const currentTime = moment().unix();
@@ -48,12 +49,20 @@ const Banner = ({ classes, recentStakeWindow }) => {
         ...stakeCalculatorFields,
         stakeRewardAmount: Math.floor(fromWei(recentStakeWindow.windowRewardAmount)),
         poolStakeAmount:
-          recentStakeWindow.windowTotalStake > 0 || recentStakeWindow.totalPendingApprovalStake > 0
+          recentStakeWindow.windowTotalStake > 0 ||
+          recentStakeWindow.totalAutoRenewAmount > 0 ||
+          recentStakeWindow.totalPendingApprovalStake > 0
             ? Math.floor(
-                fromWei(BigNumber.sum(recentStakeWindow.windowTotalStake, recentStakeWindow.totalPendingApprovalStake))
+                fromWei(
+                  BigNumber.sum(
+                    recentStakeWindow.windowTotalStake,
+                    recentStakeWindow.totalAutoRenewAmount,
+                    recentStakeWindow.totalPendingApprovalStake
+                  )
+                )
               )
             : stakeCalculatorFields.poolStakeAmount,
-        incubationPeriodInDays: Math.floor(
+        incubationPeriodInDays: Math.ceil(
           (recentStakeWindow.endPeriod - recentStakeWindow.submissionEndPeriod) / (60 * 60 * 24)
         ),
         recentWindowLoaded: true,
@@ -106,13 +115,48 @@ const Banner = ({ classes, recentStakeWindow }) => {
     ) {
       return (
         <Fragment>
+          <TimerIcon />
           <Typography>Current Session</Typography>
           <Typography>Open for</Typography>
         </Fragment>
       );
     }
 
-    return <Typography>Next Session will open soon</Typography>;
+    //return <Typography>Next Session will open soon</Typography>;
+    return (
+      <Fragment>
+        <TrendingUpIcon />
+        <Typography>Stake stats</Typography>
+        <Typography>so far</Typography>
+      </Fragment>
+    );
+  };
+
+  const toDisplayFormat = val => {
+    return new BigNumber(fromWei(val)).toFormat(0, BigNumber.ROUND_FLOOR);
+  };
+
+  const NumFormatter = ({ num }) => {
+    const numInAGI = new BigNumber(fromWei(num));
+    let numToDisplay = 0;
+    let textToDisplay = "";
+    if (numInAGI.gte(1000000)) {
+      textToDisplay = "M+";
+      numToDisplay = numInAGI.div(1000000).integerValue(BigNumber.ROUND_FLOOR);
+    } else if (numInAGI.gte(1000)) {
+      textToDisplay = "K+";
+      numToDisplay = numInAGI.div(1000).integerValue(BigNumber.ROUND_FLOOR);
+    } else {
+      textToDisplay = "";
+      numToDisplay = numInAGI.integerValue(BigNumber.ROUND_FLOOR);
+    }
+
+    return (
+      <Typography className={classes.metricsValue}>
+        {numToDisplay.toString()}
+        <span>{textToDisplay}</span>
+      </Typography>
+    );
   };
 
   const ShowTimer = () => {
@@ -131,7 +175,23 @@ const Banner = ({ classes, recentStakeWindow }) => {
         />
       );
     }
-    return null;
+
+    return (
+      <div className={classes.metrics}>
+        <div>
+          <NumFormatter num={stakeOverallSummary.overallStake} />
+          <Typography className={classes.metricsUnit}>Tokens Staked</Typography>
+        </div>
+        <div>
+          <Typography className={classes.metricsValue}>{stakeOverallSummary.totalUniqueStakers}+</Typography>
+          <Typography className={classes.metricsUnit}>Stakers</Typography>
+        </div>
+        <div>
+          <Typography className={classes.metricsValue}>{toDisplayFormat(stakeOverallSummary.totalReward)}</Typography>
+          <Typography className={classes.metricsUnit}>Token Reward Distributed</Typography>
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -189,7 +249,7 @@ const Banner = ({ classes, recentStakeWindow }) => {
                 <div className={classes.label}>
                   <div className={classes.iconTooltipContainer}>
                     <InfoIcon />
-                    <p>Current total amount of AGI tokens that have been contributed by all stakers</p>
+                    <p>Total amount of AGI tokens staked in the pool currently</p>
                   </div>
                   <span>Current Pool Size</span>
                 </div>
@@ -210,7 +270,9 @@ const Banner = ({ classes, recentStakeWindow }) => {
                 <div className={classes.label}>
                   <div className={classes.iconTooltipContainer}>
                     <InfoIcon />
-                    <p>The total reward amount of AGI tokens that will be divided and distributed to stakers</p>
+                    <p>
+                      Number of AGI tokens that will be divided amongst all stakers as the reward for the current window
+                    </p>
                   </div>
                   <span>Reward Pool</span>
                 </div>
@@ -256,7 +318,7 @@ const Banner = ({ classes, recentStakeWindow }) => {
       </Grid>
       <Grid item xs={12} sm={12} md={12} lg={12} className={classes.countDownContainer}>
         <div className={classes.countDownTitle}>
-          <TimerIcon />
+          {/* <TimerIcon /> */}
           <CounterTitle />
         </div>
         <ShowTimer />

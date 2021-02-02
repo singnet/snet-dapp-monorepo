@@ -43,12 +43,11 @@ const Profile = ({ classes, serviceDetails, changeServiceDetailsLeaf, changeHero
   const history = useHistory();
   const { orgUuid } = useParams();
   const { isValidateServiceIdLoading } = useSelector(selectState);
-
   const [tags, setTags] = useState(""); // Only to render in the chip comp
-
   const [alert, setAlert] = useState({});
-
   const [websiteValidation, setWebsiteValidation] = useState({});
+  const [invalidFieldsFlag, setInvalidFieldsFlag] = useState();
+  const invalidFields = validator(serviceDetails, serviceProfileValidationConstraints, { format: "grouped" });
 
   const validateServiceId = serviceId => async () => {
     // Call the API to Validate the Service Id
@@ -61,7 +60,7 @@ const Profile = ({ classes, serviceDetails, changeServiceDetailsLeaf, changeHero
   };
 
   const debouncedValidate = (newServiceId, timeout = 200) => {
-    if (newServiceId === serviceDetails.id && Boolean(newServiceId)) {
+    if (newServiceId === serviceDetails.id || (serviceDetails.newId && Boolean(newServiceId))) {
       dispatch(aiServiceDetailsActions.setServiceAvailability(serviceIdAvailability.AVAILABLE));
       return clearTimeout(validateTimeout);
     }
@@ -85,8 +84,8 @@ const Profile = ({ classes, serviceDetails, changeServiceDetailsLeaf, changeHero
   const handleControlChange = event => {
     const { name, value } = event.target;
     if (name === "id") {
+      changeServiceDetailsLeaf("newId", value);
       debouncedValidate(value);
-      return changeServiceDetailsLeaf("newId", value);
     }
     if (name === "projectURL") {
       handleWebsiteValidation(value);
@@ -108,12 +107,13 @@ const Profile = ({ classes, serviceDetails, changeServiceDetailsLeaf, changeHero
 
   const handleContinue = async () => {
     try {
-      serviceDetails.id = serviceDetails.id || serviceDetails.newId;
-      const isNotValid = validator(serviceDetails, serviceProfileValidationConstraints);
-
-      if (isNotValid) {
-        const errorMessage = generateDetailedErrorMessageFromValidation(isNotValid);
-        return setAlert({ type: alertTypes.ERROR, children: errorMessage });
+      if (invalidFields) {
+        const isNotValid = Object.values(invalidFields);
+        setInvalidFieldsFlag(true);
+        if (isNotValid) {
+          const errorMessage = generateDetailedErrorMessageFromValidation(isNotValid);
+          return setAlert({ type: alertTypes.ERROR, children: errorMessage });
+        }
       }
       await handleSave();
       history.push(
@@ -194,7 +194,6 @@ const Profile = ({ classes, serviceDetails, changeServiceDetailsLeaf, changeHero
             Please enter the description and details of the service you wish to add to the AI marketplace, making sure
             your descriptions are clear as this will be displayed on the AI marketplace.
           </Typography>
-
           <SNETTextfield
             icon
             name="name"
@@ -204,6 +203,7 @@ const Profile = ({ classes, serviceDetails, changeServiceDetailsLeaf, changeHero
             description="The name of your service has to be unique within your organization"
             value={serviceDetails.name}
             onChange={handleControlChange}
+            error={typeof invalidFieldsFlag !== "undefined" && !!invalidFields ? "name" in invalidFields : ""}
           />
           <div className={classes.serviceIdContainer}>
             <SNETTextfield
@@ -215,6 +215,7 @@ const Profile = ({ classes, serviceDetails, changeServiceDetailsLeaf, changeHero
               description="The ID of your service has to be unique withing your organization"
               value={serviceDetails.newId}
               onChange={handleControlChange}
+              error={typeof invalidFieldsFlag !== "undefined" && !!invalidFields ? "id" in invalidFields : false}
             />
           </div>
           <ServiceIdAvailability
@@ -235,6 +236,11 @@ const Profile = ({ classes, serviceDetails, changeServiceDetailsLeaf, changeHero
               colCount={105}
               value={serviceDetails.shortDescription}
               onChange={handleControlChange}
+              error={
+                typeof invalidFieldsFlag !== "undefined" && !!invalidFields
+                  ? "shortDescription" in invalidFields
+                  : false
+              }
             />
           </div>
 
@@ -249,6 +255,9 @@ const Profile = ({ classes, serviceDetails, changeServiceDetailsLeaf, changeHero
               colCount={105}
               value={serviceDetails.longDescription}
               onChange={handleControlChange}
+              error={
+                typeof invalidFieldsFlag !== "undefined" && !!invalidFields ? "longDescription" in invalidFields : false
+              }
             />
           </div>
 
@@ -267,6 +276,7 @@ const Profile = ({ classes, serviceDetails, changeServiceDetailsLeaf, changeHero
                 </InputAdornment>
               ),
             }}
+            error={typeof invalidFieldsFlag !== "undefined" && !!invalidFields ? "tags" in invalidFields : false}
           />
           <div className={classes.addedTagsContainer}>
             <div>
@@ -294,6 +304,9 @@ const Profile = ({ classes, serviceDetails, changeServiceDetailsLeaf, changeHero
               description="The website URL of the service will be displayed to users under your AI service page. GitHub links are recommended."
               value={serviceDetails.projectURL}
               onChange={handleControlChange}
+              error={
+                typeof invalidFieldsFlag !== "undefined" && !!invalidFields ? "projectURL" in invalidFields : false
+              }
             />
             <AlertText type={websiteValidation.type} message={websiteValidation.message} />
           </div>
@@ -306,9 +319,11 @@ const Profile = ({ classes, serviceDetails, changeServiceDetailsLeaf, changeHero
               maxCount={100}
               value={serviceDetails.contributors}
               onChange={handleControlChange}
+              error={
+                typeof invalidFieldsFlag !== "undefined" && !!invalidFields ? "contributors" in invalidFields : false
+              }
             />
           </div>
-
           <div className={classes.profileImgContainer}>
             <Typography variant="subtitle1">AI Service Profile Image</Typography>
             <div className={classes.uploaderContentConatiner}>
@@ -325,7 +340,11 @@ const Profile = ({ classes, serviceDetails, changeServiceDetailsLeaf, changeHero
                   outputImageType="url"
                   disableResetButton={false}
                   disableDownloadButton={true}
-                  // returnByteArray
+                  error={
+                    typeof invalidFieldsFlag !== "undefined" && !!invalidFields
+                      ? "assets.heroImage.url" in invalidFields
+                      : false
+                  }
                 />
               </div>
               {serviceDetails.assets.heroImage.url ? (

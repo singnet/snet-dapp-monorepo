@@ -23,9 +23,9 @@ const computeReward = stakeDetails => {
   return rewardAmount;
 };
 
-export const cardDetails = stakeDetails => [
+export const yourStakeDetails = stakeDetails => [
   {
-    title: "Total Claim Account",
+    title: "Total Claim Amount",
     value: parseInt(fromWei(stakeDetails.approvedAmount)) + parseInt(fromWei(stakeDetails.pendingForApprovalAmount)),
     unit: "AGI",
     toolTip:
@@ -35,22 +35,22 @@ export const cardDetails = stakeDetails => [
     title: "Reward Earnings",
     value: fromWei(computeReward(stakeDetails)),
     unit: "AGI",
-    toolTip: "Final amount of AGI tokens you gain a reward at the end of the stake incubation period",
+    toolTip: "The amount of AGI tokens you’ll earn as reward for your stake during this incubation period",
   },
   {
-    title: "Incubating Completed",
-    value: moment
-      .unix(stakeDetails.endPeriod)
-      .local()
-      .format("DD MMM YYYY"),
+    title: "Incubating Ended",
+    value: moment.unix(stakeDetails.endPeriod).format("DD MMM YYYY"),
     unit: " ",
     toolTip: "The incubation period completion date.",
   },
+];
+
+export const sessionDetails = stakeDetails => [
   {
     title: "Stakers",
     value: stakeDetails.numOfStakers,
     unit: "people",
-    toolTip: "The number of people who have contributed AGI tokens to this stake session",
+    toolTip: "Current number of participants who have contributed AGI tokens to the stake",
   },
   {
     title: "Stake Pool Size",
@@ -62,7 +62,7 @@ export const cardDetails = stakeDetails => [
     title: "Reward Pool",
     value: fromWei(stakeDetails.rewardAmount),
     unit: "AGI",
-    toolTip: "The total reward amount of AGI tokens that will be divided and distributed to stakers",
+    toolTip: "Number of AGI tokens that will be divided amongst all stakers as the reward for the current window",
   },
 ];
 

@@ -180,7 +180,8 @@ const filterAdressFromMembers = members => members.map(member => member.address)
 export const addAndPublishMembers = (members, orgId, uuid, ownerAddress) => async dispatch => {
   try {
     const sdk = await initSDK();
-    if (sdk.account.address !== ownerAddress) {
+    const address = await sdk.account.getAddress();
+    if (address !== ownerAddress) {
       throw new ValidationError("The account selected in the Metamask is not the owner of this organization");
     }
     const newMembersAddress = filterAdressFromMembers(members);
