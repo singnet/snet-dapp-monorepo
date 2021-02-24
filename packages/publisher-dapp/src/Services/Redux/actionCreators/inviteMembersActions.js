@@ -181,7 +181,7 @@ export const addAndPublishMembers = (members, orgId, uuid, ownerAddress) => asyn
   try {
     const sdk = await initSDK();
     const address = await sdk.account.getAddress();
-    if (address !== ownerAddress) {
+    if (!address || address.toLowerCase() !== ownerAddress.toLowerCase()) {
       throw new ValidationError("The account selected in the Metamask is not the owner of this organization");
     }
     const newMembersAddress = filterAdressFromMembers(members);

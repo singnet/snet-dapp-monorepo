@@ -104,6 +104,8 @@ const OrganizationReducer = (state = initialState, action) => {
       return { ...state, members: { ...state.members, ...action.payload } };
     case organizationActions.SET_ORG_OWNER:
       return { ...state, owner: action.payload };
+    case organizationActions.SET_ORG_OWNER_ADDRESS:
+      return { ...state, ownerAddress: action.payload };
     case organizationActions.SET_ORG_STATE_ALL:
       // computing the key `state` to avoid name conflicts with redux `state`
       // eslint-disable-next-line no-useless-computed-key
