@@ -62,8 +62,13 @@ export const approveTokenV2 = (metamaskDetails, amountBN) => {
       const method = tokenInstance.methods
         .approve(stakingContractAddress, amountBN.toString())
         .send({ from: accountAddress })
-        .once(blockChainEvents.CONFIRMATION, async () => {
-          resolve();
+        .once(blockChainEvents.CONFIRMATION, async (_confirmationNumber, receipt) => {
+          if (receipt.status === true) {
+            resolve(receipt);
+          } else {
+            reject(receipt);
+          }
+          //resolve();
           await method.off();
         })
         .on(blockChainEvents.ERROR, error => {
@@ -108,8 +113,13 @@ export const createStakePeriod = (
           openForExternal
         )
         .send({ from: accountAddress })
-        .once(blockChainEvents.CONFIRMATION, async () => {
-          resolve();
+        .once(blockChainEvents.CONFIRMATION, async (_confirmationNumber, receipt) => {
+          if (receipt.status === true) {
+            resolve(receipt);
+          } else {
+            reject(receipt);
+          }
+          //resolve();
           await method.off();
         })
         .on(blockChainEvents.ERROR, error => {
@@ -132,8 +142,13 @@ export const submitStakeV2 = (metamaskDetails, stakeAmount, autoRenewal) => {
       const method = stakingInstance.methods
         .submitStake(stakeAmount.toString(), autoRenewal)
         .send({ from: accountAddress })
-        .once(blockChainEvents.CONFIRMATION, async () => {
-          resolve();
+        .once(blockChainEvents.CONFIRMATION, async (_confirmationNumber, receipt) => {
+          if (receipt.status === true) {
+            resolve(receipt);
+          } else {
+            reject(receipt);
+          }
+          //resolve();
           await method.off();
         })
         .on(blockChainEvents.ERROR, error => {
@@ -155,8 +170,13 @@ export const approveStake = (metamaskDetails, staker, approvedAmount) => {
       const method = stakingInstance.methods
         .approveStake(staker, approvedAmount.toString())
         .send({ from: accountAddress })
-        .once(blockChainEvents.CONFIRMATION, async () => {
-          resolve();
+        .once(blockChainEvents.CONFIRMATION, async (_confirmationNumber, receipt) => {
+          if (receipt.status === true) {
+            resolve(receipt);
+          } else {
+            reject(receipt);
+          }
+          //resolve();
           await method.off();
         })
         .on(blockChainEvents.ERROR, error => {
@@ -178,8 +198,13 @@ export const rejectStake = (metamaskDetails, stakeMapIndex, staker) => {
       const method = stakingInstance.methods
         .rejectStake(stakeMapIndex, staker)
         .send({ from: accountAddress })
-        .once(blockChainEvents.CONFIRMATION, async () => {
-          resolve();
+        .once(blockChainEvents.CONFIRMATION, async (_confirmationNumber, receipt) => {
+          if (receipt.status === true) {
+            resolve(receipt);
+          } else {
+            reject(receipt);
+          }
+          //resolve();
           await method.off();
         })
         .on(blockChainEvents.ERROR, error => {
@@ -201,8 +226,13 @@ export const updateAutoRenewalV2 = (metamaskDetails, stakeMapIndex, autoRenew) =
       const method = stakingInstance.methods
         .updateAutoRenewal(stakeMapIndex, autoRenew)
         .send({ from: accountAddress })
-        .once(blockChainEvents.CONFIRMATION, async () => {
-          resolve();
+        .once(blockChainEvents.CONFIRMATION, async (_confirmationNumber, receipt) => {
+          if (receipt.status === true) {
+            resolve(receipt);
+          } else {
+            reject(receipt);
+          }
+          //resolve();
           await method.off();
         })
         .on(blockChainEvents.ERROR, error => {
@@ -224,8 +254,13 @@ export const claimStakeV2 = (metamaskDetails, stakeMapIndex) => {
       const method = stakingInstance.methods
         .claimStake(stakeMapIndex)
         .send({ from: accountAddress })
-        .once(blockChainEvents.CONFIRMATION, async () => {
-          resolve();
+        .once(blockChainEvents.CONFIRMATION, async (_confirmationNumber, receipt) => {
+          if (receipt.status === true) {
+            resolve(receipt);
+          } else {
+            reject(receipt);
+          }
+          //resolve();
           await method.off();
         })
         .on(blockChainEvents.ERROR, error => {
@@ -248,8 +283,13 @@ export const withdrawToken = (metamaskDetails, amountBN) => {
       const method = stakingInstance.methods
         .withdrawToken(amountBN.toString())
         .send({ from: accountAddress })
-        .once(blockChainEvents.CONFIRMATION, async () => {
-          resolve();
+        .once(blockChainEvents.CONFIRMATION, async (_confirmationNumber, receipt) => {
+          if (receipt.status === true) {
+            resolve(receipt);
+          } else {
+            reject(receipt);
+          }
+          //resolve();
           await method.off();
         })
         .on(blockChainEvents.ERROR, error => {
@@ -272,8 +312,13 @@ export const depositToken = (metamaskDetails, amountBN) => {
       const method = stakingInstance.methods
         .depositToken(amountBN.toString())
         .send({ from: accountAddress })
-        .once(blockChainEvents.CONFIRMATION, async () => {
-          resolve();
+        .once(blockChainEvents.CONFIRMATION, async (_confirmationNumber, receipt) => {
+          if (receipt.status === true) {
+            resolve(receipt);
+          } else {
+            reject(receipt);
+          }
+          //resolve();
           await method.off();
         })
         .on(blockChainEvents.ERROR, error => {
@@ -296,8 +341,13 @@ export const autoRenewStake = (metamaskDetails, existingStakeMapIndex, staker, a
       const method = stakingInstance.methods
         .autoRenewStake(existingStakeMapIndex, staker, approvedAmountBN.toString())
         .send({ from: accountAddress })
-        .once(blockChainEvents.CONFIRMATION, async () => {
-          resolve();
+        .once(blockChainEvents.CONFIRMATION, async (_confirmationNumber, receipt) => {
+          if (receipt.status === true) {
+            resolve(receipt);
+          } else {
+            reject(receipt);
+          }
+          //resolve();
           await method.off();
         })
         .on(blockChainEvents.ERROR, error => {
@@ -319,8 +369,13 @@ export const renewStake = (metamaskDetails, existingStakeMapIndex, stakeAmountBN
       const method = stakingInstance.methods
         .renewStake(existingStakeMapIndex, stakeAmountBN.toString(), autoRenewal)
         .send({ from: accountAddress })
-        .once(blockChainEvents.CONFIRMATION, async () => {
-          resolve();
+        .once(blockChainEvents.CONFIRMATION, async (_confirmationNumber, receipt) => {
+          if (receipt.status === true) {
+            resolve(receipt);
+          } else {
+            reject(receipt);
+          }
+          //resolve();
           await method.off();
         })
         .on(blockChainEvents.ERROR, error => {
@@ -342,8 +397,13 @@ export const withdrawStakeV2 = (metamaskDetails, existingStakeMapIndex, stakeAmo
       const method = stakingInstance.methods
         .withdrawStake(existingStakeMapIndex, stakeAmountBN.toString())
         .send({ from: accountAddress })
-        .once(blockChainEvents.CONFIRMATION, async () => {
-          resolve();
+        .once(blockChainEvents.CONFIRMATION, async (_confirmationNumber, receipt) => {
+          if (receipt.status === true) {
+            resolve(receipt);
+          } else {
+            reject(receipt);
+          }
+          //resolve();
           await method.off();
         })
         .on(blockChainEvents.ERROR, error => {
@@ -366,8 +426,13 @@ export const updateOwner = (metamaskDetails, newOwner) => {
       const method = stakingInstance.methods
         .updateOwner(newOwner)
         .send({ from: accountAddress })
-        .once(blockChainEvents.CONFIRMATION, async () => {
-          resolve();
+        .once(blockChainEvents.CONFIRMATION, async (_confirmationNumber, receipt) => {
+          if (receipt.status === true) {
+            resolve(receipt);
+          } else {
+            reject(receipt);
+          }
+          //resolve();
           await method.off();
         })
         .on(blockChainEvents.ERROR, error => {
@@ -389,8 +454,13 @@ export const updateOperator = (metamaskDetails, tokenOperator) => {
       const method = stakingInstance.methods
         .updateOperator(tokenOperator)
         .send({ from: accountAddress })
-        .once(blockChainEvents.CONFIRMATION, async () => {
-          resolve();
+        .once(blockChainEvents.CONFIRMATION, async (_confirmationNumber, receipt) => {
+          if (receipt.status === true) {
+            resolve(receipt);
+          } else {
+            reject(receipt);
+          }
+          //resolve();
           await method.off();
         })
         .on(blockChainEvents.ERROR, error => {
