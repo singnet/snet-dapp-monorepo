@@ -22,10 +22,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var UpdateNotificationBar = function UpdateNotificationBar(_ref) {
   var classes = _ref.classes,
       showNotification = _ref.showNotification,
-      onCloseClick = _ref.onCloseClick;
+      onCloseClick = _ref.onCloseClick,
+      ispageScrolled = _ref.ispageScrolled;
   if (!showNotification) return null;
   return /*#__PURE__*/_react.default.createElement("div", {
-    className: classes.updateNotificationBar
+    className: "".concat(classes.updateNotificationBar, " ").concat(ispageScrolled ? classes.addOpacity : '')
   }, /*#__PURE__*/_react.default.createElement("img", {
     src: _AnnoucementIcon.default,
     alt: "Announcment"

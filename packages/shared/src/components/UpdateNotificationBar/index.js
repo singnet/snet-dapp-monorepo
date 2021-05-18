@@ -6,10 +6,10 @@ import AnnoucementIcon from "../../assets/images/AnnoucementIcon.png";
 
 import { useStyles } from "./styles";
 
-const UpdateNotificationBar = ({ classes, showNotification, onCloseClick }) => {
+const UpdateNotificationBar = ({ classes, showNotification, onCloseClick, ispageScrolled }) => {
   if (!showNotification) return null;
   return (
-    <div className={classes.updateNotificationBar}>
+    <div className={`${classes.updateNotificationBar} ${ispageScrolled ? classes.addOpacity : ""}`}>
       <img src={AnnoucementIcon} alt="Announcment" />
       <p>
         <span>Phase 2 white paper avaliable now! </span>

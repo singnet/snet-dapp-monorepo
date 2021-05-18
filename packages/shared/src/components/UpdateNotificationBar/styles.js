@@ -24,6 +24,7 @@ export const useStyles = theme => ({
       "& svg": { fontSize: 12 },
     },
   },
+  addOpacity: { backgroundColor: "rgba(64,134,255,1)" },
   closeIcon: {
     position: "absolute",
     right: 95,

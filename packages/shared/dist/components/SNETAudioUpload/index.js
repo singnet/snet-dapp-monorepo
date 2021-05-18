@@ -111,6 +111,39 @@ var SNETAudioUpload = /*#__PURE__*/function (_React$Component) {
 
   var _super = _createSuper(SNETAudioUpload);
 
+  _createClass(SNETAudioUpload, null, [{
+    key: "getBase64ImageType",
+    value: function getBase64ImageType(base64img) {
+      // Extracts base64-encoded image's mime type
+      var mimeType;
+
+      if (base64img.charAt(0) === "/") {
+        mimeType = "image/jpeg";
+      } else if (base64img.charAt(0) === "R") {
+        mimeType = "image/gif";
+      } else if (base64img.charAt(0) === "i") {
+        mimeType = "image/png";
+      } else {
+        mimeType = "application/octet-stream";
+      }
+
+      return mimeType;
+    }
+  }, {
+    key: "addBase64Header",
+    value: function addBase64Header(mimeType, rawBase64) {
+      //Adds headers to raw base64 encoded images so they can be displayed in an img tag
+      return "data:" + mimeType + ";base64," + rawBase64;
+    }
+  }, {
+    key: "prepareBase64Image",
+    value: function prepareBase64Image(base64img) {
+      // Extracts image type and adds headers
+      var mimeType = SNETAudioUpload.getBase64ImageType(base64img);
+      return SNETAudioUpload.addBase64Header(mimeType, base64img);
+    }
+  }]);
+
   function SNETAudioUpload(props) {
     var _this;
 
@@ -1235,37 +1268,6 @@ var SNETAudioUpload = /*#__PURE__*/function (_React$Component) {
           backgroundColor: snetBackgroundGrey
         }
       }, (this.state.mainState === "initial" || this.state.mainState === "display") && this.renderTabs() || this.state.mainState === "loading" && this.renderLoadingState() || this.state.mainState === "uploaded" && this.renderUploadedState())));
-    }
-  }], [{
-    key: "getBase64ImageType",
-    value: function getBase64ImageType(base64img) {
-      // Extracts base64-encoded image's mime type
-      var mimeType;
-
-      if (base64img.charAt(0) === "/") {
-        mimeType = "image/jpeg";
-      } else if (base64img.charAt(0) === "R") {
-        mimeType = "image/gif";
-      } else if (base64img.charAt(0) === "i") {
-        mimeType = "image/png";
-      } else {
-        mimeType = "application/octet-stream";
-      }
-
-      return mimeType;
-    }
-  }, {
-    key: "addBase64Header",
-    value: function addBase64Header(mimeType, rawBase64) {
-      //Adds headers to raw base64 encoded images so they can be displayed in an img tag
-      return "data:" + mimeType + ";base64," + rawBase64;
-    }
-  }, {
-    key: "prepareBase64Image",
-    value: function prepareBase64Image(base64img) {
-      // Extracts image type and adds headers
-      var mimeType = SNETAudioUpload.getBase64ImageType(base64img);
-      return SNETAudioUpload.addBase64Header(mimeType, base64img);
     }
   }]);
 

@@ -42,7 +42,8 @@ var SNETHeader = function SNETHeader(_ref) {
       mobileDropDown = _ref.mobileDropDown,
       onLogoClick = _ref.onLogoClick,
       showNotification = _ref.showNotification,
-      onCloseClick = _ref.onCloseClick;
+      onCloseClick = _ref.onCloseClick,
+      ispageScrolled = _ref.ispageScrolled;
   var classes = (0, _styles.useStyles)();
   return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("header", {
     className: "".concat(classes.snetHeader, " ").concat(color === "purple" ? classes.purpleHeader : null)
@@ -50,7 +51,8 @@ var SNETHeader = function SNETHeader(_ref) {
     className: classes.updateNotificationBar
   }, /*#__PURE__*/_react.default.createElement(_UpdateNotificationBar.default, {
     showNotification: showNotification,
-    onCloseClick: onCloseClick
+    onCloseClick: onCloseClick,
+    ispageScrolled: ispageScrolled
   })), /*#__PURE__*/_react.default.createElement(_SNETAppBar.default, {
     position: "static",
     color: color,

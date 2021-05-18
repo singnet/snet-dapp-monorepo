@@ -15,7 +15,7 @@ const selectState = state => ({
   isLoggedIn: state.user.isLoggedIn,
 });
 
-const Header = ({ showNotification, onCloseClick }) => {
+const Header = ({ showNotification, onCloseClick, ispageScrolled }) => {
   const { orgUuid, isLoggedIn, orgFoundInBlockchain } = useSelector(selectState);
   const history = useHistory();
 
@@ -41,6 +41,7 @@ const Header = ({ showNotification, onCloseClick }) => {
       mobileNavLinks={navbarItems}
       showNotification={showNotification}
       onCloseClick={onCloseClick}
+      ispageScrolled={ispageScrolled}
     />
   );
 };

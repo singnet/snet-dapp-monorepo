@@ -38,6 +38,9 @@ var useStyles = function useStyles(theme) {
         }
       }
     },
+    addOpacity: {
+      backgroundColor: "rgba(64,134,255,1)"
+    },
     closeIcon: {
       position: "absolute",
       right: 95,

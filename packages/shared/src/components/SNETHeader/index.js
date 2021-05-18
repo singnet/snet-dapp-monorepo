@@ -24,13 +24,18 @@ const SNETHeader = ({
   onLogoClick,
   showNotification,
   onCloseClick,
+  ispageScrolled,
 }) => {
   const classes = useStyles();
   return (
     <div>
       <header className={`${classes.snetHeader} ${color === "purple" ? classes.purpleHeader : null}`}>
         <div className={classes.updateNotificationBar}>
-          <UpdateNotificationBar showNotification={showNotification} onCloseClick={onCloseClick} />
+          <UpdateNotificationBar
+            showNotification={showNotification}
+            onCloseClick={onCloseClick}
+            ispageScrolled={ispageScrolled}
+          />
         </div>
         <SNETAppBar
           position="static"

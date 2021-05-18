@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import { useSelector } from "react-redux";
 
@@ -72,14 +72,31 @@ const withDashboardMenu = Component => {
 
     const classes = useStyles();
     const [showUpdateNotification, setShowUpdateNotificationBar] = useState(true);
+    const [scrolled, setScrolled] = useState(false);
 
     const onUpdateCloseClick = () => {
       setShowUpdateNotificationBar(false);
     };
 
+    const handleScroll = () => {
+      const offset = window.scrollY;
+      if (offset > 60) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    useEffect(() => {
+      window.addEventListener("scroll", handleScroll);
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }, []);
+
     return (
       <div>
-        <Header showNotification={showUpdateNotification} onCloseClick={onUpdateCloseClick} />
+        <Header showNotification={showUpdateNotification} onCloseClick={onUpdateCloseClick} ispageScrolled={scrolled} />
         <Grid container spacing={24}>
           <Grid
             item
